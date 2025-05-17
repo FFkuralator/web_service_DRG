@@ -64,43 +64,42 @@
 - Возможность просмотреть бронирования пространства, отменить их 
 - Администратор может сам забронировать без ограничений (пометить слоты как невозможные для бронирования)
 
-Полезные ссылки
-
-HTML
-MDN. Основы HTML
-W3Scools. HTML Tutorial
-Дока. HTML
-Бесплатный курс от HTML Academy. Знакомство с фронтендом
-CSS
-MDN. Основы CSS
-W3Scools. CSS Tutorial
-Дока. CSS
-Бесплатный курс от HTML Academy. Знакомство с HTML и CSS
-JS
-MDN. Первые шаги в JavaScript
-W3Scools. JavaScript Tutorial
-Дока. JS
-Современный учебник JavaScript
-Бесплатный курс от HTML Academy. Программирование на JavaScript - основы языка
-Python
-Официальный туториал
-W3Scools. Python Tutorial
-Хэндбук Яндекс
-DevMan Энциклопедия Python
-Real Python. Learning Paths
-Flask (рекомендуется в первую очередь документация)
-Документация Flask. Quickstart
-Документация Flask. Tutorial
-Real Python. Flask Part 1
-Real Python. Flask Part 2
-Real Python. Flask Part 3
-Jinja (документации фласка достаточно, но)
-Руководство для начинающих по Jinja2
-Git
-Виталий Сергеевич
-Парсинг
-Начать можно с этого (Skillbox)
-На ютубе полно, рекомендую канал Олега Молчанова (хотя там контент устаревший, но всё по делу)
-VK API
-Документация VK
-Никаких библиотек не рекомендую - могут воровать ваши ключи, кроме того с телегой разобрались - с вк подобная история
+## Полезные ссылки
+1. HTML
+- [MDN. Основы HTML](https://developer.mozilla.org/ru/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
+- [W3Scools. HTML Tutorial](https://www.w3schools.com/Html/)
+- [Дока. HTML](https://doka.guide/html/)
+- [Бесплатный курс от HTML Academy. Знакомство с фронтендом](https://htmlacademy.ru/courses/297/run/1)
+2. CSS
+- [MDN. Основы CSS](https://developer.mozilla.org/ru/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
+- [W3Scools. CSS Tutorial](https://www.w3schools.com/css/)
+- [Дока. CSS](https://doka.guide/css/)
+- [Бесплатный курс от HTML Academy. Знакомство с HTML и CSS](https://htmlacademy.ru/courses/299/run/1)
+3. JS
+- [MDN. Первые шаги в JavaScript](https://developer.mozilla.org/ru/docs/conflicting/Learn_web_development/Core/Scripting)
+- [W3Scools. JavaScript Tutorial](https://www.w3schools.com/js/)
+- [Дока. JS](https://doka.guide/js/)
+- [Современный учебник JavaScript](https://learn.javascript.ru/)
+- [Бесплатный курс от HTML Academy. Программирование на JavaScript - основы языка](https://htmlacademy.ru/courses/207/run/1)
+4. Python
+- [Официальный туториал](https://docs.python.org/3/tutorial/index.html)
+- [W3Scools. Python Tutorial](https://www.w3schools.com/python/)
+- [Хэндбук Яндекс](https://education.yandex.ru/handbook/python)
+- [DevMan Энциклопедия Python](https://dvmn.org/encyclopedia/)
+- [Real Python. Learning Paths](https://realpython.com/learning-paths/)
+5. Flask (рекомендуется в первую очередь документация)
+- [Документация Flask. Quickstart](https://flask.palletsprojects.com/en/stable/quickstart/)
+- [Документация Flask. Tutorial](https://flask.palletsprojects.com/en/stable/tutorial/)
+- [Real Python. Flask Part 1](https://realpython.com/python-web-applications-with-flask-part-i/)
+- [Real Python. Flask Part 2](https://realpython.com/python-web-applications-with-flask-part-ii/)
+- [Real Python. Flask Part 3](https://realpython.com/python-web-applications-with-flask-part-iii/)
+6. Jinja (документации фласка достаточно, но)
+- [Руководство для начинающих по Jinja2](https://proglib.io/p/rukovodstvo-dlya-nachinayushchih-po-shablonam-jinja-v-flask-2022-09-05)
+7. Git
+- Виталий Сергеевич
+8. Парсинг
+- [Начать можно с этого (Skillbox)](https://skillbox.ru/media/code/parsing-sayta-vmeste-s-python-i-bibliotekoy-beautiful-soup-prostaya-instruktsiya-v-tri-shaga/)
+- На ютубе полно, рекомендую канал Олега Молчанова (хотя там контент устаревший, но всё по делу)
+9. VK API
+- [Документация VK](https://dev.vk.com/ru/api/overview)
+- Никаких библиотек не рекомендую - могут воровать ваши ключи, кроме того с телегой разобрались - с вк подобная история
