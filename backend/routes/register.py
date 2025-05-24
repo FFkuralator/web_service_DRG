@@ -4,6 +4,7 @@ import sqlite3
 
 auth_bp = Blueprint('auth', __name__)
 
+
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -20,6 +21,7 @@ def register():
             if user.create(email, password, full_name):
                 flash('Регистрация прошла успешно! Теперь вы можете войти.', 'success')
                 return redirect(url_for('auth.login'))
+                
         except ValueError as e:
             flash(str(e), 'danger')
         except sqlite3.IntegrityError:

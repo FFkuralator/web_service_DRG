@@ -25,6 +25,19 @@ class Database:
             conn.commit()
             conn.close()
 
+    def insert(self, table: str, data: dict) -> int:
+        columns = ', '.join(data.keys())
+        placeholders = ', '.join(['?'] * len(data))
+        query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
+        result = self.execute(query, tuple(data.values()))
+        return result.lastrowid  # Возвращает ID новой записи
+
+    def select_one(self, table: str, where: dict) -> Optional[dict]:
+        conditions = ' AND '.join([f"{k} = ?" for k in where.keys()])
+        query = f"SELECT * FROM {table} WHERE {conditions}"
+        return self.execute(query, tuple(where.values()), fetch_one=True)
+
+
     def _get_connection(self):
         return sqlite3.connect(self.db_path)
 
