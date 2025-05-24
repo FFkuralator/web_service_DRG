@@ -1,6 +1,7 @@
 import sqlite3
 import os
 
+
 class Database:
     def __init__(self, db_path: str = 'app.db'):
         self.db_path = db_path
@@ -20,6 +21,7 @@ class Database:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
+            
             conn.commit()
             conn.close()
 
@@ -29,13 +31,16 @@ class Database:
     def execute(self, query, params=(), fetch_one=False):
         conn = self._get_connection()
         cursor = conn.cursor()
+        
         try:
             cursor.execute(query, params)
             conn.commit()
             result = cursor.fetchone() if fetch_one else cursor.fetchall()
             return result
+            
         except sqlite3.Error as e:
             conn.rollback()
             raise e
+            
         finally:
             conn.close()
