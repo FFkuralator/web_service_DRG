@@ -1,5 +1,6 @@
 import sqlite3
 import os
+from typing import Optional
 
 
 class Database:
@@ -21,7 +22,7 @@ class Database:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
-            
+
             conn.commit()
             conn.close()
 
@@ -30,13 +31,12 @@ class Database:
         placeholders = ', '.join(['?'] * len(data))
         query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
         result = self.execute(query, tuple(data.values()))
-        return result.lastrowid  # Возвращает ID новой записи
+        return result.lastrowid
 
     def select_one(self, table: str, where: dict) -> Optional[dict]:
         conditions = ' AND '.join([f"{k} = ?" for k in where.keys()])
         query = f"SELECT * FROM {table} WHERE {conditions}"
         return self.execute(query, tuple(where.values()), fetch_one=True)
-
 
     def _get_connection(self):
         return sqlite3.connect(self.db_path)
@@ -44,16 +44,16 @@ class Database:
     def execute(self, query, params=(), fetch_one=False):
         conn = self._get_connection()
         cursor = conn.cursor()
-        
+
         try:
             cursor.execute(query, params)
             conn.commit()
             result = cursor.fetchone() if fetch_one else cursor.fetchall()
             return result
-            
+
         except sqlite3.Error as e:
             conn.rollback()
             raise e
-            
+
         finally:
             conn.close()

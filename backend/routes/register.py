@@ -1,6 +1,7 @@
 from flask import Blueprint, request, redirect, session, url_for, flash, render_template
-from models.user import User 
+from backend.database.models.user import *
 import sqlite3
+import re
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -11,25 +12,36 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         full_name = request.form.get('full_name')
-        
+
+        if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
+            flash('Некорректный email', 'danger')
+            return render_template('auth/register.html',
+                                   email, full_name)
+
+        if len(password) < 8:
+            flash('Пароль должен содержать минимум 8 символов', 'danger')
+            return render_template('auth/register.html',
+                                   email, full_name)
+
         if not all([email, password, full_name]):
             flash('Все поля обязательны для заполнения', 'danger')
-            return redirect(url_for('auth.register'))
-        
+            return render_template('auth/register.html',
+                                   email, full_name)
+
         try:
             user = User()
             if user.create(email, password, full_name):
                 flash('Регистрация прошла успешно! Теперь вы можете войти.', 'success')
                 return redirect(url_for('auth.login'))
-                
+
         except ValueError as e:
             flash(str(e), 'danger')
         except sqlite3.IntegrityError:
             flash('Пользователь с таким email уже существует', 'danger')
         except Exception as e:
             flash(f'Произошла ошибка: {str(e)}', 'danger')
-    
-    return render_template('') #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    return render_template('')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -49,7 +61,7 @@ def login():
             session['user_id'] = user_id
             flash('Вход выполнен успешно!', 'success')
             return redirect(url_for('main.index'))
-        else: 
+        else:
             flash('Неверный email или пароль', 'danger')
-        
-    return render_template('') #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    return render_template('')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
