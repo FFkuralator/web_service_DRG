@@ -9,9 +9,9 @@ auth_bp = Blueprint('auth', __name__)
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        email = request.form.get('email')
+        email = request.form.get('email').strip()
         password = request.form.get('password')
-        full_name = request.form.get('full_name')
+        full_name = request.form.get('full_name').strip()
 
         if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
             flash('Некорректный email', 'danger')
@@ -39,7 +39,7 @@ def register():
         except sqlite3.IntegrityError:
             flash('Пользователь с таким email уже существует', 'danger')
         except Exception as e:
-            flash(f'Произошла ошибка: {str(e)}', 'danger')
+            flash(f'Произошла ошибка: {str(    e)}', 'danger')
 
     return render_template('')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -47,7 +47,7 @@ def register():
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form.get('email')
+        email = request.form.get('email').strip()
         password = request.form.get('password')
 
         if not all([email, password]):
