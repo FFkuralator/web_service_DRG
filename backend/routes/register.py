@@ -16,17 +16,17 @@ def register():
         if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
             flash('Некорректный email', 'danger')
             return render_template('auth/register.html',
-                                   email, full_name)
+                                   email = email, full_name = full_name)
 
         if len(password) < 8:
             flash('Пароль должен содержать минимум 8 символов', 'danger')
             return render_template('auth/register.html',
-                                   email, full_name)
+                                   email = email, full_name = full_name)
 
         if not all([email, password, full_name]):
             flash('Все поля обязательны для заполнения', 'danger')
             return render_template('auth/register.html',
-                                   email, full_name)
+                                   email = email, full_name = full_name)
 
         try:
             user = User()
@@ -36,12 +36,10 @@ def register():
 
         except ValueError as e:
             flash(str(e), 'danger')
-        except sqlite3.IntegrityError:
-            flash('Пользователь с таким email уже существует', 'danger')
         except Exception as e:
             flash(f'Произошла ошибка: {str(    e)}', 'danger')
 
-    return render_template('')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return render_template('index.html')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -64,4 +62,4 @@ def login():
         else:
             flash('Неверный email или пароль', 'danger')
 
-    return render_template('index.html')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return render_template('login.html')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
