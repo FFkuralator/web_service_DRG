@@ -1,8 +1,8 @@
 import sqlite3
-
 from flask import current_app
 from backend.database.db import Database
 from passlib.context import CryptContext
+
 
 pwd_context = CryptContext(
     schemes="bcrypt",

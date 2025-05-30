@@ -2,6 +2,7 @@ import sqlite3
 from contextlib import closing
 from typing import Optional, List, Union
 
+
 class Database:
     def __init__(self, db_path: str = 'app.db'):
         self.db_path = db_path

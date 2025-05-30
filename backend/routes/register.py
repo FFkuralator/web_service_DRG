@@ -1,10 +1,10 @@
-from flask import Blueprint, request, redirect, session, url_for, flash, render_template
-from backend.database.models.user import *
-import sqlite3
 import re
+from flask import Blueprint, request, redirect, session, url_for, flash, render_template
+
+from backend.database.models.user import *
+
 
 auth_bp = Blueprint('auth', __name__)
-
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():

@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 import os
+
 from backend.routes.register import auth_bp
+
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'dev_fallback_key')
