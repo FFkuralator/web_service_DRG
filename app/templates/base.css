@@ -11,12 +11,15 @@
 .header {
     position: fixed;
     width: 100vw;
+    height: 80px;
     top: 0;
     left: 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 24px 64px;
     background-color: rgb(255, 255, 255);
+    border-bottom: .1px rgb(220, 220, 220) solid;
 }
 
 .logo {
@@ -53,35 +56,50 @@
     color: rgb(0, 0, 0);
 }
 
-main {
+.main {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 80px 0 133px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.auth_window {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-}
-
 
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     padding: 16px 64px;
+    border-top: .1px rgb(220, 220, 220) solid;
 }
 
-.footer_info, .footer_nav {
+.footer_grid {
+    display: flex;
+    flex-direction: row;
+}
+.footer_logo, .footer_info {
     width: 50%;
     height: 86px;
 }
 
-.footer_info_text {
+.footer_logo_text {
 
+}
+
+.footer_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.footer_contacts {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer_link {
+    color: blue;
+    margin: 4px 0;
 }
 
 .legal_copyright {
