@@ -1,5 +1,9 @@
 {% extends "head.html" %}
 
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
 {% block title_head %}
     {% block title %}
     {% endblock %}
