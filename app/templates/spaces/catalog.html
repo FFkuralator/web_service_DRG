@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Каталог пространств
+{% endblock %}
+
+{% block content %}
+    <header>
+        <div>
+            Цель
+        </div>
+
+        <div>
+            Корпус
+        </div>
+
+        <div>
+            Оборудование
+        </div>
+    </header>
+
+    <section>
+        <!-- for example -->
+        <h2>Типа для танцев</h2>
+        <ul>
+            <li>
+                <img src="" alt="">
+                <h3>Пространство</h3>
+                <ul>
+                    <li>Корпус А</li>
+                    <li>Уровень 6</li>
+                    <li>A666</li>
+                </ul>
+                <p>Совсем чутьчуть описания прям вот капелька три строчки максимум не более</p>
+            </li>
+            <li>
+                <img src="" alt="">
+                <h3>Пространство</h3>
+                <ul>
+                    <li>Корпус А</li>
+                    <li>Уровень 6</li>
+                    <li>A666</li>
+                </ul>
+                <p>Совсем чутьчуть описания прям вот капелька три строчки максимум не более</p>
+            </li>
+            <li>
+                <img src="" alt="">
+                <h3>Пространство</h3>
+                <ul>
+                    <li>Корпус А</li>
+                    <li>Уровень 6</li>
+                    <li>A666</li>
+                </ul>
+                <p>Совсем чутьчуть описания прям вот капелька три строчки максимум не более</p>
+            </li>
+        </ul>
+
+        {% for category in space_categories %}
+            <h2>{{ category.name }}</h2>
+            <ul>
+                {% for space in category.spaces %}
+                    <li>
+                        <img src="{{ space.image_src }}" alt="{{ space.image_alt }}">
+                        <h3>{{ space.name }}</h3>
+                        <ul>
+                            <li>Корпус {{ space.building}}</li>
+                            <li>Уровень {{ space.level }}</li>
+                            <li>{{ space.location }}</li>
+                        </ul>
+                        <p>{{ space.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+
+    </section>
+
+    <section style="display: none;">
+        <h2>{{ category.name }}</h2>
+        <ul>
+            {% for space in category.spaces %}
+                <li>
+                    <img src="{{ space.image_src }}" alt="{{ space.image_alt }}">
+                    <h3>{{ space.name }}</h3>
+                    <ul>
+                        <li>{{ space.building}}</li>
+                        <li>{{ space.level }}</li>
+                        <li>{{ space.location }}</li>
+                    </ul>
+                    <p>{{ space.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </section>
+{% endblock %}
