@@ -3,6 +3,7 @@ import os
 
 from backend.routes.register import auth_bp
 
+# delete later
 all_spaces = [
     {
         "id": 1,
@@ -86,7 +87,19 @@ def auth():
 
 @app.route('/profile')
 def profile():
-    return render_template('auth/profile.html')
+    return render_template('auth/profile.html', user={
+        "username": "loh",
+        "email": "asdkkl@aksld",
+        "number": 19283289,
+        "avatar_src": "12"},
+        booking_history=[
+            {
+                "name": "hui",
+                "date": "20.03.2006 10:50-12:30",
+                "vote": "up"
+            }
+        ]
+        )
 
 if __name__ == '__main__':
     app.run(debug=True)
