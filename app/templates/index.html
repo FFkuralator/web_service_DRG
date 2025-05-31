@@ -1,64 +1,127 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Это типа пример</title>
-    <link rel="stylesheet" href="base.css">
+{% extends "base.html" %}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
+{% block title %}
+    BOFUK by Loshki
+{% endblock %}
 
-<body>
-    <header class="header">
-        <a href="#" class="logo">
-            <div class="logo_text">BOFUK</div>
-            <div class="logo_by">by</div>
-            <div class="logo_text">Loshki</div>
-        </a> 
+{% block content %}
+    <section>
+        <div>Будьте креативны вместе с</div>
+        <h1>
+        BOFUK by LOSHKI
+        СЕРВИС ДЛЯ БРОНИРОВАНИЯ
+        ПРОСТРАНСТВ И ПЛОЩАДОК 
+        НА ТЕРРИТОРИИ ДАЛЬНЕВОСТОЧНОГО
+        ФЕДЕРАЛЬНОГОУНИВЕРСИТЕТА
+        </h1>
 
-        <nav class="header_nav">
-            <a class="header_nav_item">Пространства</a>
-            <a class="header_nav_item">Избранное</a>
-            <a class="header_nav_item">Профиль</a>
-        </nav>
-    </header>
-
-    <main class="main">
-        <div class="auth_window">
-            <input type="text" placeholder="Type your login">
-            <input type="text" placeholder="Type your password">
-            <button>Log In</button>
+        <div>
+            <h2></h2>
+            <img src="" alt="">
+            <p></p>
         </div>
-    </main>
+    </section>
 
-    <footer class="footer">
-        <div class="footer_grid">
-            <section class="footer_logo">
-                <a href="#" class="logo">
-                    <div class="logo_text">BOFUK</div>
-                    <div class="logo_by">by</div>
-                    <div class="logo_text">Loshki</div>
-                </a> 
+    <section>
+        <h2>
+            МЫ ЧЕТА ДЕЛАЕМ ХОРОШО И ДАЖЕ ЛУЧШЕ
+            ПОЭТОМУ МЫ НАПИСАЛИ ЭТО БОЛЬШИМИ 
+            БУКВАМИ НА ЭТОМ СЛАЙДЕ НАШЕГО ЛЭНДИНГА
+        </h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus suscipit velit, quis sodales felis malesuada id. Nulla facilisi. Integer dignissim auctor purus sit amet blandit. Nullam fringilla luctus risus. Morbi finibus est malesuada neque convallis mollis</p>
+    </section>
 
-                <div class="footer_info_text">Действительно хуйнэ</div>
-            </section>
+    <section>
+        <h3>
+            ЭТО МЫ ТИПА ФИШЕЧКИ ПОКАЗЫВАЕМ 
+            И СНОВА БОЛЬШИМИ БУКОВКАМИ
+            НО УЖЕ БУКОВКИ ПОМЕНЬШЕ ТИПА
+            НУ ИНФОРМАЦИЯ ТАКАЯ ПОПРОЩЕ ДА ПОПРАКТИЧНЕЕ
+        </h3>
+        <div>
+            <div>
+                <img src="" alt="">
+                <h4>Тут чутьчуть описание инфы шарите?</h4>
+            </div>
 
-            <section class="footer_info">
-                <a href="https://www.dvfu.ru" class="footer_link">Официальный сайт ДВФУ</a>
-                
-                <div class="footer_contacts">
-                    <h2>Контакты</h2>
-                    <a href="mailto:pochta@dvfu.ru" class="footer_link">pochta@dvfu.ru</a>
-                    <a href="https://t.me/telega" class="footer_link">Телеграм</a>
+            <div>
+                <img src="" alt="">
+                <h4>Тут чутьчуть описание инфы шарите?</h4>
+            </div>
+
+            <div>
+                <img src="" alt="">
+                <h4>Тут чутьчуть описание инфы шарите?</h4>
+            </div>
+
+        </div>
+        <p>Praesent pellentesque justo nec ante mollis vestibulum. Duis vitae nunc sit amet neque faucibus venenatis eu sit amet libero. Sed velit risus, pulvinar quis tristique vitae, tincidunt quis mauris.</p>
+    </section>
+
+    <section>
+        <h4>Тут можно добавить текст</h4>
+        <h3>
+            ТУТ У НАС ГЛАВНАЯ ФИШЕЧКА
+            И НЕКОЕ ОПИСАНИЕ ТИПА ОООЧЕНЬ КРУТО
+        </h3>
+        <p>Тут мы раскрываем фишечку но тоже типа не многословно, тоже на полшишечки так чтобы ну ниче не ясно но звучит очень круто прям по эпловски шарите??? У А А А А А</p>
+        <img src="" alt="">
+    </section>
+
+    <section>
+        <h3>ФАК ЙУ</h3>
+        <ul>
+            <li>
+                <p>Типа вопрос</p>
+                <div>
+                    <p>Типа ответ шарите вот так жоска пишется ответ йойоойойой уа а а а а дианаааааа где дизайн как же сложна это все делать без него ты бы знала я сейчас скопирую это во все вопросы и ты просто 6 раз увидишь этот текст АЛО БИЗНЕС ДА ДА СВАГАААААААА</p>
                 </div>
-            </section>
-        </div>
-        
-        <div class="legal_copyright">© 2025 All Rights Reserved</div>
+            </li>
 
-    </footer>
-</body>
-</html>
+            <li>
+                <p>Типа вопрос</p>
+                <div>
+                    <p>Типа ответ шарите вот так жоска пишется ответ йойоойойой уа а а а а дианаааааа где дизайн как же сложна это все делать без него ты бы знала я сейчас скопирую это во все вопросы и ты просто 6 раз увидишь этот текст АЛО БИЗНЕС ДА ДА СВАГАААААААА</p>
+                </div>
+            </li>
+
+            <li>
+                <p>Типа вопрос</p>
+                <div>
+                    <p>Типа ответ шарите вот так жоска пишется ответ йойоойойой уа а а а а дианаааааа где дизайн как же сложна это все делать без него ты бы знала я сейчас скопирую это во все вопросы и ты просто 6 раз увидишь этот текст АЛО БИЗНЕС ДА ДА СВАГАААААААА</p>
+                </div>
+            </li>
+
+            <li>
+                <p>Типа вопрос</p>
+                <div>
+                    <p>Типа ответ шарите вот так жоска пишется ответ йойоойойой уа а а а а дианаааааа где дизайн как же сложна это все делать без него ты бы знала я сейчас скопирую это во все вопросы и ты просто 6 раз увидишь этот текст АЛО БИЗНЕС ДА ДА СВАГАААААААА</p>
+                </div>
+            </li>
+
+            <li>
+                <p>Типа вопрос</p>
+                <div>
+                    <p>Типа ответ шарите вот так жоска пишется ответ йойоойойой уа а а а а дианаааааа где дизайн как же сложна это все делать без него ты бы знала я сейчас скопирую это во все вопросы и ты просто 6 раз увидишь этот текст АЛО БИЗНЕС ДА ДА СВАГАААААААА</p>
+                </div>
+            </li>
+
+            <li>
+                <p>Типа вопрос</p>
+                <div>
+                    <p>Типа ответ шарите вот так жоска пишется ответ йойоойойой уа а а а а дианаааааа где дизайн как же сложна это все делать без него ты бы знала я сейчас скопирую это во все вопросы и ты просто 6 раз увидишь этот текст АЛО БИЗНЕС ДА ДА СВАГАААААААА</p>
+                </div>
+            </li>
+
+
+        </ul>
+    </section>
+
+    <section>
+        <div>
+            <h3>ТРАЙНИ</h3>
+            <p>Ну это же круто шаришь?</p>
+            <a href="/">Попробовать</a>
+        </div>
+    </section>
+{% endblock %}
