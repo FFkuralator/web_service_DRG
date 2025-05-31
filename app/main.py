@@ -76,6 +76,10 @@ def space():
 def catalog():
     return render_template('spaces/catalog.html', space_categories=all_spaces, category=all_spaces[0])
 
+@app.route('/favorites')
+def favorites():
+    return render_template('spaces/favorites.html', favorites=all_spaces[0])
+
 @app.route('/auth')
 def auth():
     return render_template('auth/auth.html')

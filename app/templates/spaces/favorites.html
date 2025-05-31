@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Избранные пространства
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Избранное</h1>
+        <ul>
+            {% for space in favorites.spaces %}
+                <li>
+                    <button>Разлайкать</button>
+                    <img src="{{ space.image_src }}" alt="{{ space.image_alt }}">
+                    <h3>{{ space.name }}</h3>
+                    <ul>
+                        <li>{{ space.building}}</li>
+                        <li>{{ space.level }}</li>
+                        <li>{{ space.location }}</li>
+                    </ul>
+                    <p>{{ space.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </section>
+{% endblock %}
