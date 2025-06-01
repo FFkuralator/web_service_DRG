@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block title %}
+    {{ user.username }}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <section>
+            <div>
+                <img src="{{ user.avatar_src }}" alt="avatar">
+                <h2>{{ user.username }}</h2>
+            </div>
+
+            <div>
+                <ul>
+                    <li>{{ user.email }}</li>
+                    <li>{{ user.number }}</li>
+                </ul>
+            </div>
+            <div>
+                Сменить пароль
+            </div>
+
+
+            <div style="display: none;">
+                <button>Изменить аватар</button>
+                <button>Сменить имя</button>
+                <button>Сменить номер телефона</button>
+            </div>
+
+            <div style="display: none;">
+                <div>Введите новый номер телефона</div>
+                <form action="mobile_number_change">
+                    <input type="tel" id="mobile_number" name="mobile_number">
+                    <button>Подтвердить</button>
+                </form>
+            </div>
+
+            <div style="display: none;">
+                <div>Как к вам обращаться</div>
+                <form action="username_change">
+                    <input type="text" id="username" name="username">
+                    <button>Подтвердить</button>
+                </form>
+            </div>
+
+            <div style="display: none;">
+                <div>Введите новый адрес электронной почты</div>
+                <form action="email_change">
+                    <input type="email" id="email" name="email">
+                    <button>Подтвердить</button>
+                </form>
+            </div>
+
+            <div style="display: none;">
+                <h3>Смена пароля</h3>
+                <form action="email_change">
+                    <div>
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    <div>
+                        <label for="password">Проверка пароля</label>
+                        <input type="password" id="password_check" name="password_check">
+                    </div>
+                    <button>Подтвердить</button>
+                </form>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>История бронирований</h2>
+            <ul>
+                {% for item in booking_history %}
+                    <li>
+                        <h3>{{ item.name }}</h3>
+                        <div>{{ item.date }}</div>
+                        <div>{{ item.vote }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </section>
+
+        <section>
+            <button>
+                Удалить аккаунт
+            </button>
+        </section>
+    </section>
+{% endblock %}

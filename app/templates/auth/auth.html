@@ -1,0 +1,65 @@
+{% extends "head.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block title_head %}
+    {% block title %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Зарегистрируйся, плиз</h1>
+
+        <form action="signup">
+            <div>
+                <label for="email">Университетский email</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div>
+                <label for="mobile_number">Номер телефона</label>
+                <input type="tel" id="mobile_number" name="mobile_number">
+            </div>
+
+            <div>
+                <label for="username">Как к вам обращаться</label>
+                <input type="text" id="username" name="username">
+            </div>
+
+            <div>
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <div>
+                <label for="password">Проверка пароля</label>
+                <input type="password" id="password_check" name="password_check">
+            </div>
+
+            <button>Регаемся</button>
+        </form>
+    </section>
+
+    <section style="display: none;">
+        <h1>Войди, плиз</h1>
+
+        <form action="login">
+            <div>
+                <label for="login">Логин</label>
+                <input type="text" id="login" name="login">
+            </div>
+
+            <div>
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <button>Входим</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="legal_copyright">© 2025 All Rights Reserved</div>
+    </footer>
+{% endblock %}

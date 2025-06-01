@@ -1,0 +1,64 @@
+{% extends "head.html" %}
+
+{% block head_attributes %}
+    {% block head %}
+
+    {% endblock %}
+{% endblock %}
+
+
+{% block title_head %}
+    {% block title %}
+
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <body>
+        <header class="header">
+            <a href="/" class="logo">
+                <div class="logo_text">BOFUK</div>
+                <div class="logo_by">by</div>
+                <div class="logo_text">Loshki</div>
+            </a> 
+
+            <nav class="header_nav">
+                <a href="/catalog" class="header_nav_item">Пространства</a>
+                <a href="/favorites" class="header_nav_item">Избранное</a>
+                <a href="/profile" class="header_nav_item">Профиль</a>
+            </nav>
+        </header>
+
+        <main class="main">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="footer">
+            <div class="footer_grid">
+                <section class="footer_logo">
+                    <a href="#" class="logo">
+                        <div class="logo_text">BOFUK</div>
+                        <div class="logo_by">by</div>
+                        <div class="logo_text">Loshki</div>
+                    </a> 
+
+                    <div class="footer_info_text">Действительно хуйнэ</div>
+                </section>
+
+                <section class="footer_info">
+                    <a href="https://www.dvfu.ru" class="footer_link">Официальный сайт ДВФУ</a>
+                    
+                    <div class="footer_contacts">
+                        <h2>Контакты</h2>
+                        <a href="mailto:pochta@dvfu.ru" class="footer_link">pochta@dvfu.ru</a>
+                        <a href="https://t.me/telega" class="footer_link">Телеграм</a>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="legal_copyright">© 2025 All Rights Reserved</div>
+
+        </footer>
+{% endblock%}
+    

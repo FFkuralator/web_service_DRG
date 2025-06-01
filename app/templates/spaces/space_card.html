@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/space_card.css') }}">
+{% endblock %}
+
+{% block title %}
+    {{ space_name }}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div>
+            <h1>Пространство шарите?</h1>
+            <button>Шейр ит</button>
+            <button>Лайк</button>
+        </div>
+        
+        <div>
+            <div>
+                <img src="" alt="">
+            </div>
+            <div>
+                <img src="" alt="">
+            </div>
+            <div>
+                <img src="" alt="">
+            </div>
+            <div>
+                <img src="" alt="">
+            </div>
+            <div>
+                <img src="" alt="">
+            </div>
+            <div>
+                <img src="" alt="">
+            </div>
+        </div>
+
+        <div>
+            <h2>Типа точное название</h2>
+
+            <ul>
+                <li>пунктик</li>
+                <li>пунктик</li>
+                <li>пунктик</li>
+                <li>пунктик</li>
+                <li>пунктик</li>
+            </ul>
+            
+            <div>
+                <button>down</button>
+                <span>1000</span>
+                <button>up</button>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Бронируй йоу</h2>
+
+        <!-- так если не успеем норм сделать  -->
+        <form action="/book">
+            <div>
+                <label for="date">Дата</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div>
+                <label for="time">Время</label>
+                <input type="time" id="start_time" name="start_time" required>
+                <input type="time" id="end_time" name="end_time" required>
+            </div>
+
+            <div>
+                <label for="comment">Комментарий</label>
+                <input type="text" id="comment" name="comment" placeholder="Необязательно">
+            </div>
+
+            <button type="submit">Забронировать</button>
+        </form>
+    </section>
+
+    <section>
+        <div>
+            <p>Тут типа описание йоу. Suspendisse malesuada, ipsum vitae sagittis sollicitudin, elit sem sagittis nisl, eget laoreet arcu ligula id augue. Nullam mattis posuere lacus, eget ullamcorper dui accumsan sit amet. Sed hendrerit ornare tellus at convallis. Nullam et orci eu massa elementum hendrerit. Suspendisse viverra risus ex, luctus convallis quam vehicula quis. Fusce rhoncus elementum lacinia. Maecenas faucibus est vel hendrerit pretium. Donec fermentum tristique arcu, id scelerisque dolor auctor vitae. Pellentesque id neque non arcu ultrices pellentesque at vel dui. Nullam sed eleifend nisl, eget egestas erat. Morbi vitae arcu id tortor malesuada ullamcorper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus pulvinar risus viverra elementum tincidunt. Proin vitae elit tristique, lacinia felis a, scelerisque metus. Integer auctor metus vitae dui pharetra ornare. Quisque dictum ante ante, sed lacinia justo vestibulum id.</p>
+        </div>
+
+        <h2>Оборудование в пространстве</h2>
+        <div style="display: none;">Нет нихуя</div>
+        <ul>
+            <li>Штучка</li>
+            <li>Штучка</li>
+            <li>Штучка</li>
+            <li>Штучка</li>
+            <li>Штучка</li>
+            <li>Штучка</li>
+            <li>Штучка</li>
+        </ul>
+
+        <h2>Где это находится</h2>
+        <div>
+            <p>Тут описание типа вон там то там то и там то если сложное чета реально ну а так типа этаж и ориентир мб</p>
+            <a href="/">Пространство на фефу мап</a>
+        </div>
+    </section>
+{% endblock %}
