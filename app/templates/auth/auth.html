@@ -1,65 +1,68 @@
 {% extends "head.html" %}
 
-{% block head %}
+{% block head_attributes %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {% endblock %}
 
 {% block title_head %}
-    {% block title %}
-    {% endblock %}
+    Аутентификация
 {% endblock %}
 
 {% block body %}
-    <section>
-        <h1>Зарегистрируйся, плиз</h1>
+<div class="fullscreen_container">
+    <section class="auth_container" style="display: block;">
+        <h1 class="h1">Зарегистрируйся, плиз</h1>
 
-        <form action="signup">
-            <div>
-                <label for="email">Университетский email</label>
-                <input type="email" id="email" name="email">
+        <form action="signup" class="form_container">
+            <div class="form_part">
+                <label class="form_label" for="email">Университетский email</label>
+                <input class="text_input" type="email" id="email" name="email">
             </div>
 
-            <div>
-                <label for="mobile_number">Номер телефона</label>
-                <input type="tel" id="mobile_number" name="mobile_number">
+            <div class="form_part">
+                <label class="form_label" for="mobile_number">Номер телефона</label>
+                <input class="text_input" type="tel" id="mobile_number" name="mobile_number">
             </div>
 
-            <div>
-                <label for="username">Как к вам обращаться</label>
-                <input type="text" id="username" name="username">
+            <div class="form_part">
+                <label class="form_label" for="username">Как к вам обращаться</label>
+                <input class="text_input" type="text" id="username" name="username">
             </div>
 
-            <div>
-                <label for="password">Пароль</label>
-                <input type="password" id="password" name="password">
-            </div>
-            <div>
-                <label for="password">Проверка пароля</label>
-                <input type="password" id="password_check" name="password_check">
+            <div class="form_part">
+                <label class="form_label" for="password">Пароль</label>
+                <input class="text_input" type="password" id="password" name="password">
             </div>
 
-            <button>Регаемся</button>
+            <div class="form_part">
+                <label class="form_label" for="password">Проверка пароля</label>
+                <input class="text_input" type="password" id="password_check" name="password_check">
+            </div>
+
+            <button class="sumbit_button">Регаемся</button>
         </form>
     </section>
 
-    <section style="display: none;">
-        <h1>Войди, плиз</h1>
+    <section class="auth_container" style="display: none;">
+        <h1 class="h1">Войди, плиз</h1>
 
-        <form action="login">
-            <div>
-                <label for="login">Логин</label>
-                <input type="text" id="login" name="login">
+        <form action="login" class="form_container">
+            <div class="form_part">
+                <label class="form_label" for="login">Логин</label>
+                <input class="text_input" type="text" id="login" name="login">
             </div>
 
-            <div>
-                <label for="password">Пароль</label>
-                <input type="password" id="password" name="password">
+            <div class="form_part">
+                <label class="form_label" for="password">Пароль</label>
+                <input class="text_input" type="password" id="password" name="password">
             </div>
-            <button>Входим</button>
+            <button class="sumbit_button">Входим</button>
         </form>
     </section>
 
-    <footer>
+    <footer class="auth_footer">
         <div class="legal_copyright">© 2025 All Rights Reserved</div>
     </footer>
+
+</div>
 {% endblock %}
