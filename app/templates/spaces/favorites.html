@@ -9,20 +9,24 @@
 {% endblock %}
 
 {% block content %}
-    <section>
-        <h1>Избранное</h1>
-        <ul>
+    <section class="catalog">
+        <h1 class="title">Избранное</h1>
+        <ul class="fav_list">
             {% for space in favorites.spaces %}
-                <li>
-                    <button>Разлайкать</button>
-                    <img src="{{ space.image_src }}" alt="{{ space.image_alt }}">
-                    <h3>{{ space.name }}</h3>
-                    <ul>
-                        <li>{{ space.building}}</li>
-                        <li>{{ space.level }}</li>
-                        <li>{{ space.location }}</li>
-                    </ul>
-                    <p>{{ space.description }}</p>
+                <li class="fav_item">
+                    <a class="fav_container" href="/">
+                        <button class="unfav_button">/</button>
+                        <img class="fav_image" src="{{ url_for('static', filename=space.image_src) }}" alt="{{ space.image_alt }}">
+                        <div class="fav_text_container">
+                            <h3 class="fav_name">{{ space.name }}</h3>
+                            <ul class="fav_characteristics">
+                                <li class="fave_characteristics_item">{{ space.building}}</li>
+                                <li class="fave_characteristics_item">{{ space.level }}</li>
+                                <li class="fave_characteristics_item">{{ space.location }}</li>
+                            </ul>
+                            <p class="fav_description">{{ space.description }}</p>
+                        </div>
+                    </a>
                 </li>
             {% endfor %}
         </ul>
