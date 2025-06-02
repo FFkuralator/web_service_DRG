@@ -124,3 +124,29 @@
 .font_400 {
     font-weight: 400;
 }
+
+.form_part {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+}
+
+.form_label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.text_input {
+    border-radius: 6px;
+    border: .1px solid;
+    padding: 6px 12px;
+}
+
+.submit_button {
+    border-radius: 6px;
+    border: .1px solid;
+    padding: 6px 12px;
+    background-color: aquamarine;
+    margin: 12px auto;
+}
