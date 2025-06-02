@@ -9,99 +9,93 @@
 {% endblock %}
 
 {% block content %}
-    <section>
-        <div>
-            <h1>Пространство шарите?</h1>
-            <button>Шейр ит</button>
-            <button>Лайк</button>
+    <section class="card_section">
+        <div class="card_header">
+            <h1 class="space_name">Пространство шарите?</h1>
+            <div>
+                <button class="c_header_button">Шейр ит</button>
+                <button class="c_header_button">Лайк</button>
+            </div>
         </div>
         
-        <div>
+        <div class="space_gallery">
             <div>
-                <img src="" alt="">
+                <img class="space_photo" id="space_photo_1" src="{{ url_for('static', filename='assets/diana1.jpeg')}}" alt="">
             </div>
             <div>
-                <img src="" alt="">
+                <img class="space_photo" id="space_photo_2" src="{{ url_for('static', filename='assets/diana2.jpeg')}}" alt="">
             </div>
             <div>
-                <img src="" alt="">
-            </div>
-            <div>
-                <img src="" alt="">
-            </div>
-            <div>
-                <img src="" alt="">
-            </div>
-            <div>
-                <img src="" alt="">
+                <img class="space_photo" id="space_photo_3" src="{{ url_for('static', filename='assets/diana3.jpeg')}}" alt="">
             </div>
         </div>
 
-        <div>
-            <h2>Типа точное название</h2>
+        <div class="space_descr_container">
+            <h2 class="h2">Типа точное название</h2>
 
-            <ul>
-                <li>пунктик</li>
-                <li>пунктик</li>
-                <li>пунктик</li>
-                <li>пунктик</li>
-                <li>пунктик</li>
+            <ul class="space_descr_list">
+                <li class="space_descr_item">пунктик</li>
+                <li class="space_descr_item">пунктик</li>
+                <li class="space_descr_item">пунктик</li>
+                <li class="space_descr_item">пунктик</li>
+                <li class="space_descr_item">пунктик</li>
             </ul>
             
-            <div>
-                <button>down</button>
-                <span>1000</span>
-                <button>up</button>
+            <div class="space_likes">
+                <button class="like_button down_button">-</button>
+                <span class="likes_number">1000</span>
+                <button class="like_button up_button">+</button>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2>Бронируй йоу</h2>
+    <section class="card_section" id="booking_section">
+        <h2 class="h2">Бронируй йоу</h2>
 
         <!-- так если не успеем норм сделать  -->
         <form action="/book">
-            <div>
-                <label for="date">Дата</label>
-                <input type="date" id="date" name="date" required>
+            <div class="form_part">
+                <label class="form_label" for="date">Дата</label>
+                <input class="form_label" type="date" id="date" name="date" required>
             </div>
 
-            <div>
-                <label for="time">Время</label>
-                <input type="time" id="start_time" name="start_time" required>
-                <input type="time" id="end_time" name="end_time" required>
+            <div class="form_part">
+                <label class="form_label" for="time">Время</label>
+                <input class="form_label" type="time" id="start_time" name="start_time" required>
+                <input class="form_label" type="time" id="end_time" name="end_time" required>
             </div>
 
-            <div>
-                <label for="comment">Комментарий</label>
-                <input type="text" id="comment" name="comment" placeholder="Необязательно">
+            <div class="form_part">
+                <label class="form_label" for="comment">Комментарий</label>
+                <input class="text_input" type="text" id="comment" name="comment" placeholder="Необязательно">
             </div>
 
-            <button type="submit">Забронировать</button>
+            <button class="submit_button" type="submit">Забронировать</button>
         </form>
     </section>
 
-    <section>
-        <div>
-            <p>Тут типа описание йоу. Suspendisse malesuada, ipsum vitae sagittis sollicitudin, elit sem sagittis nisl, eget laoreet arcu ligula id augue. Nullam mattis posuere lacus, eget ullamcorper dui accumsan sit amet. Sed hendrerit ornare tellus at convallis. Nullam et orci eu massa elementum hendrerit. Suspendisse viverra risus ex, luctus convallis quam vehicula quis. Fusce rhoncus elementum lacinia. Maecenas faucibus est vel hendrerit pretium. Donec fermentum tristique arcu, id scelerisque dolor auctor vitae. Pellentesque id neque non arcu ultrices pellentesque at vel dui. Nullam sed eleifend nisl, eget egestas erat. Morbi vitae arcu id tortor malesuada ullamcorper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus pulvinar risus viverra elementum tincidunt. Proin vitae elit tristique, lacinia felis a, scelerisque metus. Integer auctor metus vitae dui pharetra ornare. Quisque dictum ante ante, sed lacinia justo vestibulum id.</p>
+    <section class="card_section">
+        <div class="info_description">
+            <p class="info_description_p">Тут типа описание йоу. Suspendisse malesuada, ipsum vitae sagittis sollicitudin, elit sem sagittis nisl, eget laoreet arcu ligula id augue. Nullam mattis posuere lacus, eget ullamcorper dui accumsan sit amet. Sed hendrerit ornare tellus at convallis. Nullam et orci eu massa elementum hendrerit. Suspendisse viverra risus ex, luctus convallis quam vehicula quis. Fusce rhoncus elementum lacinia. Maecenas faucibus est vel hendrerit pretium. Donec fermentum tristique arcu, id scelerisque dolor auctor vitae. Pellentesque id neque non arcu ultrices pellentesque at vel dui. Nullam sed eleifend nisl, eget egestas erat. Morbi vitae arcu id tortor malesuada ullamcorper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus pulvinar risus viverra elementum tincidunt. Proin vitae elit tristique, lacinia felis a, scelerisque metus. Integer auctor metus vitae dui pharetra ornare. Quisque dictum ante ante, sed lacinia justo vestibulum id.</p>
         </div>
 
-        <h2>Оборудование в пространстве</h2>
+        <h2 class="h2">Оборудование в пространстве</h2>
         <div style="display: none;">Нет нихуя</div>
-        <ul>
-            <li>Штучка</li>
-            <li>Штучка</li>
-            <li>Штучка</li>
-            <li>Штучка</li>
-            <li>Штучка</li>
-            <li>Штучка</li>
-            <li>Штучка</li>
+        <ul class="features_grid">
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
         </ul>
 
-        <h2>Где это находится</h2>
-        <div>
-            <p>Тут описание типа вон там то там то и там то если сложное чета реально ну а так типа этаж и ориентир мб</p>
-            <a href="/">Пространство на фефу мап</a>
+        <h2 class="h2">Где это находится</h2>
+        <div class="info_description">
+            <p class="info_description_p">Тут описание типа вон там то там то и там то если сложное чета реально ну а так типа этаж и ориентир мб</p>
         </div>
+        <a class="fefumap_link" href="/">Пространство на фефу мап</a>
+
     </section>
 {% endblock %}

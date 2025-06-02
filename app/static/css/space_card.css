@@ -1,0 +1,127 @@
+.card_section {
+    width: 56%;
+    padding: 24px 96px;
+}
+
+.card_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.space_name {
+    font-size: 24px;
+}
+
+.c_header_button {
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 6px;
+    background-color: white;
+    border: .1px solid rgba(0, 0, 0, 0.2);
+    margin: auto 6px;
+    transition: .1s ease;
+}
+
+.c_header_button:hover {
+    background-color: rgb(245, 245, 245);
+    border: .1px solid rgba(0, 0, 0, 0.5);
+}
+
+.space_gallery {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 2px;
+    column-gap: 2px;
+}
+
+.space_photo {
+    width: 100%;
+    height: 100%;
+}
+
+.space_descr_container {
+        padding: 24px;
+}
+
+.h2 {
+    font-size: 22px;
+}
+
+.space_descr_list {
+    display: flex;
+    flex-direction: row;
+    margin: 12px 0 24px;
+}
+
+.space_descr_item {
+    margin: 0 12px;
+    font-weight: 400;
+    list-style: none;
+}
+
+.space_likes {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.likes_number {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.like_button {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+    font-weight: 900;
+    margin: 16px;
+}
+
+#booking_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: .1px solid;
+    border-top: .1px solid;
+}
+
+.info_description {
+    width: 100%;
+    margin: 12px 0;
+    padding: 0 0 32px;
+}
+
+.info_description_p {
+    width: 80%;
+}
+
+.features_grid {
+    margin: 12px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.feature {
+    list-style: none;
+    margin: 6px 0;
+}
+
+.fefumap_link {
+    font-size: 18px;
+    margin: 12px 0;
+    border: .1px solid;
+    border-radius: 12px;
+    padding: 12px 24px;
+    transition: .2s ease;
+}
+
+.fefumap_link:hover {
+    background-color: rgb(250, 250, 250);
+}
