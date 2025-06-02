@@ -10,23 +10,65 @@ all_spaces = [
         "name": "Танцы",
         "spaces": [
             {
+                "id": 1,
                 "name": "Пространство",
                 "building": "A",
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "",
+                "image_src": "assets/diana1.jpeg",
                 "image_alt": "",
             },
             {
+                "id": 2,
                 "name": "Пространство",
                 "building": "A",
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "",
+                "image_src": "assets/diana2.jpeg",
                 "image_alt": "",
-            }
+            },
+            {
+                "id": 1,
+                "name": "Пространство",
+                "building": "A",
+                "level": 6,
+                "location": "A666",
+                "description": "Lorem ipsum dolores sit ame",
+                "image_src": "assets/diana3.jpeg",
+                "image_alt": "",
+            },
+            {
+                "id": 2,
+                "name": "Пространство",
+                "building": "A",
+                "level": 6,
+                "location": "A666",
+                "description": "Lorem ipsum dolores sit ame",
+                "image_src": "assets/diana4.jpeg",
+                "image_alt": "",
+            },
+            {
+                "id": 1,
+                "name": "Пространство",
+                "building": "A",
+                "level": 6,
+                "location": "A666",
+                "description": "Lorem ipsum dolores sit ame",
+                "image_src": "assets/dmitry.jpeg",
+                "image_alt": "",
+            },
+            {
+                "id": 2,
+                "name": "Пространство",
+                "building": "A",
+                "level": 6,
+                "location": "A666",
+                "description": "Lorem ipsum dolores sit ame",
+                "image_src": "assets/ivan.jpeg",
+                "image_alt": "",
+            },
 
         ]
     },
@@ -35,21 +77,23 @@ all_spaces = [
         "name": "Не танцы",
         "spaces": [
             {
+                "id": 3,
                 "name": "Пространство",
                 "building": "A",
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "",
+                "image_src": "assets/ne_diana.jpg",
                 "image_alt": "",
             },
             {
+                "id": 4,
                 "name": "Пространство",
                 "building": "A",
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "",
+                "image_src": "assets/ne_diana.jpg",
                 "image_alt": "",
             }
 
@@ -69,9 +113,9 @@ app.register_blueprint(auth_bp)
 def index():
     return render_template('index.html')
 
-@app.route('/space')
-def space():
-    return render_template('spaces/space_card.html')
+@app.route('/space/<int:id>')
+def space(id):
+    return render_template('spaces/space_card.html', space=all_spaces[0]["spaces"][0])
 
 @app.route('/catalog')
 def catalog():
