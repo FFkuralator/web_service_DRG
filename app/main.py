@@ -135,7 +135,7 @@ def profile():
         "username": "loh",
         "email": "asdkkl@aksld",
         "number": 19283289,
-        "avatar_src": "12"},
+        "avatar_src": "assets/diana1.jpeg"},
         booking_history=[
             {
                 "name": "hui",

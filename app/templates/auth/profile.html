@@ -9,22 +9,20 @@
 {% endblock %}
 
 {% block content %}
-    <section>
-        <section>
+    <section class="profile_section">
+        <section class="basic_info">
             <div>
-                <img src="{{ user.avatar_src }}" alt="avatar">
-                <h2>{{ user.username }}</h2>
+                <img class="avatar" src="{{ url_for('static', filename=user.avatar_src) }}" alt="avatar">
+                <h2 class="username">{{ user.username }}</h2>
             </div>
 
-            <div>
-                <ul>
-                    <li>{{ user.email }}</li>
-                    <li>{{ user.number }}</li>
-                </ul>
+            <div class="contacts">
+                <div class="contact">{{ user.email }}</div>
+                <div class="contact">{{ user.number }}</div>
             </div>
-            <div>
+            <button class="password_button">
                 Сменить пароль
-            </div>
+            </button>
 
 
             <div style="display: none;">
@@ -74,24 +72,24 @@
 
         </section>
 
-        <section>
-            <h2>История бронирований</h2>
-            <ul>
+        <section class="history">
+            <h2 class="history_h">История бронирований</h2>
+            <ul class="history_list">
                 {% for item in booking_history %}
-                    <li>
-                        <h3>{{ item.name }}</h3>
-                        <div>{{ item.date }}</div>
-                        <div>{{ item.vote }}</div>
+                    <li class="history_item">
+                        <h3 class="history_point">{{ item.name }}</h3>
+                        <div>|</div>
+                        <div class="history_point">{{ item.date }}</div>
+                        <div>|</div>
+                        <div class="history_point">{{ item.vote }}</div>
                     </li>
                 {% endfor %}
             </ul>
 
         </section>
 
-        <section>
-            <button>
-                Удалить аккаунт
-            </button>
-        </section>
+        <button class="delete_button">
+            Удалить аккаунт
+        </button>
     </section>
 {% endblock %}
