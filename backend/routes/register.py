@@ -4,14 +4,27 @@ from flask import Blueprint, request, redirect, session, url_for, flash, render_
 from backend.database.models.user import *
 
 
-auth_bp = Blueprint('auth', __name__)
+auth_bp = Blueprint('auth_bp', __name__)
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        email = request.form.get('email').strip()
-        password = request.form.get('password')
-        full_name = request.form.get('full_name').strip()
+        email = request.form.get('email', '').lower().strip()
+        password = request.form.get('password', '')
+        full_name = request.form.get('full_name', '').strip()
+        number_phone = request.form.get('number_phone', '').strip()
+
+        if not all([email, password, full_name, number_phone]):
+            flash('Все поля обязательны для заполнения', 'danger')
+            return render_template('auth/register.html',
+                                   email = email, full_name = full_name, number_phone = number_phone)
+
+        if not number_phone:
+            flash('Номер телефона обязателен', 'danger')
+            return render_template('auth/auth.html',
+                                   email=email,
+                                   number_phone=number_phone,
+                                   full_name=full_name)
 
         if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
             flash('Некорректный email', 'danger')
@@ -23,23 +36,18 @@ def register():
             return render_template('auth/register.html',
                                    email = email, full_name = full_name)
 
-        if not all([email, password, full_name]):
-            flash('Все поля обязательны для заполнения', 'danger')
-            return render_template('auth/register.html',
-                                   email = email, full_name = full_name)
-
         try:
             user = User()
-            if user.create(email, password, full_name):
-                flash('Регистрация прошла успешно! Теперь вы можете войти.', 'success')
-                return redirect(url_for('auth.login'))
+            if user.create(email, password, full_name, number_phone):
+                flash('Регистрация успешна! Теперь войдите.', 'success')
+                return redirect(url_for('auth_bp.login'))  # Исправлен url_for
 
         except ValueError as e:
             flash(str(e), 'danger')
         except Exception as e:
             flash(f'Произошла ошибка: {str(    e)}', 'danger')
 
-    return render_template('index.html')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return render_template('signup.html')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])

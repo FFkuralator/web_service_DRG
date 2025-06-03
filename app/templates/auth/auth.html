@@ -13,32 +13,41 @@
     <section>
         <h1>Зарегистрируйся, плиз</h1>
 
-        <form action="signup">
+        <form method="POST" action="{{ url_for('auth_bp.register') }}">
             <div>
                 <label for="email">Университетский email</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email"
+                       placeholder="hui@mail.ru"
+                required value="{{ request.form.email if request.form }}">
             </div>
 
             <div>
-                <label for="mobile_number">Номер телефона</label>
-                <input type="tel" id="mobile_number" name="mobile_number">
+                <label for="number_phone">Номер телефона</label>
+                <input type="tel" id="number_phone" name="number_phone"
+                       placeholder="+79991234567"
+                       pattern="^(\+7|8)\d{10}$"
+                       required
+                       value="{{ request.form.number_phone if request.form }}">
             </div>
 
+
             <div>
-                <label for="username">Как к вам обращаться</label>
-                <input type="text" id="username" name="username">
+                <label for="full_name">Как к вам обращаться</label>
+                <input type="text" id="full_name" name="full_name"
+                       required value="{{ request.form.full_name if request.form }}">
             </div>
 
             <div>
                 <label for="password">Пароль</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password"
+                required value="{{request.form.password if request.form}}">
             </div>
             <div>
                 <label for="password">Проверка пароля</label>
                 <input type="password" id="password_check" name="password_check">
             </div>
 
-            <button>Регаемся</button>
+            <button>Регаемся </button>
         </form>
     </section>
 
