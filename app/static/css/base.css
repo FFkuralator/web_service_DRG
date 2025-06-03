@@ -106,3 +106,47 @@
     font-size: 11px;
     color: rgb(0, 0, 0, .4)
 }
+
+.bordered_container {
+    border-radius: 8px;
+    border: .5px solid;
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.font_16px {
+    font-size: 16px;
+}
+
+
+.font_400 {
+    font-weight: 400;
+}
+
+.form_part {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+}
+
+.form_label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.text_input {
+    border-radius: 6px;
+    border: .1px solid;
+    padding: 6px 12px;
+}
+
+.submit_button {
+    border-radius: 6px;
+    border: .1px solid;
+    padding: 6px 12px;
+    background-color: aquamarine;
+    margin: 12px auto;
+}
