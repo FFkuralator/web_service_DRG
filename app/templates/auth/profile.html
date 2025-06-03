@@ -20,9 +20,14 @@
                 <div class="contact">{{ user.email }}</div>
                 <div class="contact">{{ user.number }}</div>
             </div>
-            <button class="password_button">
-                Сменить пароль
-            </button>
+            <div class="action-buttons">
+                <button class="password_button">
+                    Сменить пароль
+                </button>
+                <a href="{{ url_for('auth_bp.logout') }}" class="logout_button">
+                    Выйти
+                </a>
+            </div>
 
 
             <div style="display: none;">
