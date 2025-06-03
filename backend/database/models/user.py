@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3, re
 from flask import current_app
 from backend.database.db import Database
 from passlib.context import CryptContext
@@ -16,19 +16,43 @@ class User:
     def __init__(self, db_path=None):
         self.db = Database(db_path or current_app.config['DATABASE'])
 
+    @staticmethod
+    def normalize_phone(number: str):
+        if not number:
+            return None
 
-    def create(self, email: str, password: str, full_name: str):
+        cleaned = re.sub(r'[^\d+]', '', number)
+
+        if cleaned.startswith('8'):
+            return  '+7' + cleaned[1:]
+        elif cleaned.startswith('7'):
+            return '+' + cleaned
+        return cleaned
+
+
+    def create(self, email: str, password: str, full_name: str, number_phone: str):
+
+        if not number_phone:
+            raise ValueError('Номер телефона обязателен')
+
         hashed_password = pwd_context.hash(password)
+        normalized_phone = self.normalize_phone(number_phone) if number_phone else None
 
         try:
             self.db.execute(
-                "INSERT INTO users (email, password_hash, full_name) VALUES (?, ?, ?)",
-                (email, hashed_password, full_name)
+                """INSERT INTO users 
+                (email, password_hash, full_name, number_phone) 
+                VALUES (?, ?, ?, ?)""",
+                (email, hashed_password, full_name, normalized_phone)
             )
             return True
+        except sqlite3.IntegrityError as e:
 
-        except sqlite3.IntegrityError:
-            raise ValueError('Пользователь с таким email уже существует')
+            if 'email' in str(e):
+                raise ValueError('Пользователь с таким email уже существует')
+            elif 'number_phone' in str(e):
+                raise ValueError('Пользователь с таким номером телефона уже существует')
+            raise ValueError('Ошибка при создании пользователя')
 
     def authenticate(self, email: str, password: str):
         user = self.db.execute(

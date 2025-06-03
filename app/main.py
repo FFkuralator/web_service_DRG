@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from backend.database.db import Database
 import os
 
 from backend.routes.register import auth_bp
@@ -106,8 +107,11 @@ app.secret_key = os.getenv('SECRET_KEY', 'dev_fallback_key')
 app.config['DATABASE'] = os.path.join('instance', 'app.db')
 
 os.makedirs('instance', exist_ok=True)
+app.register_blueprint(auth_bp, url_prefix='/auth')
 
-app.register_blueprint(auth_bp)
+with app.app_context():
+    db = Database(app.config['DATABASE'])
+    db._init_db()
 
 @app.route('/')
 def index():
