@@ -110,42 +110,25 @@ app.config['DATABASE'] = os.path.join('instance', 'app.db')
 os.makedirs('instance', exist_ok=True)
 app.register_blueprint(auth_bp, url_prefix='/auth')
 
-db = Database(app.config['DATABASE'])
+with app.app_context():
+    db = Database(app.config['DATABASE'])
+    db._init_db()
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/space/<int:space_id>')
-def space(space_id: int):
-    space_data = db.execute(
-        "SELECT * FROM spaces WHERE id = ?",
-        (space_id,),
-        fetch_one=True
-    )
-    if not space_data:
-        return render_template('errors/404.html'), 404
-    return render_template('spaces/space_card.html', space=space_data)
+@app.route('/space/<int:id>')
+def space(id):
+    return render_template('spaces/space_card.html', space=all_spaces[0]["spaces"][0])
 
 @app.route('/catalog')
 def catalog():
-    categories = db.execute(
-        """SELECT c.id, c.name, 
-           (SELECT COUNT(*) FROM spaces WHERE category_id = c.id) 
-           FROM categories c"""
-    )
-    return render_template('spaces/catalog.html', categories=categories)
+    return render_template('spaces/catalog.html', space_categories=all_spaces, category=all_spaces[0])
 
 @app.route('/favorites')
-@login_required
 def favorites():
-    favorites = db.execute(
-        """SELECT s.* FROM spaces s
-           JOIN user_favorites uf ON s.id = uf.space_id
-           WHERE uf.user_id = ?""",
-        (session['user_id'],)
-    )
-    return render_template('spaces/favorites.html', favorites=favorites)
+    return render_template('spaces/favorites.html', favorites=all_spaces[0])
 
 @app.route('/auth')
 def auth():
@@ -170,6 +153,4 @@ def profile():
                            })
 
 if __name__ == '__main__':
-    db = Database('instance/app.db')
-    db.add_test_data()  # Тесттт
     app.run(debug=True)

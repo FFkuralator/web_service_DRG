@@ -17,14 +17,9 @@ class Database:
                     password_hash TEXT NOT NULL,
                     full_name TEXT,
                     number_phone TEXT UNIQUE NOT NULL,
+                    image_src TEXT,
+                    image_alt,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            """)
-
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS categories (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL UNIQUE
                 )
             """)
 
@@ -36,7 +31,7 @@ class Database:
                     level TEXT NOT NULL,
                     location TEXT NOT NULL,
                     description TEXT,
-                    image_src TEXT,
+                    image_src TEXT, 
                     image_alt TEXT,
                     FOREIGN KEY (category_id) REFERENCES categories(id)
                     
@@ -63,23 +58,3 @@ class Database:
             cursor.execute(query, params)
             conn.commit()
             return cursor.fetchone() if fetch_one else cursor.fetchall()
-
-    def add_test_data(self) -> None:
-        with closing(self._get_connection()) as conn:
-            # Очищаем существующие тестовые данные
-            conn.execute("DELETE FROM categories")
-            conn.execute("DELETE FROM spaces")
-
-            # Добавляем тестовые категории
-            conn.execute("INSERT INTO categories (name) VALUES ('Танцы')")
-            conn.execute("INSERT INTO categories (name) VALUES ('Не танцы')")
-
-            # Добавляем тестовые пространства
-            conn.execute("""
-                INSERT INTO spaces 
-                (category_id, name, building, level, location, description, image_src)
-                VALUES 
-                (1, 'Танцевальный зал', 'A', 3, 'A301', 'Зеркальный зал для танцев', 'dance_hall.jpg'),
-                (2, 'Конференц-зал', 'B', 1, 'B101', 'Зал для совещаний', 'conference_room.jpg')
-            """)
-            conn.commit()
