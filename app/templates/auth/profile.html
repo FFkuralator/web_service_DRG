@@ -13,7 +13,7 @@
         <section class="basic_info">
             <div>
                 <img class="avatar" src="{{ url_for('static', filename=user.avatar_src) }}" alt="avatar">
-                <h2 class="username">{{ user.username }}</h2>
+                <h2 class="username">{{ user.full_name }}</h2>
             </div>
 
             <div class="contacts">

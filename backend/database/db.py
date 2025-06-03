@@ -20,19 +20,66 @@ class Database:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
-            conn.commit()
 
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS categories (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL UNIQUE
+                )
+            """)
+
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    building TEXT NOT NULL,
+                    level TEXT NOT NULL,
+                    location TEXT NOT NULL,
+                    description TEXT,
+                    image_src TEXT,
+                    image_alt TEXT,
+                    FOREIGN KEY (category_id) REFERENCES categories(id)
+                    
+            )
+            """)
+
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS user_favorites (
+                    user_id INTEGER NOT NULL,
+                    space_id INTEGER NOT NULL,
+                    PRIMARY KEY (user_id, space_id),
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    FOREIGN KEY (space_id) REFERENCES spaces(id)
+                )
+            """)
+
+            conn.commit()
     def _get_connection(self):
         return sqlite3.connect(self.db_path)
 
-    def execute(
-        self,
-        query: str,
-        params: tuple = (),
-        fetch_one: bool = False
-    ) -> Union[List, Optional[tuple]]:
+    def execute(self, query: str, params: tuple = (), fetch_one: bool = False) -> Union[List, Optional[tuple]]:
         with closing(self._get_connection()) as conn:
             cursor = conn.cursor()
             cursor.execute(query, params)
             conn.commit()
             return cursor.fetchone() if fetch_one else cursor.fetchall()
+
+    def add_test_data(self) -> None:
+        with closing(self._get_connection()) as conn:
+            # Очищаем существующие тестовые данные
+            conn.execute("DELETE FROM categories")
+            conn.execute("DELETE FROM spaces")
+
+            # Добавляем тестовые категории
+            conn.execute("INSERT INTO categories (name) VALUES ('Танцы')")
+            conn.execute("INSERT INTO categories (name) VALUES ('Не танцы')")
+
+            # Добавляем тестовые пространства
+            conn.execute("""
+                INSERT INTO spaces 
+                (category_id, name, building, level, location, description, image_src)
+                VALUES 
+                (1, 'Танцевальный зал', 'A', 3, 'A301', 'Зеркальный зал для танцев', 'dance_hall.jpg'),
+                (2, 'Конференц-зал', 'B', 1, 'B101', 'Зал для совещаний', 'conference_room.jpg')
+            """)
+            conn.commit()

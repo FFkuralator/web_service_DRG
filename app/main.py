@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from backend.database.db import Database
 import os
 
-from backend.routes.register import auth_bp
+from backend.database.models.user import User
+from backend.routes.register import auth_bp, login_required
 
 # delete later
 all_spaces = [
@@ -109,45 +110,66 @@ app.config['DATABASE'] = os.path.join('instance', 'app.db')
 os.makedirs('instance', exist_ok=True)
 app.register_blueprint(auth_bp, url_prefix='/auth')
 
-with app.app_context():
-    db = Database(app.config['DATABASE'])
-    db._init_db()
+db = Database(app.config['DATABASE'])
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/space/<int:id>')
-def space(id):
-    return render_template('spaces/space_card.html', space=all_spaces[0]["spaces"][0])
+@app.route('/space/<int:space_id>')
+def space(space_id: int):
+    space_data = db.execute(
+        "SELECT * FROM spaces WHERE id = ?",
+        (space_id,),
+        fetch_one=True
+    )
+    if not space_data:
+        return render_template('errors/404.html'), 404
+    return render_template('spaces/space_card.html', space=space_data)
 
 @app.route('/catalog')
 def catalog():
-    return render_template('spaces/catalog.html', space_categories=all_spaces, category=all_spaces[0])
+    categories = db.execute(
+        """SELECT c.id, c.name, 
+           (SELECT COUNT(*) FROM spaces WHERE category_id = c.id) 
+           FROM categories c"""
+    )
+    return render_template('spaces/catalog.html', categories=categories)
 
 @app.route('/favorites')
+@login_required
 def favorites():
-    return render_template('spaces/favorites.html', favorites=all_spaces[0])
+    favorites = db.execute(
+        """SELECT s.* FROM spaces s
+           JOIN user_favorites uf ON s.id = uf.space_id
+           WHERE uf.user_id = ?""",
+        (session['user_id'],)
+    )
+    return render_template('spaces/favorites.html', favorites=favorites)
 
 @app.route('/auth')
 def auth():
     return render_template('auth/auth.html')
 
+
 @app.route('/profile')
+@login_required
 def profile():
-    return render_template('auth/profile.html', user={
-        "username": "loh",
-        "email": "asdkkl@aksld",
-        "number": 19283289,
-        "avatar_src": "assets/diana1.jpeg"},
-        booking_history=[
-            {
-                "name": "hui",
-                "date": "20.03.2006 10:50-12:30",
-                "vote": "up"
-            }
-        ]
-        )
+    user = User()
+    user_data = user.db.execute(
+        "SELECT email, full_name, number_phone FROM users WHERE id = ?",
+        (session['user_id'],),
+        fetch_one=True
+    )
+
+    return render_template('auth/profile.html',
+                           user={
+                               'email': user_data[0],
+                               'full_name': user_data[1],
+                               'number': user_data[2]
+                           })
 
 if __name__ == '__main__':
+    db = Database('instance/app.db')
+    db.add_test_data()  # Тесттт
     app.run(debug=True)

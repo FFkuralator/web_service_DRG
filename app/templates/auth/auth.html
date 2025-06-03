@@ -10,29 +10,14 @@
 
 {% block body %}
 <div class="fullscreen_container">
-    <section class="auth_container" style="display: block;">
-        <h1 class="h1">Зарегистрируйся, плиз</h1>
-
-{% extends "head.html" %}
-
-{% block head_attributes %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
-{% endblock %}
-
-{% block title_head %}
-    Аутентификация
-{% endblock %}
-
-{% block body %}
-<div class="fullscreen_container">
-    <section class="auth_container" style="display: block;">
+    <section class="auth_container register-form" style="display: {{ 'block' if not login_form else 'none' }};">
         <h1 class="h1">Зарегистрируйся, плиз</h1>
 
         <form method="POST" action="{{ url_for('auth_bp.register') }}" class="form_container">
             <div class="form_part">
                 <label class="form_label" for="email">Университетский email</label>
                 <input class="text_input" type="email" id="email" name="email"
-                       placeholder="hui@mail.ru" required 
+                       placeholder="hui@mail.ru" required
                        value="{{ request.form.email if request.form }}">
             </div>
 
@@ -64,50 +49,30 @@
         </form>
     </section>
 
-    <section class="auth_container" style="display: none;">
-        <h1 class="h1">Войди, плиз</h1>
-        <form action="{{ url_for('auth_bp.login') }}" class="form_container">
+    <section class="auth_container login-form" style="display: {{ 'block' if login_form else 'none' }};">
+        <h1 class="h1">Вход</h1>
+        <form method="POST" action="{{ url_for('auth_bp.login') }}" class="form_container">
             <div class="form_part">
                 <label class="form_label" for="email">Email</label>
-                <input class="text_input" type="email" id="email" name="email">
+                <input class="text_input" type="email" id="email" name="email"
+                       placeholder="example@mail.ru" required
+                       value="{{ request.form.email if request.form }}">
             </div>
 
             <div class="form_part">
                 <label class="form_label" for="password">Пароль</label>
-                <input class="text_input" type="password" id="password" name="password">
+                <input class="text_input" type="password" id="password" name="password" required>
             </div>
-            <button class="submit_button">Входим</button>
+
+            <button class="submit_button">Войти</button>
+            <div class="form-switch">
+                Нет аккаунта? <a href="{{ url_for('auth_bp.register') }}">Зарегистрироваться</a>
+            </div>
         </form>
     </section>
 
     <footer class="auth_footer">
         <div class="legal_copyright">© 2025 All Rights Reserved</div>
     </footer>
-</div>
-{% endblock %}
-        </form>
-    </section>
-
-    <section class="auth_container" style="display: none;">
-        <h1 class="h1">Войди, плиз</h1>
-
-        <form action="login" class="form_container">
-            <div class="form_part">
-                <label class="form_label" for="login">Логин</label>
-                <input class="text_input" type="text" id="login" name="login">
-            </div>
-
-            <div class="form_part">
-                <label class="form_label" for="password">Пароль</label>
-                <input class="text_input" type="password" id="password" name="password">
-            </div>
-            <button class="sumbit_button">Входим</button>
-        </form>
-    </section>
-
-    <footer class="auth_footer">
-        <div class="legal_copyright">© 2025 All Rights Reserved</div>
-    </footer>
-
 </div>
 {% endblock %}
