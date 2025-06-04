@@ -26,7 +26,7 @@
             <div class="form_part">
                 <label class="form_label" for="email">Университетский email</label>
                 <input class="text_input" type="email" id="email" name="email"
-                       placeholder="hui@mail.ru" required 
+                       placeholder="yo@mail.ru" required 
                        value="{{ request.form.email if request.form }}">
             </div>
 
@@ -39,19 +39,19 @@
 
             <div class="form_part">
                 <label class="form_label" for="full_name">Как к вам обращаться</label>
-                <input class="text_input" type="text" id="full_name" name="full_name"
+                <input class="text_input" placeholder="Иванов Иван Иванович" type="text" id="full_name" name="full_name"
                        required value="{{ request.form.full_name if request.form }}">
             </div>
 
             <div class="form_part">
                 <label class="form_label" for="password">Пароль</label>
-                <input class="text_input" type="password" id="password" name="password"
+                <input class="text_input" placeholder="qwerty123?!+" type="password" id="password" name="password"
                        required value="{{ request.form.password if request.form }}">
             </div>
 
             <div class="form_part">
                 <label class="form_label" for="password_check">Проверка пароля</label>
-                <input class="text_input" type="password" id="password_check" name="password_check">
+                <input class="text_input" placeholder="Повторение пароля" type="password" id="password_check" name="password_check">
             </div>
 
             <button class="submit_button">Регаемся</button>
@@ -65,12 +65,12 @@
         <form action="{{ url_for('auth_bp.login') }}" class="form_container">
             <div class="form_part">
                 <label class="form_label" for="email">Email</label>
-                <input class="text_input" type="email" id="email" name="email">
+                <input class="text_input" placeholder="yo@mail.ru" type="email" id="email" name="email">
             </div>
 
             <div class="form_part">
                 <label class="form_label" for="password">Пароль</label>
-                <input class="text_input" type="password" id="password" name="password">
+                <input class="text_input" placeholder="*****" type="password" id="password" name="password">
             </div>
             <button class="submit_button">Входим</button>
         </form>
