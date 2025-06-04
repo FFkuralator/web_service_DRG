@@ -67,7 +67,6 @@
     padding: 8px 22px;
     font-size: 16px;
     font-weight: 500;
-    transition: .2s ease;
     background-color: white;
     color: black;
 
@@ -101,4 +100,23 @@
     width: auto;
     font-size: 14px;
     font-weight: 400;
+}
+
+.feature {
+    margin: 0 12px;
+}
+
+.big_image {
+    width: 100%;
+    border-radius: 24px;    
+}
+
+.mid_image {
+    width: 100%;
+    border-radius: 9px;
+    margin-bottom: 6px;
+}
+
+.small_image {
+    width: 16%;
 }

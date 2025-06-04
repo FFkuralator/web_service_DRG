@@ -25,7 +25,11 @@
             <nav class="header_nav">
                 <a href="/catalog" class="header_nav_item">Пространства</a>
                 <a href="/favorites" class="header_nav_item">Избранное</a>
-                <a href="/profile" class="header_nav_item">Профиль</a>
+                {% if g.user %}
+                    <a href="/profile" class="header_nav_item header_profile">Профиль</a>
+                {% else %}
+                    <a href="/auth" class="header_nav_item header_profile">Войти</a>
+                {% endif %}
             </nav>
         </header>
 
@@ -43,7 +47,7 @@
                         <div class="logo_text">Loshki</div>
                     </a> 
 
-                    <div class="footer_info_text">Действительно хуйнэ</div>
+                    <div class="footer_info_text">Действительно крайнж</div>
                 </section>
 
                 <section class="footer_info">

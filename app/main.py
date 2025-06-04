@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, g, session
 from backend.database.db import Database
 import os
 
@@ -18,7 +18,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/diana1.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -28,7 +28,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/diana2.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -38,7 +38,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/diana3.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -48,7 +48,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/diana4.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -58,7 +58,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/dmitry.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -68,7 +68,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/ivan.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
 
@@ -113,6 +113,11 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 with app.app_context():
     db = Database(app.config['DATABASE'])
     db._init_db()
+
+@app.before_request
+def get_global_vars():
+    g.user = None
+
 
 @app.route('/')
 def index():

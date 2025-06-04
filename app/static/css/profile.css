@@ -85,7 +85,6 @@
     border-radius: 9px;
     border: .1px solid;
     background-color: rgb(255, 255, 255);
-    transition: .2s ease;
 }
 
 .password_button:hover {
@@ -124,7 +123,6 @@
     border-radius: 9px;
     border: none;
     background-color: red;
-    transition: .2s ease;
 }
 
 .delete_button:hover {

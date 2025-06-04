@@ -2,6 +2,7 @@
 
 {% block head_attributes %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <script src="{{ url_for('static', filename='js/auth.js')}}"></script>
 {% endblock %}
 
 {% block title_head %}
@@ -10,14 +11,24 @@
 
 {% block body %}
 <div class="fullscreen_container">
-    <section class="auth_container register-form" style="display: {{ 'block' if not login_form else 'none' }};">
+    <header class="auth_header">
+        <a href="/" class="logo">
+            <div class="logo_text">BOFUK</div>
+            <div class="logo_by">by</div>
+            <div class="logo_text">Loshki</div>
+        </a> 
+
+    </header>
+    <section class="auth_container display_none" id="signup_container">
+
         <h1 class="h1">Зарегистрируйся, плиз</h1>
 
         <form method="POST" action="{{ url_for('auth_bp.register') }}" class="form_container">
             <div class="form_part">
                 <label class="form_label" for="email">Университетский email</label>
                 <input class="text_input" type="email" id="email" name="email"
-                       placeholder="hui@mail.ru" required
+                       placeholder="yo@mail.ru" required 
+
                        value="{{ request.form.email if request.form }}">
             </div>
 
@@ -30,45 +41,42 @@
 
             <div class="form_part">
                 <label class="form_label" for="full_name">Как к вам обращаться</label>
-                <input class="text_input" type="text" id="full_name" name="full_name"
+                <input class="text_input" placeholder="Иванов Иван Иванович" type="text" id="full_name" name="full_name"
                        required value="{{ request.form.full_name if request.form }}">
             </div>
 
             <div class="form_part">
                 <label class="form_label" for="password">Пароль</label>
-                <input class="text_input" type="password" id="password" name="password"
+                <input class="text_input" placeholder="qwerty123?!+" type="password" id="password" name="password"
                        required value="{{ request.form.password if request.form }}">
             </div>
 
             <div class="form_part">
                 <label class="form_label" for="password_check">Проверка пароля</label>
-                <input class="text_input" type="password" id="password_check" name="password_check">
+                <input class="text_input" placeholder="Повторение пароля" type="password" id="password_check" name="password_check">
             </div>
 
             <button class="submit_button">Регаемся</button>
         </form>
+        <button id="signup_swap_button" class="swap_button">Уже есть аккаунт? Войти</button>
+
     </section>
 
-    <section class="auth_container login-form" style="display: {{ 'block' if login_form else 'none' }};">
-        <h1 class="h1">Вход</h1>
-        <form method="POST" action="{{ url_for('auth_bp.login') }}" class="form_container">
+    <section class="auth_container" id="login_container">
+        <h1 class="h1">Войди, плиз</h1>
+        <form action="{{ url_for('auth_bp.login') }}" class="form_container">
             <div class="form_part">
                 <label class="form_label" for="email">Email</label>
-                <input class="text_input" type="email" id="email" name="email"
-                       placeholder="example@mail.ru" required
-                       value="{{ request.form.email if request.form }}">
+                <input class="text_input" placeholder="yo@mail.ru" type="email" id="email" name="email">
             </div>
 
             <div class="form_part">
                 <label class="form_label" for="password">Пароль</label>
-                <input class="text_input" type="password" id="password" name="password" required>
+                <input class="text_input" placeholder="*****" type="password" id="password" name="password">
             </div>
-
-            <button class="submit_button">Войти</button>
-            <div class="form-switch">
-                Нет аккаунта? <a href="{{ url_for('auth_bp.register') }}">Зарегистрироваться</a>
-            </div>
+            <button class="submit_button">Входим</button>
         </form>
+        <button id="login_swap_button" class="swap_button">Еще нет аккаунта? Зарегистрироваться</button>
     </section>
 
     <footer class="auth_footer">
