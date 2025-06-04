@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener('load', function () {
     let isOpen = false;
 
     document.getElementById('burger_button').addEventListener('click', function () {
@@ -13,6 +13,7 @@ window.onload = function () {
             ani2.beginElement();
             mobileMenu.classList.toggle('active');
             document.body.classList.toggle('no-scroll');
+
         } else {
             ani1Back.beginElement();
             ani2Back.beginElement();
@@ -22,4 +23,4 @@ window.onload = function () {
 
         isOpen = !isOpen;
     });
-}
+})

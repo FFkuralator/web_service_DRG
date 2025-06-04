@@ -23,8 +23,8 @@ function popup_function(popup_name) {
     });
 }
 
-window.onload = function () {
+window.addEventListener('load', function () {
     popup_function('point')
     popup_function('building')
     popup_function('feature')
-}
+})
