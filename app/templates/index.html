@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="section">
+    <section class="section" id="first_section">
         <div class="remark">BOFUK by LOSHKI</div>
         <h1 class="screaming_text screaming_h1 font_400">
             СЕРВИС БРОНИРОВАНИЯ
@@ -24,17 +24,17 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="second_section">
         <h2 class="screaming_text screaming_h2 font_400">
             МЫ ЧЕТА ДЕЛАЕМ ХОРОШО И ДАЖЕ ЛУЧШЕ
             ПОЭТОМУ МЫ НАПИСАЛИ ЭТО БОЛЬШИМИ
             БУКВАМИ НА ЭТОМ СЛАЙДЕ НАШЕГО ЛЭНДИНГА
         </h2>
-        <img class="big_image" src="{{ url_for('static', filename='assets/image.png') }}" alt="">
+        <img class="big_image margin_top" src="{{ url_for('static', filename='assets/image.png') }}" alt="">
         <p class="feature_paragraph margin_top">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus suscipit velit, quis sodales felis malesuada id. Nulla facilisi. Integer dignissim auctor purus sit amet blandit. Nullam fringilla luctus risus. Morbi finibus est malesuada neque convallis mollis</p>
     </section>
 
-    <section class="section">
+    <section class="section" id="third_section">
         <h3 class="screaming_left screaming_h3 font_400">
             ЭТО МЫ ТИПА ФИШЕЧКИ ПОКАЗЫВАЕМ
             И СНОВА БОЛЬШИМИ БУКОВКАМИ
@@ -60,7 +60,7 @@
         <p class="feature_paragraph margin_top">Praesent pellentesque justo nec ante mollis vestibulum. Duis vitae nunc sit amet neque faucibus venenatis eu sit amet libero. Sed velit risus, pulvinar quis tristique vitae, tincidunt quis mauris.</p>
     </section>
 
-    <section class="section">
+    <section class="section" id="fourth_section">
         <div class="right_container">
             <h4 class="font_16px">Тут можно добавить текст</h4>
             <h3 class="screaming_h3 font_400">
@@ -72,7 +72,7 @@
         <img class="big_image margin_top" src="{{ url_for('static', filename='assets/image.png') }}" alt="">
     </section>
 
-    <section class="section">
+    <section class="section" id="fifth_section">
         <h3 class="screaming_h4 screaming_text">ФАК ЙУ</h3>
         <ul>
             <li class="faq_container">
@@ -122,8 +122,8 @@
         </ul>
     </section>
 
-    <section class="section">
-        <div class="bordered_container margin_top">
+    <section class="section" id="sixth_section">
+        <div class="bordered_container">
             <h3 class="screaming_h4 font_400">ТРАЙНИ</h3>
             <p class="font_16px">Ну это же круто шаришь?</p>
             <a href="/catalog" class="try_button">Попробовать</a>

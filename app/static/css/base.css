@@ -9,6 +9,10 @@
     transition: .2s ease;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 .header {
     position: fixed;
     width: 100%;
@@ -21,7 +25,7 @@
     padding: 24px 64px;
     background-color: rgb(255, 255, 255);
     border-bottom: .1px rgb(220, 220, 220) solid;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .logo {
@@ -29,6 +33,7 @@
     align-items: center;
     justify-content: center;
     width: 144px;
+    z-index: 1000;
 }
 
 .logo_by {
@@ -44,6 +49,12 @@
 
 .header_nav {
     
+}
+
+.burger_button {
+    display: none;
+    cursor: pointer;
+    padding: 4px;
 }
 
 .header_nav_item {
@@ -70,7 +81,6 @@
 .main {
     width: 100%;
     min-height: 100vh;
-    margin: 0 0 16px;
     padding: 80px 0 0;
     display: flex;
     flex-direction: column;
@@ -87,14 +97,11 @@
 .footer_grid {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 .footer_logo, .footer_info {
     width: 50%;
     height: 86px;
-}
-
-.footer_logo_text {
-
 }
 
 .footer_info {
@@ -164,4 +171,87 @@
 
 .display_none {
     display: none;
+}
+
+@media screen and (max-width: 1440px) {
+    .bordered_container {
+        padding: 24px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .footer_grid {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .footer_logo, .footer_info {
+        width: auto;
+    }
+    .footer_info {
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .bordered_container {
+        display: grid;
+        justify-items: center;
+        row-gap: 16px;
+    }
+    .header {
+        height: 52px;
+        padding: 6px 32px;
+        opacity: 1;
+    }
+    .main {
+        padding-top: 52px;
+    }
+    .burger_button {
+        display: block;
+        z-index: 1000;
+    }
+    .header_nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: white;
+        color: black;
+        transform: translateY(-100vh);
+        transition: transform 0.4s ease;
+        z-index: 100;
+        padding: 80px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+    }
+
+    .header_nav.active {
+        transform: translateY(0);
+    }   
+    
+    .header_nav a {
+        display: block;
+        width: fit-content;
+    }
+    .header_nav_item {
+        margin-bottom: 24px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+    .footer {
+        padding: 16px 6vw;
+    }
+    .footer_logo, .footer_info {
+        height: auto;
+        margin-bottom: 18px;
+    }
+    .footer_info {
+        flex-direction: column;
+    }
+    .footer_contacts {
+        margin-top: 12px;
+    }
 }
