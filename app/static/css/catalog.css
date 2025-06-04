@@ -19,6 +19,9 @@
     width: 72%;
 }
 
+.fav_margin {
+    margin: 24px auto;
+}
 .category_catalog {
     width: 100%;
     border: .5px solid;
@@ -106,6 +109,24 @@
 
 .filter_popup_item {
     list-style: none;
+}
+
+.fav_button {
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    background-color: white;
+    border: none;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fav_button:hover {
+    background-color: gray;
 }
 
 @media screen and (max-width: 1440px) {
