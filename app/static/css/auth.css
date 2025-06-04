@@ -61,3 +61,14 @@
 .swap_button:hover {
     opacity: 1;
 }
+
+@media screen and (max-width: 440px) {
+    .auth_header {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .auth_container {
+        padding: 10vw;
+        margin: auto 12px;
+    }
+}
