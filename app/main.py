@@ -1,8 +1,9 @@
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, session
 from backend.database.db import Database
 import os
 
-from backend.routes.register import auth_bp
+from backend.database.models.user import User
+from backend.routes.register import auth_bp, login_required
 
 # delete later
 all_spaces = [
@@ -138,21 +139,23 @@ def favorites():
 def auth():
     return render_template('auth/auth.html')
 
+
 @app.route('/profile')
+@login_required
 def profile():
-    return render_template('auth/profile.html', user={
-        "username": "loh",
-        "email": "asdkkl@aksld",
-        "number": 19283289,
-        "avatar_src": "assets/image.png"},
-        booking_history=[
-            {
-                "name": "hui",
-                "date": "20.03.2006 10:50-12:30",
-                "vote": "up"
-            }
-        ]
-        )
+    user = User()
+    user_data = user.db.execute(
+        "SELECT email, full_name, number_phone FROM users WHERE id = ?",
+        (session['user_id'],),
+        fetch_one=True
+    )
+
+    return render_template('auth/profile.html',
+                           user={
+                               'email': user_data[0],
+                               'full_name': user_data[1],
+                               'number': user_data[2]
+                           })
 
 if __name__ == '__main__':
     app.run(debug=True)

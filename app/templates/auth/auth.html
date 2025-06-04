@@ -20,6 +20,7 @@
 
     </header>
     <section class="auth_container display_none" id="signup_container">
+
         <h1 class="h1">Зарегистрируйся, плиз</h1>
 
         <form method="POST" action="{{ url_for('auth_bp.register') }}" class="form_container">
@@ -27,6 +28,7 @@
                 <label class="form_label" for="email">Университетский email</label>
                 <input class="text_input" type="email" id="email" name="email"
                        placeholder="yo@mail.ru" required 
+
                        value="{{ request.form.email if request.form }}">
             </div>
 
