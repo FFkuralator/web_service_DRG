@@ -74,3 +74,19 @@ class User:
                 (user_id,),
             fetch_one=True
         )
+
+    def email_exists(self, email: str):
+        result = self.db.execute(
+            "SELECT 1 FROM users WHERE email = ? LIMIT 1",
+            (email,),
+            fetch_one=True
+        )
+        return result is not None
+
+    def phone_exists(self, phone: str):
+        result = self.db.execute(
+            "SELECT 1 FROM users WHERE number_phone = ? LIMIT 1",
+            (phone,),
+            fetch_one=True
+        )
+        return result is not None

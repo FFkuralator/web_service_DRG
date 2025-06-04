@@ -49,8 +49,22 @@ def register():
                                 number_phone=number_phone,
                                 password_check=password_check)
 
+        user = User()
+        if user.email_exists(email):
+            flash('Этот email уже зарегистрирован', 'danger')
+            return render_template('auth/auth.html',
+                                email='',
+                                full_name=full_name,
+                                number_phone=number_phone)
+
+        if user.phone_exists(number_phone):
+            flash('Этот номер телефона уже зарегистрирован', 'danger')
+            return render_template('auth/auth.html',
+                                email=email,
+                                full_name=full_name,
+                                number_phone='')
+
         try:
-            user = User()
             if user.create(email, password, full_name, number_phone):
                 flash('Регистрация успешна! Теперь войдите.', 'success')
                 return redirect(url_for('auth_bp.login'))
@@ -60,7 +74,7 @@ def register():
         except Exception as e:
             flash(f'Произошла ошибка: {str(e)}', 'danger')
 
-    return render_template('auth/auth.html')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return render_template('auth/auth.html')
 
 def login_required(f):
     @wraps(f)
@@ -97,7 +111,7 @@ def login():
             current_app.logger.error(f"Login error: {str(e)}")
             flash('Ошибка сервера при входе', 'danger')
 
-    return render_template('auth/auth.html', login_form=True)  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return render_template('auth/auth.html', login_form=True)
 
 @auth_bp.route('/logout')
 def logout():

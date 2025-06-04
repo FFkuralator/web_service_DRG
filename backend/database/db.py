@@ -49,6 +49,7 @@ class Database:
             """)
 
             conn.commit()
+
     def _get_connection(self):
         return sqlite3.connect(self.db_path)
 
