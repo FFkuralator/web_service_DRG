@@ -70,4 +70,4 @@ def login():
         else:
             flash('Неверный email или пароль', 'danger')
 
-    return render_template('login.html')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return render_template('auth/profile.html')  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
