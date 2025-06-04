@@ -64,7 +64,7 @@
 
     <section class="auth_container" id="login_container">
         <h1 class="h1">Войди, плиз</h1>
-        <form action="{{ url_for('auth_bp.login') }}" class="form_container">
+        <form method="POST"  action="{{ url_for('auth_bp.login') }}" class="form_container">
             <div class="form_part">
                 <label class="form_label" for="email">Email</label>
                 <input class="text_input" placeholder="yo@mail.ru" type="email" id="email" name="email">

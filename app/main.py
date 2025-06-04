@@ -139,6 +139,22 @@ def favorites():
 def auth():
     return render_template('auth/auth.html')
 
+@app.before_request
+def get_global_vars():
+    user_id = session.get('user_id')
+    if user_id is not None:
+        user = User()
+        user_data = user.get_user_data(user_id)
+        if user_data:
+            g.user = {
+                'id': user_id,
+                'email': user_data[0],
+                'full_name': user_data[1],
+                'number_phone': user_data[2],
+                'image_src': user_data[3] if len(user_data) > 3 else None
+            }
+    else:
+        g.user = None
 
 @app.route('/profile')
 @login_required

@@ -69,8 +69,8 @@ class User:
 
     def get_user_data(self, user_id: int):
         return self.db.execute(
-            """SELECT email, full_name, number_phone, avatar_url 
+            """SELECT email, full_name, number_phone, image_src 
                FROM users WHERE id = ?""",
-            (user_id,),
+                (user_id,),
             fetch_one=True
         )
