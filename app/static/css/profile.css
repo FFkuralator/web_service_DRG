@@ -1,0 +1,131 @@
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.password_button, .logout_button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.password_button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.password_button:hover {
+    background-color: #45a049;
+}
+
+.logout_button {
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    line-height: normal;
+}
+
+.logout_button:hover {
+    background-color: #d32f2f;
+}
+
+.profile_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.basic_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    padding: 32px;
+    margin: 0 auto;
+}
+
+.avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 148px;
+    height: 148px;
+}
+
+.username {
+    font-size: 22px;
+    margin: 12px auto;
+    text-align: center;
+}
+
+.contacts {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    min-width: 60%;
+    margin-bottom: 28px;
+}
+
+.contact {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.password_button {
+    margin: 0 auto;
+    padding: 8px 12px;
+    border-radius: 9px;
+    border: .1px solid;
+    background-color: rgb(255, 255, 255);
+}
+
+.password_button:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.history {
+    width: 50%;
+    padding: 32px;
+
+}
+
+.history_h {
+    font-size: 22px;
+}
+
+.history_item {
+    margin: 12px 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border: .1px solid;
+    border-radius: 12px;
+    padding: 12px 32px;
+}
+
+.history_point {
+    font-size: 16px;
+}
+
+.delete_button {
+    margin: 0 auto;
+    padding: 8px 12px;
+    border-radius: 9px;
+    border: none;
+    background-color: red;
+}
+
+.delete_button:hover {
+    background-color: rgb(210, 0, 0);
+    color: white;
+}
