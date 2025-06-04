@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 from backend.database.db import Database
 import os
 
@@ -17,7 +17,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/diana1.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -27,7 +27,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/diana2.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -37,7 +37,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/diana3.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -47,7 +47,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/diana4.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -57,7 +57,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/dmitry.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
             {
@@ -67,7 +67,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/ivan.jpeg",
+                "image_src": "assets/image.png",
                 "image_alt": "",
             },
 
@@ -113,6 +113,11 @@ with app.app_context():
     db = Database(app.config['DATABASE'])
     db._init_db()
 
+@app.before_request
+def get_global_vars():
+    g.user = None
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -139,7 +144,7 @@ def profile():
         "username": "loh",
         "email": "asdkkl@aksld",
         "number": 19283289,
-        "avatar_src": "assets/diana1.jpeg"},
+        "avatar_src": "assets/image.png"},
         booking_history=[
             {
                 "name": "hui",

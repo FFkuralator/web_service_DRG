@@ -2,6 +2,7 @@
 
 {% block head_attributes %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <script src="{{ url_for('static', filename='js/auth.js')}}"></script>
 {% endblock %}
 
 {% block title_head %}
@@ -10,22 +11,15 @@
 
 {% block body %}
 <div class="fullscreen_container">
-    <section class="auth_container" style="display: block;">
-        <h1 class="h1">Зарегистрируйся, плиз</h1>
+    <header class="auth_header">
+        <a href="/" class="logo">
+            <div class="logo_text">BOFUK</div>
+            <div class="logo_by">by</div>
+            <div class="logo_text">Loshki</div>
+        </a> 
 
-{% extends "head.html" %}
-
-{% block head_attributes %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
-{% endblock %}
-
-{% block title_head %}
-    Аутентификация
-{% endblock %}
-
-{% block body %}
-<div class="fullscreen_container">
-    <section class="auth_container" style="display: block;">
+    </header>
+    <section class="auth_container display_none" id="signup_container">
         <h1 class="h1">Зарегистрируйся, плиз</h1>
 
         <form method="POST" action="{{ url_for('auth_bp.register') }}" class="form_container">
@@ -62,9 +56,11 @@
 
             <button class="submit_button">Регаемся</button>
         </form>
+        <button id="signup_swap_button" class="swap_button">Уже есть аккаунт? Войти</button>
+
     </section>
 
-    <section class="auth_container" style="display: none;">
+    <section class="auth_container" id="login_container">
         <h1 class="h1">Войди, плиз</h1>
         <form action="{{ url_for('auth_bp.login') }}" class="form_container">
             <div class="form_part">
@@ -78,36 +74,11 @@
             </div>
             <button class="submit_button">Входим</button>
         </form>
+        <button id="login_swap_button" class="swap_button">Еще нет аккаунта? Зарегистрироваться</button>
     </section>
 
     <footer class="auth_footer">
         <div class="legal_copyright">© 2025 All Rights Reserved</div>
     </footer>
-</div>
-{% endblock %}
-        </form>
-    </section>
-
-    <section class="auth_container" style="display: none;">
-        <h1 class="h1">Войди, плиз</h1>
-
-        <form action="login" class="form_container">
-            <div class="form_part">
-                <label class="form_label" for="login">Логин</label>
-                <input class="text_input" type="text" id="login" name="login">
-            </div>
-
-            <div class="form_part">
-                <label class="form_label" for="password">Пароль</label>
-                <input class="text_input" type="password" id="password" name="password">
-            </div>
-            <button class="sumbit_button">Входим</button>
-        </form>
-    </section>
-
-    <footer class="auth_footer">
-        <div class="legal_copyright">© 2025 All Rights Reserved</div>
-    </footer>
-
 </div>
 {% endblock %}
