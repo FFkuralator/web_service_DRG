@@ -6,11 +6,16 @@ function popup_function(popup_name) {
         const target = this
         const popup = document.getElementById(popup_name);    
         popup.classList.remove('display_none');
-        const rect = target.getBoundingClientRect();
+        let rect;
+        if (document.documentElement.clientWidth > 768) {
+            rect = target.getBoundingClientRect();
+            popup.style.left = `${rect.left + window.scrollX}px`;
 
+        } else {
+            rect = document.querySelector('.filter_header').getBoundingClientRect();
+        }
         popup.style.top = `${rect.bottom + window.scrollY + 12}px`;
-        popup.style.left = `${rect.left + window.scrollX}px`;
-
+        
         function quit_handler(e) {
             if (!popup.contains(e.target) && e.target.id !== 'target') {
                 popup.classList.add('display_none');
@@ -23,8 +28,8 @@ function popup_function(popup_name) {
     });
 }
 
-window.onload = function () {
+window.addEventListener('load', function () {
     popup_function('point')
     popup_function('building')
     popup_function('feature')
-}
+})
