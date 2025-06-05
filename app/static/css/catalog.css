@@ -157,6 +157,10 @@
     .space_text_container {
         padding: 18px;
     }
+    .filter_popup {
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 @media screen and (max-width: 600px) {
