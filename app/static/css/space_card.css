@@ -112,6 +112,44 @@
     border-top: .1px solid;
 }
 
+.booking_day {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    column-gap: 1px;
+    row-gap: 1px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.booking_slot {
+    background-color: rgb(184, 241, 170);
+    opacity: .7;
+    width: 64px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgb(106, 106, 106);
+    cursor: pointer;
+}
+.booking_slot:hover {
+    opacity: 1;
+}
+.booking_slot.end {
+    background-color: green;
+    opacity: 1;
+    color: black;
+}
+.booking_slot.mid {
+    background-color: lightgreen;
+    opacity: 1;
+    color: black;
+}
+
 .info_description {
     width: 100%;
     margin: 12px 0;
