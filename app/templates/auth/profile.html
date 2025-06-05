@@ -21,10 +21,10 @@
                 <div class="contact">{{ user.number }}</div>
             </div>
             <div class="action-buttons">
-                <button class="password_button">
+                <button class="action_button">
                     Сменить пароль
                 </button>
-                <a href="{{ url_for('auth_bp.logout') }}" class="logout_button">
+                <a href="{{ url_for('auth_bp.logout') }}" class="action_button">
                     Выйти
                 </a>
             </div>
@@ -83,17 +83,15 @@
                 {% for item in booking_history %}
                     <li class="history_item">
                         <h3 class="history_point">{{ item.name }}</h3>
-                        <div>|</div>
                         <div class="history_point">{{ item.date }}</div>
-                        <div>|</div>
-                        <div class="history_point">{{ item.vote }}</div>
+                        <div class="history_point">Оценка: {{ item.vote }}</div>
                     </li>
                 {% endfor %}
             </ul>
 
         </section>
 
-        <button class="delete_button">
+        <button class="action_button">
             Удалить аккаунт
         </button>
     </section>
