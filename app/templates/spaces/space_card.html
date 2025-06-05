@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/space_card.css') }}">
+    <script src="{{ url_for('static', filename='js/space_card.js')}}"></script>
 {% endblock %}
 
 {% block title %}
@@ -12,21 +13,27 @@
     <section class="card_section">
         <div class="card_header">
             <h1 class="space_name">Пространство шарите?</h1>
-            <div>
+            <div class="c_header_buttons">
                 <button class="c_header_button">Шейр ит</button>
                 <button class="c_header_button">Лайк</button>
             </div>
         </div>
         
         <div class="space_gallery">
-            <div>
-                <img class="space_photo" id="space_photo_1" src="{{ url_for('static', filename='assets/diana1.jpeg')}}" alt="">
+            <div class="gallery_container">
+                <div class="slide active">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/diana1.jpeg') }}" alt="Фото 1">
+                </div>
+                <div class="slide">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/diana2.jpeg') }}" alt="Фото 2">
+                </div>
+                <div class="slide">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/diana3.jpeg') }}" alt="Фото 3">
+                </div>
             </div>
-            <div>
-                <img class="space_photo" id="space_photo_2" src="{{ url_for('static', filename='assets/diana2.jpeg')}}" alt="">
-            </div>
-            <div>
-                <img class="space_photo" id="space_photo_3" src="{{ url_for('static', filename='assets/diana3.jpeg')}}" alt="">
+            <div class="button_container">
+                <button id="prev_btn" class="gallery_button">prev</button>
+                <button id="next_btn" class="gallery_button">next</button>
             </div>
         </div>
 
@@ -53,7 +60,7 @@
         <h2 class="h2">Бронируй йоу</h2>
 
         <!-- так если не успеем норм сделать  -->
-        <form action="/book">
+        <form action="/book" class="booking_form">
             <div class="form_part">
                 <label class="form_label" for="date">Дата</label>
                 <input class="form_label" type="date" id="date" name="date" required>
