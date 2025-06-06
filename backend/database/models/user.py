@@ -5,10 +5,9 @@ from passlib.context import CryptContext
 
 
 pwd_context = CryptContext(
-    schemes="bcrypt",
+    schemes=["bcrypt"],
     deprecated="auto",
-    bcrypt__ident="2b",
-    sha256_crypt__default_rounds=10000
+    bcrypt__ident="2b"
 )
 
 
@@ -24,13 +23,16 @@ class User:
         cleaned = re.sub(r'[^\d+]', '', number)
 
         if cleaned.startswith('8'):
-            return  '+7' + cleaned[1:]
+            return '+7' + cleaned[1:]
         elif cleaned.startswith('7'):
             return '+' + cleaned
         return cleaned
 
 
     def create(self, email: str, password: str, full_name: str, number_phone: str):
+
+        if len(password) < 8:
+            raise ValueError('Пароль должен содержать минимум 8 символов')
 
         if not number_phone:
             raise ValueError('Номер телефона обязателен')
@@ -64,3 +66,11 @@ class User:
         if user and pwd_context.verify(password, user[2]):
             return user[0]
         return None
+
+    def get_user_data(self, user_id: int):
+        return self.db.execute(
+            """SELECT email, full_name, number_phone, avatar_url 
+               FROM users WHERE id = ?""",
+            (user_id,),
+            fetch_one=True
+        )

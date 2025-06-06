@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/catalog.css') }}">
+    <script src="{{ url_for('static', filename='js/catalog.js')}}"></script>
 {% endblock %}
 
 {% block title %}
@@ -10,15 +11,15 @@
 
 {% block content %}
     <header class="bordered_container filter_header">
-        <div class="filter_title">
+        <div class="filter_title" id="point_filter">
             Цель
         </div>
 
-        <div class="filter_title">
+        <div class="filter_title" id="building_filter">
             Корпус
         </div>
 
-        <div class="filter_title">
+        <div class="filter_title" id="feature_filter">
             Оборудование
         </div>
     </header>
@@ -74,54 +75,55 @@
     </section>
 
 
-    <div style="display: none;">
+    <div class="display_none filter_popup" id="point_popup">
         <ul>
-            <li>
+            <li class="filter_popup_item">
                 <input type="radio" id="dancing" name="activity" value="dancing" />
                 <label for="dancing">Танцы</label>
             </li>
-            <li>
+
+            <li class="filter_popup_item">
                 <input type="radio" id="studying" name="activity" value="studying" />
                 <label for="studying">Учеба</label>
             </li>
 
-            <li>
+            <li class="filter_popup_item">
                 <input type="radio" id="event" name="activity" value="event" />
                 <label for="event">Мероприятие</label>
             </li>
         </ul>
     </div>
 
-    <div style="display: none;">
+    <div class="display_none filter_popup" id="building_popup">
         <ul>
-            <li>
+            <li class="filter_popup_item">
                 <input type="radio" id="A" name="building" value="A" />
                 <label for="A">Корпус A</label>
             </li>
-            <li>
+            <li class="filter_popup_item">
                 <input type="radio" id="B" name="building" value="B" />
                 <label for="B">Корпус B</label>
             </li>
 
-            <li>
+            <li class="filter_popup_item">
                 <input type="radio" id="C" name="building" value="C" />
                 <label for="C">Корпус C</label>
             </li>
         </ul>
     </div>
 
-    <div style="display: none;">
+    <div class="display_none filter_popup" id="feature_popup">
         <ul>
-            <li>
+            <li class="filter_popup_item">
                 <input type="checkbox" id="projector" name="projector" value="projector"/>
                 <label for="projector">projector</label>
             </li>
-            <li>
+            <li class="filter_popup_item">
                 <input type="checkbox" id="chalkboard" name="chalkboard" value="chalkboard" />
                 <label for="chalkboard">chalkboard</label>
             </li>
 
-            <li>
+            <li class="filter_popup_item">
                 <input type="checkbox" id="huita" name="huita" value="huita" />
                 <label for="huita">huita</label>
             </li>

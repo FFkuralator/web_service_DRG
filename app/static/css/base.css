@@ -6,6 +6,7 @@
     color: black;
     margin: 0;
     padding: 0;
+    transition: .2s ease;
 }
 
 .header {
@@ -20,6 +21,7 @@
     padding: 24px 64px;
     background-color: rgb(255, 255, 255);
     border-bottom: .1px rgb(220, 220, 220) solid;
+    z-index: 100;
 }
 
 .logo {
@@ -48,12 +50,21 @@
     margin: 0 12px;
     font-weight: 500;
     color: rgb(0, 0, 0, .6);
-    transition: ease .2s;
     cursor: pointer;
 }
 
 .header_nav_item:hover {
     color: rgb(0, 0, 0);
+}
+
+.header_profile {
+    border-radius: 14px;
+    padding: 6px 12px;
+    background-color: rgb(255, 191, 191);
+}
+
+.header_profile:hover {
+    background-color: rgb(255, 145, 145);
 }
 
 .main {
@@ -149,4 +160,8 @@
     padding: 6px 12px;
     background-color: aquamarine;
     margin: 12px auto;
+}
+
+.display_none {
+    display: none;
 }

@@ -80,7 +80,6 @@
     position: absolute;
     top: 12px;
     right: 12px;
-    transition: .2s ease;
 }
 
 .unfav_button:hover {

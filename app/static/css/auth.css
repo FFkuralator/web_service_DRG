@@ -5,9 +5,19 @@
     width: 100%;
     min-height: 100vh;
     padding: 42px 0;
-    background-image: url("/static/assets/diana169.heic");
+    background-image: url("/static/assets/image.png");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.auth_header {
+    position: absolute;
+    top: 20px;
+    left: 48px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 8px 16px;
+    box-sizing: content-box;
 }
 
 .auth_container {
@@ -36,4 +46,18 @@
     bottom: 0;
     width: 100%;
     padding: 12px;
+}
+
+.swap_button {
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 12px auto 0;
+    opacity: .7;
+}
+
+.swap_button:hover {
+    opacity: 1;
 }
