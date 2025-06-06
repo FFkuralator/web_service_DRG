@@ -4,7 +4,6 @@ import os
 
 from backend.routes.register import auth_bp
 
-# delete later
 all_spaces = [
     {
         "id": 1,
