@@ -116,6 +116,18 @@
     border-top: .1px solid;
 }
 
+#booking_days {
+    display: flex;
+    flex-direction: row;
+}
+.booking_day_button {
+    border: none;
+    background-color: beige;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: auto 12px;
+}
+
 .booking_days_container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -311,6 +323,16 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 1fr);
     }
+}
 
-
+@media screen and (max-width: 440px) {
+    .card_header {
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+    }
+    .c_header_buttons {
+        justify-content: start;
+        margin: 12px 0 0 -6px;
+    }
 }
