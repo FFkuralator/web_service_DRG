@@ -269,6 +269,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             document.getElementById('error_popup').classList.add('active')
+            if (error.message == 'Too much bookings') {
+                document.getElementById('error_text').textContent = 'Забронировать пространство не удалось, у вас уже достигнуто максимальное количество записей на человека'
+            }
             toggleNoScroll()
         });
     })
