@@ -29,7 +29,7 @@ function popup_function(popup_name) {
 }
 
 window.addEventListener('load', function () {
-    popup_function('point')
+    popup_function('activity')
     popup_function('building')
     popup_function('feature')
 })
@@ -43,9 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
         radio.addEventListener('change', applyFilters);
     });
 
-    document.querySelectorAll('input[name^="feature"]').forEach(checkbox => {
+    document.querySelectorAll('input[name="feature"]').forEach(checkbox => {
         checkbox.addEventListener('change', applyFilters);
     });
+
+    const resetBtn = document.getElementById('filter_reset')
+    resetBtn.addEventListener('click', () => {
+        document.querySelectorAll('input[type="checkbox').forEach(checkbox => checkbox.checked = false)
+        document.querySelectorAll('input[type="radio').forEach(radio => radio.checked = false)
+        applyFilters()
+    })
 
     function applyFilters() {
         const activity = document.querySelector('input[name="activity"]:checked')?.value;
