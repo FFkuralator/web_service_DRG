@@ -60,68 +60,16 @@
         <h2 class="h2">Бронируй йоу</h2>
 
         <form action="/book" class="booking_form">
+            <div class="form_part" id="booking_days">
+                <button class="booking_day_button" id="prev_day" onclick="event.preventDefault()">Prev</button>
+                <div class="booking_days_container" id="booking_days_container">
+                </div>
+                <button class="booking_day_button" id="next_day" onclick="event.preventDefault()">Next</button>
+            </div>
+
             <div class="form_part">
-                <div class="booking_day" id="first_booking_day">
-                    <div class="booking_slot" id="08_00_bslot">08:00</div>
-                    <div class="booking_slot" id="08_15_bslot">08:15</div>
-                    <div class="booking_slot" id="08_30_bslot">08:30</div>
-                    <div class="booking_slot" id="08_45_bslot">08:45</div>
-                    <div class="booking_slot" id="09_00_bslot">09:00</div>
-                    <div class="booking_slot" id="09_15_bslot">09:15</div>
-                    <div class="booking_slot" id="09_30_bslot">09:30</div>
-                    <div class="booking_slot" id="09_45_bslot">09:45</div>
-                    <div class="booking_slot" id="10_00_bslot">10:00</div>
-                    <div class="booking_slot" id="10_15_bslot">10:15</div>
-                    <div class="booking_slot" id="10_30_bslot">10:30</div>
-                    <div class="booking_slot" id="10_45_bslot">10:45</div>
-                    <div class="booking_slot" id="11_00_bslot">11:00</div>
-                    <div class="booking_slot" id="11_15_bslot">11:15</div>
-                    <div class="booking_slot" id="11_30_bslot">11:30</div>
-                    <div class="booking_slot" id="11_45_bslot">11:45</div>
-                    <div class="booking_slot" id="12_00_bslot">12:00</div>
-                    <div class="booking_slot" id="12_15_bslot">12:15</div>
-                    <div class="booking_slot" id="12_30_bslot">12:30</div>
-                    <div class="booking_slot" id="12_45_bslot">12:45</div>
-                    <div class="booking_slot" id="13_00_bslot">13:00</div>
-                    <div class="booking_slot" id="13_15_bslot">13:15</div>
-                    <div class="booking_slot" id="13_30_bslot">13:30</div>
-                    <div class="booking_slot" id="13_45_bslot">13:45</div>
-                    <div class="booking_slot" id="14_00_bslot">14:00</div>
-                    <div class="booking_slot" id="14_15_bslot">14:15</div>
-                    <div class="booking_slot" id="14_30_bslot">14:30</div>
-                    <div class="booking_slot" id="14_45_bslot">14:45</div>
-                    <div class="booking_slot" id="15_00_bslot">15:00</div>
-                    <div class="booking_slot" id="15_15_bslot">15:15</div>
-                    <div class="booking_slot" id="15_30_bslot">15:30</div>
-                    <div class="booking_slot" id="15_45_bslot">15:45</div>
-                    <div class="booking_slot" id="16_00_bslot">16:00</div>
-                    <div class="booking_slot" id="16_15_bslot">16:15</div>
-                    <div class="booking_slot" id="16_30_bslot">16:30</div>
-                    <div class="booking_slot" id="16_45_bslot">16:45</div>
-                    <div class="booking_slot" id="17_00_bslot">17:00</div>
-                    <div class="booking_slot" id="17_15_bslot">17:15</div>
-                    <div class="booking_slot" id="17_30_bslot">17:30</div>
-                    <div class="booking_slot" id="17_45_bslot">17:45</div>
-                    <div class="booking_slot" id="18_00_bslot">18:00</div>
-                    <div class="booking_slot" id="18_15_bslot">18:15</div>
-                    <div class="booking_slot" id="18_30_bslot">18:30</div>
-                    <div class="booking_slot" id="18_45_bslot">18:45</div>
-                    <div class="booking_slot" id="19_00_bslot">19:00</div>
-                    <div class="booking_slot" id="19_15_bslot">19:00</div>
-                    <div class="booking_slot" id="19_30_bslot">19:15</div>
-                    <div class="booking_slot" id="19_45_bslot">19:30</div>
-                    <div class="booking_slot" id="20_00_bslot">20:45</div>
-                    <div class="booking_slot" id="20_15_bslot">20:15</div>
-                    <div class="booking_slot" id="20_30_bslot">20:30</div>
-                    <div class="booking_slot" id="20_45_bslot">20:45</div>
-                    <div class="booking_slot" id="21_00_bslot">21:00</div>
-                    <div class="booking_slot" id="21_15_bslot">21:15</div>
-                    <div class="booking_slot" id="21_30_bslot">21:30</div>
-                    <div class="booking_slot" id="21_45_bslot">21:45</div>
-                    <div class="booking_slot" id="22_00_bslot">22:00</div>
-                    <div class="booking_slot" id="22_15_bslot">22:15</div>
-                    <div class="booking_slot" id="22_30_bslot">22:30</div>
-                    <div class="booking_slot" id="22_45_bslot">22:45</div>
+                <div class="booking_slots" id="booking_slots">
+
                 </div>
             </div>
 
@@ -130,7 +78,7 @@
                 <input class="text_input" type="text" id="comment" name="comment" placeholder="Необязательно">
             </div>
 
-            <button class="submit_button" type="submit">Забронировать</button>
+            <button class="submit_button" type="submit" id="booking_submit_btn">Забронировать</button>
         </form>
     </section>
 
