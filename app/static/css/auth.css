@@ -5,7 +5,7 @@
     width: 100%;
     min-height: 100vh;
     padding: 42px 0;
-    background-image: url("/static/assets/image.png");
+    background-image: url("/static/assets/landscape.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -12,6 +12,7 @@
 
 .space_name {
     font-size: 24px;
+    width: fit-content;
 }
 
 .c_header_button {
@@ -29,17 +30,36 @@
     border: .1px solid rgba(0, 0, 0, 0.5);
 }
 
-.space_gallery {
+.gallery_container {
+    width: 100%;
+}
+.gallery_container {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     row-gap: 2px;
     column-gap: 2px;
 }
+.slide.fulscreen {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 32px;
+    z-index: 1001;
+    background-color: white;
+}
+
+.gallery_button {
+    display: none;
+}
 
 .space_photo {
     width: 100%;
     height: 100%;
+    object-fit: contain;
+
 }
 
 .space_descr_container {
@@ -81,6 +101,10 @@
     font-size: 24px;
     font-weight: 900;
     margin: 16px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #booking_section {
@@ -90,6 +114,75 @@
     flex-direction: column;
     border-bottom: .1px solid;
     border-top: .1px solid;
+}
+
+.booking_days_container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 6px;
+    row-gap: 6px;
+}
+
+.booking_day {
+    background-color: lightblue;
+    border-radius: 8px;
+    opacity: .7;
+    padding: 9px 12px;
+    text-align: center;
+    cursor: pointer;
+}
+.booking_day:hover {
+    opacity: 1;
+}
+.booking_day.active {
+    background-color: blue;
+}
+.booking_day.inactive {
+    cursor: not-allowed;
+    background-color: grey;
+    pointer-events: none
+}
+.booking_slots {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1px;
+    row-gap: 1px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.booking_slot {
+    background-color: rgb(184, 241, 170);
+    opacity: .7;
+    width: 64px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgb(106, 106, 106);
+    cursor: pointer;
+}
+.booking_slot:hover {
+    opacity: 1;
+}
+.booking_slot.end {
+    background-color: green;
+    opacity: 1;
+    color: black;
+}
+.booking_slot.mid {
+    background-color: lightgreen;
+    opacity: 1;
+    color: black;
+}
+.booking_slot.booked, .booking_slot.booked.mid, .booking_slot.booked.end {
+    opacity: .7;
+    background-color: red;
+    color: black;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .info_description {
@@ -115,12 +208,109 @@
 
 .fefumap_link {
     font-size: 18px;
-    margin: 12px 0;
+    margin: 12px auto;
     border: .1px solid;
     border-radius: 12px;
     padding: 12px 24px;
+    display: block;
+    width: fit-content;
 }
 
 .fefumap_link:hover {
     background-color: rgb(250, 250, 250);
+}
+
+
+@media screen and (max-width: 1440px) {
+    .card_section {
+        width: 72%;
+        padding: 24px 48px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .space_name {
+        font-size: 1.3rem;
+    }
+    .card_section {
+        width: 100%;
+        padding: 24px 8vw;
+    }
+    .c_header_buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        width: 100%;
+        margin-left: 18px;
+        margin-right: 0;
+    }
+    .booking_days_container {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .space_descr_list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 8px;
+        row-gap: 4px;
+    }
+    .booking_form {
+        width: 72%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .gallery_container {
+        display: block;
+        height: 560px;
+    }
+    .slide {
+        overflow: hidden;
+        opacity: 0;
+        display: none;
+    }
+    .slide.active {
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .space_gallery {
+        height: 640px;
+    }
+    .space_photo {
+        height: 560px;
+        margin: auto;
+    }
+    .button_container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 24px;
+    }
+    .gallery_button {
+        font-size: 24px;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 12px;
+        background-color: antiquewhite;
+        cursor: pointer;
+        display: block;
+    }
+    .gallery_button:hover {
+        background-color: rgb(195, 161, 116);
+    }
+    .booking_form {
+        width: auto;
+        max-width: 96%;
+    }
+    .booking_days_container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+
 }
