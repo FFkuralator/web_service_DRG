@@ -303,6 +303,10 @@
     .gallery_button:hover {
         background-color: rgb(195, 161, 116);
     }
+    .booking_form {
+        width: auto;
+        max-width: 96%;
+    }
     .booking_days_container {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 1fr);
