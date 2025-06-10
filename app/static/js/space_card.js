@@ -215,70 +215,96 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function mouseEnterFunc() {
+    function mouseMidSlotsUpdater() {
         if (!startSlot || (startSlot && endSlot)) return
         updateMidSlots(this)
     }
 
-    function mouseLeaveFunc() {
-        if (!startSlot || (startSlot && endSlot)) return
-        updateMidSlots(this)
-    }
-
-    function addTimeSlotListeners() {
-        function add15Minutes(time) {
-            const text = time.split(":").map(Number);
-            let newTime;
-            if (text[1] == '45') {
-                newTime = `${text[0] + 1}:00`
-            } else {
-                newTime = `${text[0]}:${text[1] + 15}`
-            }
-            return newTime
+    function add15Minutes(time) {
+        const [hours, minutes] = time.split(":").map(Number);
+        let newTime;
+        if (minutes == '45') {
+            newTime = `${hours + 1}:00`
+        } else {
+            newTime = `${hours}:${minutes + 15}`
         }
-        
+        return newTime
+    }
+    function textToTime(text) {
+        let [hours, minutes] = text.split(":").map(Number);
+        return hours * 60 + minutes;
+    }
+
+    const submitBtn = document.getElementById('booking_submit_btn')
+    submitBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        const data = {
+            space: window.location.pathname.split('/')[2],
+            date: allDates[chosenDay],
+            startTime: textToTime(startSlot.textContent),
+            endTime: textToTime(add15Minutes(endSlot.textContent)),
+        }
+
+        fetch('/submit_booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Успех:', result);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+        console.log(data)
+    })
+
+    function addTimeSlotListeners() {        
         slots.forEach(slot => {
             slot.addEventListener('click', () => {
                 if (slot.classList.contains('booked')) return
                 if (!startSlot) {
                     startSlot = slot
                     slot.classList.add('end')
-                    document.getElementById('booking_submit_btn').textContent = 'Забронировать';
+                    submitBtn.textContent = 'Забронировать';
                 } else if (startSlot && endSlot && slot != startSlot && slot != endSlot) {
                     clearSelection()
                     startSlot = slot
                     slot.classList.add('end')
-                    document.getElementById('booking_submit_btn').textContent = 'Забронировать';
+                    submitBtn.textContent = 'Забронировать';
                 } else if (slot == startSlot) {
                     clearSelection();
-                    document.getElementById('booking_submit_btn').textContent = 'Забронировать';
+                    submitBtn.textContent = 'Забронировать';
                 } else if (slot == endSlot) {
                     endSlot = null
                     slot.classList.remove('end')
                     slots.forEach((slot, i) => {
                         slot.classList.remove('mid')
                     });
-                    document.getElementById('booking_submit_btn').textContent = 'Забронировать';
+                    submitBtn.textContent = 'Забронировать';
                 } else {
                     if (isWithinTwoHours(startSlot, slot)) {
                         endSlot = slot
                         slot.classList.add('end')
                         let booking_text;
                         if (getIndex(startSlot) > getIndex(endSlot)) {
-                            booking_text = `Забронировать на ${endSlot.textContent}-${add15Minutes(startSlot.textContent)}, ${daySlots[chosenDay].innerText}`
+                            booking_text = `Забронировать на ${endSlot.textContent}-${add15Minutes(startSlot.textContent)}, ${daySlots[chosenDay - currentDaysSlide * 6].textContent}`
                         } else {
-                            booking_text = `Забронировать на ${startSlot.textContent}-${add15Minutes(endSlot.textContent)}, ${daySlots[chosenDay].innerText}`
+                            booking_text = `Забронировать на ${startSlot.textContent}-${add15Minutes(endSlot.textContent)}, ${daySlots[chosenDay - currentDaysSlide * 6].textContent}`
                         }
-                        document.getElementById('booking_submit_btn').textContent = booking_text;
+                        submitBtn.textContent = booking_text;
                     } else {
                         alert("Пространство можно забронировать не более чем на 2 часа")
                     }
                 }
             });
 
-            slot.addEventListener('mouseenter', mouseEnterFunc);
+            slot.addEventListener('mouseenter', mouseMidSlotsUpdater);
 
-            slot.addEventListener('mouseleave', mouseLeaveFunc);
+            slot.addEventListener('mouseleave', mouseMidSlotsUpdater);
         });
     }
 
