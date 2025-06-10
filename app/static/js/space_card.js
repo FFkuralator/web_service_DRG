@@ -253,6 +253,13 @@ document.addEventListener('DOMContentLoaded', function () {
     bookingForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
+        const isLoggedIn = document.body.dataset.loggedIn === 'true';
+        if (!isLoggedIn) {
+            alert('Для бронирования необходимо войти в систему');
+            window.location.href = '/auth/login';
+            return;
+        }
+
         if (!selectedDate) {
             alert('Пожалуйста, выберите дату бронирования');
             return;
