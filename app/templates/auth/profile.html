@@ -79,16 +79,28 @@
 
         <section class="history">
             <h2 class="history_h">История бронирований</h2>
-            <ul class="history_list">
-                {% for item in booking_history %}
-                    <li class="history_item">
-                        <h3 class="history_point">{{ item.name }}</h3>
-                        <div class="history_point">{{ item.date }}</div>
-                        <div class="history_point">Оценка: {{ item.vote }}</div>
-                    </li>
-                {% endfor %}
-            </ul>
-
+            {% if not bookings %}
+                <p class="no-bookings">У вас пока нет бронирований</p>
+            {% else %}
+                <ul class="history_list">
+                    {% for booking in bookings %}
+                        <li class="history_item">
+                            <div class="booking-info">
+                                <h3 class="history_point">{{ booking.space_name }}</h3>
+                                <div class="history_point">{{ booking.date }} {{ booking.start_time }} - {{ booking.end_time }}</div>
+                                <div class="history_point">Корпус {{ booking.building }}, {{ booking.level }} этаж</div>
+                                {% if booking.comment %}
+                                    <div class="history_point comment">Комментарий: {{ booking.comment }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="booking-actions">
+                                <button class="action_button small">Повторить</button>
+                                <button class="action_button small">Отменить</button>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </section>
 
         <button class="action_button">

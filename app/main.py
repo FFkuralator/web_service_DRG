@@ -242,22 +242,28 @@ def my_bookings():
     bookings = booking_model.get_user_bookings(session['user_id'])
     return render_template('bookings/my_bookings.html', bookings=bookings)
 
+
 @app.route('/profile')
 @login_required
 def profile():
     user = User()
+    booking_model = Booking()
+
     user_data = user.db.execute(
         "SELECT email, full_name, number_phone FROM users WHERE id = ?",
         (session['user_id'],),
         fetch_one=True
     )
 
+    bookings = booking_model.get_user_bookings(session['user_id'])
+
     return render_template('auth/profile.html',
                            user={
                                'email': user_data[0],
                                'full_name': user_data[1],
                                'number': user_data[2]
-                           })
+                           },
+                           bookings=bookings)
 
 if __name__ == '__main__':
     app.run(debug=True)
