@@ -111,22 +111,37 @@
     list-style: none;
 }
 
+.fav_button_box {
+    background-color: white;
+    top: 12px;
+    right: 12px;
+    width: fit-content;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 9px 0 2px;
+    border: none;
+    border-radius: 28px;
+    cursor: pointer;
+}
+
+.fav_button_box:hover {
+    background-color: gray;
+}
+
 .fav_button {
     border-radius: 50%;
     width: 28px;
     height: 28px;
-    background-color: white;
-    border: none;
-    position: absolute;
-    top: 12px;
-    right: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.fav_button:hover {
-    background-color: gray;
+.fav_button_counter {
+    font-size: 12px;
 }
 
 @media screen and (max-width: 1440px) {
