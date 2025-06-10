@@ -2,9 +2,9 @@ function popup_function(popup_name) {
     filter_name = popup_name + "_filter"
     popup_name = popup_name + "_popup"
     document.getElementById(filter_name).addEventListener("click", function() {
-        
+
         const target = this
-        const popup = document.getElementById(popup_name);    
+        const popup = document.getElementById(popup_name);
         popup.classList.remove('display_none');
         let rect;
         if (document.documentElement.clientWidth > 768) {
@@ -15,7 +15,7 @@ function popup_function(popup_name) {
             rect = document.querySelector('.filter_header').getBoundingClientRect();
         }
         popup.style.top = `${rect.bottom + window.scrollY + 12}px`;
-        
+
         function quit_handler(e) {
             if (!popup.contains(e.target) && e.target.id !== 'target') {
                 popup.classList.add('display_none');
