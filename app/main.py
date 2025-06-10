@@ -42,8 +42,17 @@ def space(id):
     if not space_data:
         return "Space not found", 404
 
-    space_data['features'] = space_model.get_space_features(id)
-    return render_template('spaces/space_card.html', space=space_data)
+    columns = ['id', 'name', 'building', 'level', 'location', 'description',
+               'image_src', 'image_alt', 'category_id', 'category_name']
+    space_dict = dict(zip(columns, space_data))
+    space_dict['features'] = space_model.get_space_features(id)
+
+    if 'user_id' in session:
+        space_dict['is_favorite'] = space_model.is_favorite(session['user_id'], id)
+    else:
+        space_dict['is_favorite'] = False
+
+    return render_template('spaces/space_card.html', space=space_dict)
 
 
 @app.route('/catalog')
@@ -54,10 +63,17 @@ def catalog():
     space_categories = []
     for cat in categories:
         spaces = space_model.get_by_category(cat[0])
+        enriched_spaces = []
+        for space in spaces:
+            is_fav = False
+            if 'user_id' in session:
+                is_fav = space_model.is_favorite(session['user_id'], space['id'])
+            enriched_spaces.append({**space, 'is_favorite': is_fav})
+
         space_categories.append({
             "id": cat[0],
             "name": cat[1],
-            "spaces": spaces
+            "spaces": enriched_spaces
         })
 
     return render_template('spaces/catalog.html', space_categories=space_categories)
@@ -109,6 +125,42 @@ def favorites():
     return render_template('spaces/favorites.html', favorites={
         "spaces": spaces
     })
+
+
+@app.route('/api/favorites', methods=['POST'])
+@login_required
+def toggle_favorite():
+    try:
+        data = request.get_json()
+        print(f"Received data: {data}")  # Debug
+
+        space_id = data.get('space_id')
+        user_id = session.get('user_id')
+
+        if not space_id or not user_id:
+            return jsonify({'error': 'Missing parameters'}), 400
+
+        space_model = Space()
+
+        if space_model.is_favorite(user_id, space_id):
+            space_model.remove_from_favorites(user_id, space_id)
+            return jsonify({'status': 'removed'})
+        else:
+            space_model.add_to_favorites(user_id, space_id)
+            return jsonify({'status': 'added'})
+
+    except Exception as e:
+        print(f"Error in toggle_favorite: {e}")  # Debug
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/favorites/check/<int:space_id>')
+@login_required
+def check_favorite(space_id):
+    user_id = session['user_id']
+    space_model = Space()
+    is_fav = space_model.is_favorite(user_id, space_id)
+    return jsonify({'is_favorite': is_fav})
 
 @app.route('/auth')
 def auth():

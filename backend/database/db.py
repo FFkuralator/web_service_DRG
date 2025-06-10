@@ -79,4 +79,6 @@ class Database:
             cursor = conn.cursor()
             cursor.execute(query, params)
             conn.commit()
-            return cursor.fetchone() if fetch_one else cursor.fetchall()
+            if fetch_one:
+                return cursor.fetchone()
+            return cursor.fetchall()
