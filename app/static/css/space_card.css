@@ -43,7 +43,7 @@
 .slide.fulscreen {
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     padding: 32px;
@@ -114,6 +114,12 @@
     flex-direction: column;
     border-bottom: .1px solid;
     border-top: .1px solid;
+}
+
+.booking_form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .booking_days_container {
@@ -220,6 +226,33 @@
     background-color: rgb(250, 250, 250);
 }
 
+.popup {
+    width: 100%;
+    height: 100%;
+    display: none;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.popup.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup_container{
+    background-color: white;
+    padding: 128px;
+    width: 32%;
+    border-radius: 12px;
+    border: 1px black solid;
+}
+.popup_text {
+    font-size: 18px;
+}
+.popup_button {
+
+}
 
 @media screen and (max-width: 1440px) {
     .card_section {

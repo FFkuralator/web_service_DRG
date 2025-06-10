@@ -1,3 +1,7 @@
+function toggleNoScroll() {
+    document.body.classList.toggle('no-scroll');
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.slide');
     let currentIndex = 0;
@@ -6,20 +10,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevBtn = document.getElementById('prev_btn');
     const nextBtn = document.getElementById('next_btn');
 
-    function showFullscreen() {
-        this.classList.toggle('fulscreen');
-        document.body.classList.toggle('no-scroll');
-    }
-
     function showSlide(index) {
         slides.forEach((slide, i) => {
             slide.classList.remove('active');
         });
         slides[index].classList.add('active');
     }
+    function toggleFullscreen() {
+        this.classList.toggle('fulscreen');
+        toggleNoScroll()
+    }
 
     slides.forEach((slide, i) => {
-        slide.addEventListener('click', showFullscreen);
+        slide.addEventListener('click', toggleFullscreen);
     });
 
     prevBtn.addEventListener('click', function () {
@@ -254,12 +257,20 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(result => {
-            console.log('Успех:', result);
+            document.getElementById('result_popup').classList.add('active')
+            if (getIndex(startSlot) > getIndex(endSlot)) {
+                booking_text = `${endSlot.textContent}-${add15Minutes(startSlot.textContent)}, ${daySlots[chosenDay - currentDaysSlide * 6].textContent}`
+            } else {
+                booking_text = `${startSlot.textContent}-${add15Minutes(endSlot.textContent)}, ${daySlots[chosenDay - currentDaysSlide * 6].textContent}`
+            }
+
+            document.getElementById('result_text').textContent = `Вы забронировали ${document.querySelector('.space_name').textContent} на ${booking_text}`
+            toggleNoScroll()
         })
         .catch(error => {
-            console.error('Ошибка:', error);
+            document.getElementById('error_popup').classList.add('active')
+            toggleNoScroll()
         });
-        console.log(data)
     })
 
     function addTimeSlotListeners() {        
@@ -309,3 +320,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.popup').forEach((popup) => {
+        popup.addEventListener('click', () => {
+            popup.classList.remove('active');
+            toggleNoScroll();
+        })
+    });
+})
