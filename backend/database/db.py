@@ -1,11 +1,13 @@
+import os
 import sqlite3
 from contextlib import closing
 from typing import Optional, List, Union
 
 
 class Database:
-    def __init__(self, db_path: str = 'app.db'):
-        self.db_path = db_path
+    def __init__(self, db_path: str = 'instance/app.db'):
+        os.makedirs(os.path.dirname(db_path), exist_ok=True)
+        self.db_path = os.path.abspath(db_path)
         self._init_db()
 
     def _init_db(self):
@@ -24,7 +26,14 @@ class Database:
             """)
 
             conn.execute("""
-                CREATE TABLE IF NOT EXISTS users (
+                CREATE TABLE IF NOT EXISTS categories (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT UNIQUE NOT NULL
+                )
+            """)
+
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS spaces (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     building TEXT NOT NULL,
@@ -33,9 +42,18 @@ class Database:
                     description TEXT,
                     image_src TEXT, 
                     image_alt TEXT,
+                    category_id INTEGER NOT NULL,
                     FOREIGN KEY (category_id) REFERENCES categories(id)
-                    
-            )
+                )
+            """)
+
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS space_features (
+                    space_id INTEGER NOT NULL,
+                    feature TEXT NOT NULL,
+                    PRIMARY KEY (space_id, feature),
+                    FOREIGN KEY (space_id) REFERENCES spaces(id)
+                )
             """)
 
             conn.execute("""
@@ -47,6 +65,9 @@ class Database:
                     FOREIGN KEY (space_id) REFERENCES spaces(id)
                 )
             """)
+
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_space_category ON spaces(category_id)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_space_features ON space_features(space_id)")
 
             conn.commit()
 

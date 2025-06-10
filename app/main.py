@@ -1,107 +1,11 @@
-from flask import Flask, render_template, g, session
+from flask import Flask, render_template, g, session, jsonify, request
 from backend.database.db import Database
 import os
 
+from backend.database.models.space import Space
 from backend.database.models.user import User
 from backend.routes.register import auth_bp, login_required
 
-# delete later
-all_spaces = [
-    {
-        "id": 1,
-        "name": "Танцы",
-        "spaces": [
-            {
-                "id": 1,
-                "name": "Пространство",
-                "building": "A",
-                "level": 6,
-                "location": "A666",
-                "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/portrait.png",
-                "image_alt": "",
-            },
-            {
-                "id": 2,
-                "name": "Пространство",
-                "building": "A",
-                "level": 6,
-                "location": "A666",
-                "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/portrait.png",
-                "image_alt": "",
-            },
-            {
-                "id": 1,
-                "name": "Пространство",
-                "building": "A",
-                "level": 6,
-                "location": "A666",
-                "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/portrait.png",
-                "image_alt": "",
-            },
-            {
-                "id": 2,
-                "name": "Пространство",
-                "building": "A",
-                "level": 6,
-                "location": "A666",
-                "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/portrait.png",
-                "image_alt": "",
-            },
-            {
-                "id": 1,
-                "name": "Пространство",
-                "building": "A",
-                "level": 6,
-                "location": "A666",
-                "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/portrait.png",
-                "image_alt": "",
-            },
-            {
-                "id": 2,
-                "name": "Пространство",
-                "building": "A",
-                "level": 6,
-                "location": "A666",
-                "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/portrait.png",
-                "image_alt": "",
-            },
-
-        ]
-    },
-    {
-        "id": 1,
-        "name": "Не танцы",
-        "spaces": [
-            {
-                "id": 3,
-                "name": "Пространство",
-                "building": "A",
-                "level": 6,
-                "location": "A666",
-                "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/portrait.png",
-                "image_alt": "",
-            },
-            {
-                "id": 4,
-                "name": "Пространство",
-                "building": "A",
-                "level": 6,
-                "location": "A666",
-                "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/portrait.png",
-                "image_alt": "",
-            }
-
-        ]
-    },
-]
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'dev_fallback_key')
@@ -123,17 +27,76 @@ def get_global_vars():
 def index():
     return render_template('index.html')
 
+
 @app.route('/space/<int:id>')
 def space(id):
-    return render_template('spaces/space_card.html', space=all_spaces[0]["spaces"][0])
+    space_model = Space()
+    space_data = db.execute(
+        """SELECT s.*, c.name AS category_name 
+           FROM spaces s JOIN categories c ON s.category_id = c.id 
+           WHERE s.id = ?""",
+        (id,),
+        fetch_one=True
+    )
+
+    if not space_data:
+        return "Space not found", 404
+
+    space_data['features'] = space_model.get_space_features(id)
+    return render_template('spaces/space_card.html', space=space_data)
+
 
 @app.route('/catalog')
 def catalog():
-    return render_template('spaces/catalog.html', space_categories=all_spaces, category=all_spaces[0])
+    space_model = Space()
+    categories = db.execute("SELECT * FROM categories")
+
+    space_categories = []
+    for cat in categories:
+        spaces = space_model.get_by_category(cat[0])
+        space_categories.append({
+            "id": cat[0],
+            "name": cat[1],
+            "spaces": spaces
+        })
+
+    return render_template('spaces/catalog.html', space_categories=space_categories)
+
+
+@app.route('/catalog/filter')
+def filtered_catalog():
+    activity = request.args.get('activity', '')
+    building = request.args.get('building', '')
+    features = request.args.get('features', '').split(',') if request.args.get('features') else []
+
+    space_model = Space()
+
+    category_id = None
+    if activity == 'dancing':
+        category_id = 1
+    elif activity == 'studying':
+        category_id = 2
+    elif activity == 'event':
+        category_id = 3
+
+    spaces = space_model.get_filtered_spaces(
+        category_id=category_id,
+        building=building if building else None,
+        features=features if features else None
+    )
+
+    return jsonify(spaces)
+
 
 @app.route('/favorites')
+@login_required
 def favorites():
-    return render_template('spaces/favorites.html', favorites=all_spaces[0])
+    space_model = Space()
+    spaces = space_model.get_favorites(session['user_id'])
+
+    return render_template('spaces/favorites.html', favorites={
+        "spaces": spaces
+    })
 
 @app.route('/auth')
 def auth():
