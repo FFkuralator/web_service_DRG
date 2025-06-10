@@ -43,7 +43,7 @@ def space(id):
         return "Space not found", 404
 
     columns = ['id', 'name', 'building', 'level', 'location', 'description',
-               'image_src', 'image_alt', 'category_id', 'category_name']
+               'image1', 'image2', 'image3', 'location_description', 'likes', 'map_url', 'category_name']
     space_dict = dict(zip(columns, space_data))
     space_dict['features'] = space_model.get_space_features(id)
 

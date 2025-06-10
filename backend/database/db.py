@@ -40,8 +40,12 @@ class Database:
                     level TEXT NOT NULL,
                     location TEXT NOT NULL,
                     description TEXT,
-                    image_src TEXT, 
-                    image_alt TEXT,
+                    image1 TEXT,
+                    image2 TEXT,
+                    image3 TEXT,
+                    location_description TEXT,
+                    likes INTEGER,
+                    map_url TEXT,
                     category_id INTEGER NOT NULL,
                     FOREIGN KEY (category_id) REFERENCES categories(id)
                 )

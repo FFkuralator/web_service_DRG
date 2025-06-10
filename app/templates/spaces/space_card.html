@@ -27,13 +27,13 @@
         <div class="space_gallery">
             <div class="gallery_container">
                 <div class="slide active">
-                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 1">
+                    <img class="space_photo" src="{{ url_for('static', filename=space.image1) }}" alt="Фото пространства 1">
                 </div>
                 <div class="slide">
-                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 2">
+                    <img class="space_photo" src="{{ url_for('static', filename=space.image2) }}" alt="Фото пространства 2">
                 </div>
                 <div class="slide">
-                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 3">
+                    <img class="space_photo" src="{{ url_for('static', filename=space.image3) }}" alt="Фото пространства 3">
                 </div>
             </div>
             <div class="button_container">
@@ -51,7 +51,7 @@
             
             <div class="space_likes">
                 <button class="like_button down_button">-</button>
-                <span class="likes_number">1000</span>
+                <span class="likes_number">{{ space.likes }}</span>
                 <button class="like_button up_button">+</button>
             </div>
         </div>
@@ -85,7 +85,7 @@
 
     <section class="card_section">
         <div class="info_description">
-            <p class="info_description_p">{{ space.description }}</p>
+            <p class="info_description_p">{{ space.description | safe }}</p>
         </div>
 
         {% if space.features %}
@@ -96,12 +96,15 @@
                 {% endfor %}
             </ul>
         {% endif %}
-
-        <h2 class="h2">Где это находится</h2>
-        <div class="info_description">
-            <p class="info_description_p">{{ space.location }}</p>
-        </div>
-        <a class="fefumap_link" href="/">Пространство на фефу мап</a>
+        
+        {% if space.location_description %}
+            <h2 class="h2">Где это находится</h2>
+            <div class="info_description">
+                <p class="info_description_p">{{ space.location_description }}</p>
+            </div>
+        {% endif %}
+        
+        <a class="fefumap_link" href="{{ space.map_url }}">Пространство на карте</a>
 
     </section>
 {% endblock %}
