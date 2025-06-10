@@ -1,25 +1,15 @@
 .section {
     width: 100%;
     padding: 64px 18vw;
-}
-
-#first_section {
-    background-color: aqua;
-}
-#second_section {
-    background-color: bisque;
-}
-#third_section {
-    background-color: blueviolet;
-}
-#fourth_section {
-    background-color: chartreuse;
-}
-#fifth_section {
-    background-color: coral;
+    border-bottom: .1px solid;
 }
 #sixth_section {
-    background-color: turquoise;
+    border-bottom: none;
+}
+.width_36_auto {
+    width: 36%;
+    text-align: center;
+    display:  block;
 }
 
 .remark {
@@ -40,23 +30,27 @@
 }
 
 .screaming_h1 {
-    font-size: 7rem;
+    font-size: 6rem;
 }
 
 .screaming_h2 {
-    font-size: 5rem;
+    font-size: 3.6rem;
 }
 
 .screaming_h3 {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 .screaming_h4 {
-    font-size: 3rem;
+    font-size: 1.6rem;
 }
 
 .container_item {
     max-width: 50%;
+}
+
+.bordered_container.feature_container {
+    align-items: baseline;
 }
 
 .feature_paragraph {
@@ -80,7 +74,6 @@
     font-weight: 500;
     background-color: white;
     color: black;
-
 }
 
 .try_button:hover {
@@ -118,14 +111,19 @@
 }
 
 .big_image {
-    width: 100%;
-    border-radius: 24px;    
+    width: auto;
+    max-height: 420px;
+    border-radius: 24px;
+    display: block;
+    margin: 18px auto;
 }
 
 .mid_image {
     width: 100%;
     border-radius: 9px;
     margin-bottom: 6px;
+    display: block;
+    margin: 0 auto 12px;
 }
 
 .small_image {
@@ -214,6 +212,10 @@
         max-width: 82%;
         margin: 0 6vw;
     }
+    .width_36_auto {
+        width: auto;
+        margin: auto 12px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -242,6 +244,9 @@
         display: grid;
         row-gap: 16px;
         padding: 24px 10vw;
+    }
+    .faq_question {
+        max-width: 100%;
     }
 }
 
