@@ -89,6 +89,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (newIndex >= 0 && newIndex <= allDates.length - 6) {
             currentDayIndex = newIndex;
             updateDays();
+            const firstDay = document.querySelector('.booking_day');
+            if (firstDay) {
+                document.querySelector('.booking_day.active')?.classList.remove('active');
+                firstDay.classList.add('active');
+                selectedDate = firstDay.dataset.date;
+                checkAvailability(selectedDate);
+            }
         }
     }
 
