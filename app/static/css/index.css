@@ -1,27 +1,11 @@
 .section {
     width: 100%;
     padding: 64px 18vw;
-}
-
-#first_section {
-    background-color: aqua;
-}
-#second_section {
-    background-color: bisque;
-}
-#third_section {
-    background-color: blueviolet;
-}
-#fourth_section {
-    background-color: chartreuse;
-}
-#fifth_section {
-    background-color: coral;
+    border-bottom: .1px solid;
 }
 #sixth_section {
-    background-color: turquoise;
+    border-bottom: none;
 }
-
 .width_36_auto {
     width: 36%;
     text-align: center;
