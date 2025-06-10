@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         radio.addEventListener('change', applyFilters);
     });
 
-    document.querySelectorAll('input[name="building"]').forEach(radio => {
+    document.querySelectorAll('input[name="building"]').forEach(checkbox => {
         radio.addEventListener('change', applyFilters);
     });
 
@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function applyFilters() {
         const activity = document.querySelector('input[name="activity"]:checked')?.value;
-        const building = document.querySelector('input[name="building"]:checked')?.value;
+        const buildings = Array.from(document.querySelectorAll('input[name^="building"]:checked')).map(el => el.value);
         const features = Array.from(document.querySelectorAll('input[name^="feature"]:checked')).map(el => el.value);
 
-        fetch(`/catalog/filter?activity=${activity || ''}&building=${building || ''}&features=${features.join(',')}`)
+        fetch(`/catalog/filter?activity=${activity || ''}&buildings=${features.join(',') || ''}&features=${features.join(',') || ''}`)
             .then(response => response.json())
             .then(data => updateCatalog(data));
     }
