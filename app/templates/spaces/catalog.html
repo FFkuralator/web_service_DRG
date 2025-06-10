@@ -11,7 +11,7 @@
 
 {% block content %}
     <header class="bordered_container filter_header">
-        <div class="filter_title" id="point_filter">
+        <div class="filter_title" id="activity_filter">
             Цель
         </div>
 
@@ -22,6 +22,8 @@
         <div class="filter_title" id="feature_filter">
             Оборудование
         </div>
+
+        <button class="filter_title" id="filter_reset">Сбросить фильтры</button>
     </header>
 
     <section class="catalog">
@@ -59,7 +61,7 @@
         {% endfor %}
     </section>
 
-    <div class="display_none filter_popup" id="point_popup">
+    <div class="display_none filter_popup" id="activity_popup">
         <ul>
             <li class="filter_popup_item">
                 <input type="radio" id="dancing" name="activity" value="dancing" />
@@ -96,15 +98,15 @@
     <div class="display_none filter_popup" id="feature_popup">
         <ul>
             <li class="filter_popup_item">
-                <input type="checkbox" id="projector" name="projector" value="projector"/>
+                <input type="checkbox" id="projector" name="feature" value="projector"/>
                 <label for="projector">Проектор</label>
             </li>
             <li class="filter_popup_item">
-                <input type="checkbox" id="chalkboard" name="chalkboard" value="chalkboard" />
+                <input type="checkbox" id="chalkboard" name="feature" value="chalkboard" />
                 <label for="chalkboard">Доска</label>
             </li>
             <li class="filter_popup_item">
-                <input type="checkbox" id="sound_system" name="sound_system" value="sound_system" />
+                <input type="checkbox" id="sound_system" name="feature" value="sound_system" />
                 <label for="sound_system">Аудиосистема</label>
             </li>
         </ul>
