@@ -18,7 +18,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/image.png",
+                "image_src": "assets/portrait.png",
                 "image_alt": "",
             },
             {
@@ -28,7 +28,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/image.png",
+                "image_src": "assets/portrait.png",
                 "image_alt": "",
             },
             {
@@ -38,7 +38,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/image.png",
+                "image_src": "assets/portrait.png",
                 "image_alt": "",
             },
             {
@@ -48,7 +48,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/image.png",
+                "image_src": "assets/portrait.png",
                 "image_alt": "",
             },
             {
@@ -58,7 +58,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/image.png",
+                "image_src": "assets/portrait.png",
                 "image_alt": "",
             },
             {
@@ -68,7 +68,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/image.png",
+                "image_src": "assets/portrait.png",
                 "image_alt": "",
             },
 
@@ -85,7 +85,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/ne_diana.jpg",
+                "image_src": "assets/portrait.png",
                 "image_alt": "",
             },
             {
@@ -95,7 +95,7 @@ all_spaces = [
                 "level": 6,
                 "location": "A666",
                 "description": "Lorem ipsum dolores sit ame",
-                "image_src": "assets/ne_diana.jpg",
+                "image_src": "assets/portrait.png",
                 "image_alt": "",
             }
 

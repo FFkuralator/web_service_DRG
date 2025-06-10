@@ -22,13 +22,13 @@
         <div class="space_gallery">
             <div class="gallery_container">
                 <div class="slide active">
-                    <img class="space_photo" src="{{ url_for('static', filename='assets/diana1.jpeg') }}" alt="Фото 1">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 1">
                 </div>
                 <div class="slide">
-                    <img class="space_photo" src="{{ url_for('static', filename='assets/diana2.jpeg') }}" alt="Фото 2">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 2">
                 </div>
                 <div class="slide">
-                    <img class="space_photo" src="{{ url_for('static', filename='assets/diana3.jpeg') }}" alt="Фото 3">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 3">
                 </div>
             </div>
             <div class="button_container">
@@ -59,17 +59,18 @@
     <section class="card_section" id="booking_section">
         <h2 class="h2">Бронируй йоу</h2>
 
-        <!-- так если не успеем норм сделать  -->
         <form action="/book" class="booking_form">
-            <div class="form_part">
-                <label class="form_label" for="date">Дата</label>
-                <input class="form_label" type="date" id="date" name="date" required>
+            <div class="form_part" id="booking_days">
+                <button class="booking_day_button" id="prev_day" onclick="event.preventDefault()">Prev</button>
+                <div class="booking_days_container" id="booking_days_container">
+                </div>
+                <button class="booking_day_button" id="next_day" onclick="event.preventDefault()">Next</button>
             </div>
 
             <div class="form_part">
-                <label class="form_label" for="time">Время</label>
-                <input class="form_label" type="time" id="start_time" name="start_time" required>
-                <input class="form_label" type="time" id="end_time" name="end_time" required>
+                <div class="booking_slots" id="booking_slots">
+
+                </div>
             </div>
 
             <div class="form_part">
@@ -77,7 +78,7 @@
                 <input class="text_input" type="text" id="comment" name="comment" placeholder="Необязательно">
             </div>
 
-            <button class="submit_button" type="submit">Забронировать</button>
+            <button class="submit_button" type="submit" id="booking_submit_btn">Забронировать</button>
         </form>
     </section>
 
