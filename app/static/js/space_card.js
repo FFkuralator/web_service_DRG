@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
     submitBtn.addEventListener('click', (e) => {
         e.preventDefault()
         const data = {
-            space: window.location.pathname.split('/')[2],
+            space: window.location.pathname.split('/space/')[1],
             date: allDates[chosenDay],
             startTime: textToTime(startSlot.textContent),
             endTime: textToTime(add15Minutes(endSlot.textContent)),
