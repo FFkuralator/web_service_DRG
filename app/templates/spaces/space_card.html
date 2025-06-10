@@ -13,9 +13,12 @@
 <body data-logged-in="{{ 'true' if g.user else 'false' }}">
     <section class="card_section">
         <div class="card_header">
-            <h1 class="space_name">{{ space.name }}</h1>
+            <h1 class="space_name">Пространство шарите?</h1>
             <div class="c_header_buttons">
-
+<<<<<<< HEAD
+                <button class="c_header_button">Поделиться</button>
+                <button class="c_header_button">Лайкнуть</button>
+=======
                 <button class="c_header_button">Шейр ит</button>
                 <button class="fav-button {% if space.is_favorite %}active{% endif %}"
                         data-space-id="{{ space.id }}">
@@ -23,59 +26,68 @@
                         <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/>
                     </svg>
                 </button>
-
+>>>>>>> parent of 35a4fef (Merge branch 'main' into spaces/categories/favorite)
             </div>
         </div>
         
         <div class="space_gallery">
             <div class="gallery_container">
                 <div class="slide active">
-                    <img class="space_photo" src="{{ url_for('static', filename=space.image1) }}" alt="Фото пространства 1">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 1">
                 </div>
                 <div class="slide">
-                    <img class="space_photo" src="{{ url_for('static', filename=space.image2) }}" alt="Фото пространства 2">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 2">
                 </div>
                 <div class="slide">
-                    <img class="space_photo" src="{{ url_for('static', filename=space.image3) }}" alt="Фото пространства 3">
+                    <img class="space_photo" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="Фото 3">
                 </div>
             </div>
             <div class="button_container">
-                <button id="prev_btn" class="gallery_button">&#8592</button>
-                <button id="next_btn" class="gallery_button">&#8594</button>
+                <button id="prev_btn" class="gallery_button">prev</button>
+                <button id="next_btn" class="gallery_button">next</button>
             </div>
         </div>
 
         <div class="space_descr_container">
+            <h2 class="h2">Типа точное название</h2>
+
             <ul class="space_descr_list">
-                <li class="space_descr_item">Корпус {{ space.building}}</li>
-                <li class="space_descr_item">Уровень {{ space.level }}</li>
-                <li class="space_descr_item">Находится в {{ space.location }}</li>
+                <li class="space_descr_item">пунктик</li>
+                <li class="space_descr_item">пунктик</li>
+                <li class="space_descr_item">пунктик</li>
+                <li class="space_descr_item">пунктик</li>
+                <li class="space_descr_item">пунктик</li>
             </ul>
             
             <div class="space_likes">
                 <button class="like_button down_button">-</button>
-                <span class="likes_number">{{ space.likes }}</span>
+                <span class="likes_number">1000</span>
                 <button class="like_button up_button">+</button>
             </div>
         </div>
     </section>
 
     <section class="card_section" id="booking_section">
-        <h2 class="h2">Забронировать</h2>
+        <h2 class="h2">Бронируй йоу</h2>
 
-        <form id="bookingForm" class="booking_form">
-            <input type="hidden" id="space_id" value="{{ space.id }}">
-
+        <form action="/book" class="booking_form">
             <div class="form_part" id="booking_days">
-
+<<<<<<< HEAD
+                <button class="booking_day_button" id="prev_day" onclick="event.preventDefault()">&#8592</button>
+                <div class="booking_days_container" id="booking_days_container">
+                </div>
+                <button class="booking_day_button" id="next_day" onclick="event.preventDefault()">&#8594</button>
+=======
                 <button type="button" class="booking_day_button" id="prev_day">Prev</button>
                 <div class="booking_days_container" id="booking_days_container"></div>
                 <button type="button" class="booking_day_button" id="next_day">Next</button>
-
+>>>>>>> parent of 35a4fef (Merge branch 'main' into spaces/categories/favorite)
             </div>
 
             <div class="form_part">
-                <div class="booking_slots" id="booking_slots"></div>
+                <div class="booking_slots" id="booking_slots">
+
+                </div>
             </div>
 
             <div class="form_part">
@@ -89,29 +101,34 @@
 
     <section class="card_section">
         <div class="info_description">
-
+<<<<<<< HEAD
+            <p class="info_description_p">Описание. Suspendisse malesuada, ipsum vitae sagittis sollicitudin, elit sem sagittis nisl, eget laoreet arcu ligula id augue. Nullam mattis posuere lacus, eget ullamcorper dui accumsan sit amet. Sed hendrerit ornare tellus at convallis. Nullam et orci eu massa elementum hendrerit. Suspendisse viverra risus ex, luctus convallis quam vehicula quis. Fusce rhoncus elementum lacinia. Maecenas faucibus est vel hendrerit pretium. Donec fermentum tristique arcu, id scelerisque dolor auctor vitae. Pellentesque id neque non arcu ultrices pellentesque at vel dui. Nullam sed eleifend nisl, eget egestas erat. Morbi vitae arcu id tortor malesuada ullamcorper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus pulvinar risus viverra elementum tincidunt. Proin vitae elit tristique, lacinia felis a, scelerisque metus. Integer auctor metus vitae dui pharetra ornare. Quisque dictum ante ante, sed lacinia justo vestibulum id.</p>
+=======
             <p class="info_description_p">{{ space.description | safe }}</p>
+>>>>>>> parent of 35a4fef (Merge branch 'main' into spaces/categories/favorite)
         </div>
 
-        {% if space.features %}
-            <h2 class="h2">Оборудование в пространстве</h2>
-            <ul class="features_grid">
-                {% for feature in space.features %}
-                    <li class="feature">{{ feature }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        
-        {% if space.location_description %}
-            <h2 class="h2">Где это находится</h2>
-            <div class="info_description">
-                <p class="info_description_p">{{ space.location_description }}</p>
-            </div>
-        {% endif %}
-        
-        <a class="fefumap_link" href="{{ space.map_url }}">Пространство на карте</a>
+        <h2 class="h2">Оборудование в пространстве</h2>
+        <div style="display: none;">Тут пока ничего нет</div>
+        <ul class="features_grid">
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+            <li class="feature">Штучка</li>
+        </ul>
 
+<<<<<<< HEAD
+        <h2 class="h2">Где это находится</h2>
+        <div class="info_description">
+            <p class="info_description_p">Описание того, где это находится</p>
+        </div>
+        <a class="fefumap_link" href="https://map.dvfu.ru">Пространство на фефу мап</a>
 
+=======
+>>>>>>> parent of 35a4fef (Merge branch 'main' into spaces/categories/favorite)
     </section>
 
         <section class="popup" id="result_popup">
