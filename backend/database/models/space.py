@@ -161,16 +161,16 @@ class Space:
         return result
 
     def add_to_favorites(self, user_id, space_id):
-        print(f"Attempting to add to favorites: user={user_id}, space={space_id}")  # Debug
+        print(f"Attempting to add to favorites: user={user_id}, space={space_id}")
         try:
             self.db.execute(
                 "INSERT OR IGNORE INTO user_favorites (user_id, space_id) VALUES (?, ?)",
                 (user_id, space_id)
             )
-            print("Successfully added to favorites")  # Debug
+            print("Successfully added to favorites")
             return True
         except Exception as e:
-            print(f"Error adding to favorites: {e}")  # Debug
+            print(f"Error adding to favorites: {e}")
             return False
 
     def remove_from_favorites(self, user_id, space_id):

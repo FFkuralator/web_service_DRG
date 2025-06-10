@@ -2,6 +2,7 @@ from flask import Flask, render_template, g, session, jsonify, request
 from backend.database.db import Database
 import os
 
+from backend.database.models.booking import Booking
 from backend.database.models.space import Space
 from backend.database.models.user import User
 from backend.routes.register import auth_bp, login_required
@@ -132,7 +133,7 @@ def favorites():
 def toggle_favorite():
     try:
         data = request.get_json()
-        print(f"Received data: {data}")  # Debug
+        print(f"Received data: {data}")
 
         space_id = data.get('space_id')
         user_id = session.get('user_id')
@@ -150,7 +151,7 @@ def toggle_favorite():
             return jsonify({'status': 'added'})
 
     except Exception as e:
-        print(f"Error in toggle_favorite: {e}")  # Debug
+        print(f"Error in toggle_favorite: {e}")
         return jsonify({'error': str(e)}), 500
 
 
@@ -182,6 +183,64 @@ def get_global_vars():
             }
     else:
         g.user = None
+
+
+@app.route('/book', methods=['POST'])
+@login_required
+def book_space():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Отсутствуют данные'}), 400
+
+        required_fields = ['space_id', 'booking_date', 'start_time', 'end_time']
+        if any(field not in data for field in required_fields):
+            missing = [f for f in required_fields if f not in data]
+            return jsonify({'error': f'Отсутствуют обязательные поля: {", ".join(missing)}'}), 400
+
+        try:
+            space_id = int(data['space_id'])
+        except:
+            return jsonify({'error': 'Неверный ID пространства'}), 400
+
+        booking_model = Booking()
+        success, message = booking_model.create_booking(
+            session['user_id'],
+            space_id,
+            data['booking_date'],
+            data['start_time'],
+            data['end_time'],
+            data.get('comment')
+        )
+
+        if not success:
+            return jsonify({'error': message}), 400
+
+        return jsonify({'message': message})
+
+    except Exception as e:
+        return jsonify({'error': f'Ошибка сервера: {str(e)}'}), 500
+
+
+@app.route('/api/availability/<int:space_id>')
+def get_availability(space_id):
+    date = request.args.get('date')
+    if not date:
+        return jsonify({'error': 'Date parameter is required'}), 400
+
+    booking_model = Booking()
+    bookings = booking_model.get_space_availability(space_id, date)
+
+    booked_slots = [{'start': booking[0], 'end': booking[1]} for booking in bookings]
+    return jsonify({'booked_slots': booked_slots})
+
+
+@app.route('/my-bookings')
+@login_required
+def my_bookings():
+    booking_model = Booking()
+    bookings = booking_model.get_user_bookings(session['user_id'])
+    return render_template('bookings/my_bookings.html', bookings=bookings)
 
 @app.route('/profile')
 @login_required

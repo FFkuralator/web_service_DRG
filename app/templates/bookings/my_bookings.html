@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bookings.css') }}">
+{% endblock %}
+
+{% block title %}
+    Мои бронирования
+{% endblock %}
+
+{% block content %}
+    <section class="bookings-section">
+        <h1>Мои бронирования</h1>
+
+        {% if not bookings %}
+            <p class="no-bookings">У вас пока нет активных бронирований</p>
+        {% else %}
+            <ul class="bookings-list">
+                {% for booking in bookings %}
+                    <li class="booking-item">
+                        <div class="booking-header">
+                            <h3>{{ booking.space_name }}</h3>
+                            <span class="booking-date">{{ booking.date }}</span>
+                        </div>
+
+                        <div class="booking-details">
+                            <p><strong>Время:</strong> {{ booking.start_time }} - {{ booking.end_time }}</p>
+                            <p><strong>Место:</strong> Корпус {{ booking.building }}, {{ booking.level }} уровень, {{ booking.location }}</p>
+                            {% if booking.comment %}
+                                <p><strong>Комментарий:</strong> {{ booking.comment }}</p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
+{% endblock %}

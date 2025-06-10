@@ -70,6 +70,21 @@ class Database:
                 )
             """)
 
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS bookings (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    space_id INTEGER NOT NULL,
+                    booking_date DATE NOT NULL,
+                    start_time TIME NOT NULL,
+                    end_time TIME NOT NULL,
+                    comment TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    FOREIGN KEY (space_id) REFERENCES spaces(id)
+                )
+            """)
+
             conn.execute("CREATE INDEX IF NOT EXISTS idx_space_category ON spaces(category_id)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_space_features ON space_features(space_id)")
 

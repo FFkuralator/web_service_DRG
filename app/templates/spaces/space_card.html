@@ -60,18 +60,17 @@
     <section class="card_section" id="booking_section">
         <h2 class="h2">Бронируй йоу</h2>
 
-        <form action="/book" class="booking_form">
+        <form id="bookingForm" class="booking_form">
+            <input type="hidden" id="space_id" value="{{ space.id }}">
+
             <div class="form_part" id="booking_days">
-                <button class="booking_day_button" id="prev_day" onclick="event.preventDefault()">Prev</button>
-                <div class="booking_days_container" id="booking_days_container">
-                </div>
-                <button class="booking_day_button" id="next_day" onclick="event.preventDefault()">Next</button>
+                <button type="button" class="booking_day_button" id="prev_day">Prev</button>
+                <div class="booking_days_container" id="booking_days_container"></div>
+                <button type="button" class="booking_day_button" id="next_day">Next</button>
             </div>
 
             <div class="form_part">
-                <div class="booking_slots" id="booking_slots">
-
-                </div>
+                <div class="booking_slots" id="booking_slots"></div>
             </div>
 
             <div class="form_part">
@@ -81,6 +80,8 @@
 
             <button class="submit_button" type="submit" id="booking_submit_btn">Забронировать</button>
         </form>
+
+        <div id="availabilityStatus" style="margin-top: 15px; padding: 10px; border-radius: 8px;"></div>
     </section>
 
     <section class="card_section">
