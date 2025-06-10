@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+<body data-logged-in="{{ 'true' if g.user else 'false' }}">
     <section class="card_section">
         <div class="card_header">
             <h1 class="space_name">{{ space.name }}</h1>
