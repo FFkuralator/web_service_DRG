@@ -238,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateDays();
     generateTimeSlots();
+    checkAvailability(selectedDate);
 
     document.getElementById("prev_day").addEventListener("click", () => scrollDates(-6));
     document.getElementById("next_day").addEventListener("click", () => scrollDates(6));
