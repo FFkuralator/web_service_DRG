@@ -4,7 +4,7 @@ from backend.database.db import Database
 
 
 def init_sample_data():
-    db = Database('../../app/instance/app.db')
+    db = Database('instance/app.db')
 
     with closing(db._get_connection()) as conn:
         conn.executescript("""

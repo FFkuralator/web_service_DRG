@@ -20,11 +20,6 @@ with app.app_context():
     db = Database(app.config['DATABASE'])
     db._init_db()
 
-@app.before_request
-def get_global_vars():
-    g.user = None
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
