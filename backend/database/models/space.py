@@ -187,3 +187,4 @@ class Space:
             fetch_one=True
         )
         return bool(result)
+    

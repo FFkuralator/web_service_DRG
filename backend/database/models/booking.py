@@ -72,3 +72,4 @@ class Booking:
                ORDER BY start_time""",
             (space_id, date)
         )
+    

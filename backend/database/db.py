@@ -101,3 +101,4 @@ class Database:
             if fetch_one:
                 return cursor.fetchone()
             return cursor.fetchall()
+        

@@ -13,33 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-@app.route('/api/favorites', methods=['POST'])
-@login_required
-def toggle_favorite():
-    try:
-        data = request.get_json()
-        print(f"Received data: {data}")  # Debug
-
-        space_id = data.get('space_id')
-        user_id = session.get('user_id')
-
-        if not space_id or not user_id:
-            return jsonify({'error': 'Missing parameters'}), 400
-
-        space_model = Space()
-
-        if space_model.is_favorite(user_id, space_id):
-            space_model.remove_from_favorites(user_id, space_id)
-            return jsonify({'status': 'removed'})
-        else:
-            space_model.add_to_favorites(user_id, space_id)
-            return jsonify({'status': 'added'})
-
-    except Exception as e:
-        print(f"Error in toggle_favorite: {e}")  # Debug
-        return jsonify({'error': str(e)}), 500
-
-
 function toggleFavorite(spaceId, buttonElement) {
     console.log(`Toggling favorite for space ${spaceId}`); // Debug
 

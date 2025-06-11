@@ -118,3 +118,4 @@ def logout():
     session.pop('user_id', None)
     flash('Вы успешно вышли из системы', 'success')
     return redirect(url_for('auth_bp.login'))
+
