@@ -72,4 +72,22 @@ class Booking:
                ORDER BY start_time""",
             (space_id, date)
         )
-    
+
+    def cancel_booking_by_details(self, user_id, space_id, booking_date, start_time):
+        booking = self.db.execute(
+            """SELECT id FROM bookings 
+            WHERE user_id = ? AND id = ? AND booking_date = ? AND start_time = ?""",
+            (user_id, space_id, booking_date, start_time),
+            fetch_one=True
+        )
+
+        if not booking:
+            return False, "Бронирование не найдено или вы не имеете права его отменить"
+
+        # Удаляем бронь
+        self.db.execute(
+            "DELETE FROM bookings WHERE id = ?",
+            (booking[0],)
+        )
+
+        return True, "Бронирование успешно отменено"

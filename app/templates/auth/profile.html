@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
 {% endblock %}
 
 {% block title %}
@@ -12,7 +13,7 @@
     <section class="profile_section">
         <section class="basic_info">
             <div>
-                <img class="avatar" src="{{ url_for('static', filename='assets/portrait.png') }}" alt="avatar">
+                <img class="avatar" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="avatar">
                 <h2 class="username">{{ user.full_name }}</h2>
             </div>
 
@@ -95,7 +96,10 @@
                             </div>
                             <div class="booking-actions">
                                 <button class="action_button small">Повторить</button>
-                                <button class="action_button small">Отменить</button>
+                                <button class="action_button small cancel_booking_btn"
+                                        data-space-id="{{ booking.id }}"
+                                        data-date="{{ booking.date }}"
+                                        data-start-time="{{ booking.start_time }}">Отменить</button>
                             </div>
                         </li>
                     {% endfor %}

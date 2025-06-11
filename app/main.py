@@ -206,6 +206,32 @@ def book_space():
     except Exception as e:
         return jsonify({'error': f'Ошибка сервера: {str(e)}'}), 500
 
+@app.route('/cancel_booking', methods=['POST'])
+@login_required
+def cancel_booking():
+    data = request.get_json()
+    
+    required_fields = ['space_id', 'booking_date', 'start_time']
+    if not all(field in data for field in required_fields):
+        return jsonify({'error': 'Не все обязательные поля переданы'}), 400
+
+    try:
+        space_id = int(data['space_id'])
+    except:
+        return jsonify({'error': 'Неверный формат ID пространства'}), 400
+
+    booking_model = Booking()
+    success, message = booking_model.cancel_booking_by_details(
+        session['user_id'],
+        space_id,
+        data['booking_date'],
+        data['start_time']
+    )
+
+    if success:
+        return jsonify({'message': message})
+    else:
+        return jsonify({'error': message}), 400
 
 @app.route('/api/availability/<int:space_id>')
 def get_availability(space_id):

@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         for (let h = 8; h <= 22; h++) {
             for (let m = 0; m < 60; m += 15) {
-                if (h === 22 && m > 0) break;
                 const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
                 const timeSlot = document.createElement("div");
                 timeSlot.className = "booking_slot";
