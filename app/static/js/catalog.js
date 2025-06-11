@@ -118,7 +118,7 @@ function updateCatalog(data) {
 
             const spaceImage = document.createElement('img');
             spaceImage.className = 'space_image';
-            spaceImage.src = `/static/${space.image_src}`;
+            spaceImage.src = `/static/${space.image1}`;
             spaceImage.alt = space.image_alt;
             spaceLink.appendChild(spaceImage);
 
@@ -149,11 +149,6 @@ function updateCatalog(data) {
             characteristicsList.appendChild(locationItem);
 
             textContainer.appendChild(characteristicsList);
-
-            const description = document.createElement('p');
-            description.className = 'space_description';
-            description.textContent = space.description;
-            textContainer.appendChild(description);
 
             spaceLink.appendChild(textContainer);
             spaceItem.appendChild(spaceLink);
