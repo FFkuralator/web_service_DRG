@@ -1,7 +1,9 @@
 from flask import Flask, render_template, g, session, jsonify, request
+
 from backend.database.db import Database
 import os
 
+from backend.database.init_db import init_sample_data
 from backend.database.models.booking import Booking
 from backend.database.models.space import Space
 from backend.database.models.user import User
@@ -266,4 +268,5 @@ def profile():
                            bookings=bookings)
 
 if __name__ == '__main__':
+    init_sample_data()
     app.run(debug=True)
