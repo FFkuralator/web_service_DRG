@@ -85,24 +85,13 @@ def filtered_catalog():
     space_model = Space()
 
     if not activity and not building and not features:
-        categories = db.execute("SELECT * FROM categories")
-        space_categories = []
-        for cat in categories:
-            spaces = space_model.get_by_category(cat[0])
-            space_categories.append({
-                "id": cat[0],
-                "name": cat[1],
-                "spaces": spaces
-            })
-        return jsonify(space_categories)
+        return jsonify(space_model.get_all_spaces())
 
     category_id = None
     if activity == 'dancing':
         category_id = 1
-    elif activity == 'studying':
-        category_id = 2
     elif activity == 'event':
-        category_id = 3
+        category_id = 2
 
     spaces = space_model.get_filtered_spaces(
         category_id=category_id,
