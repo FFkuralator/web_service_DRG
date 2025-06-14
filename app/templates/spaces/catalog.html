@@ -11,7 +11,7 @@
 
 {% block content %}
     <header class="bordered_container filter_header">
-        <div class="filter_title" id="point_filter">
+        <div class="filter_title" id="activity_filter">
             Цель
         </div>
 
@@ -22,6 +22,8 @@
         <div class="filter_title" id="feature_filter">
             Оборудование
         </div>
+
+        <button class="filter_title" id="filter_reset">Сбросить фильтры</button>
     </header>
 
     <section class="catalog">
@@ -32,24 +34,23 @@
                     {% for space in category.spaces %}
                         <li class="category_item">
                             <a class="space_container" href="{{ url_for('space', id=space.id) }}">
-                                <button class="fav_button_box">
-                                    <div class="fav_button">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/>
+                                <button class="fav_button_box" data-space-id="{{ space.id }}">
+                                    <div class="fav_button {% if space.is_favorite %}active{% endif %}">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="{% if space.is_favorite %}red{% else %}currentColor{% endif %}" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/>
                                         </svg>
                                     </div>
-                                    <span class="fav_button_counter">1234</span>
+                                    <span class="fav_button_counter">{{ space.likes_count if space.likes_count else 0 }}</span>
                                 </button>
 
-                                <img class="space_image" src="{{ url_for('static', filename=space.image_src) }}" alt="{{ space.image_alt }}">
+                                <img class="space_image" src="{{ url_for('static', filename=space.image1) }}" alt="{{ space.image_alt }}">
                                 <div class="space_text_container">
                                     <h3 class="space_name">{{ space.name }}</h3>
                                     <ul class="space_characteristics">
-                                        <li class="space_characteristics_item">Корпус {{ space.building}}</li>
+                                        <li class="space_characteristics_item">Корпус {{ space.building }}</li>
                                         <li class="space_characteristics_item">Уровень {{ space.level }}</li>
                                         <li class="space_characteristics_item">{{ space.location }}</li>
                                     </ul>
-                                    <p class="space_description">{{ space.description }}</p>
                                 </div>
                             </a>
                         </li>
@@ -57,50 +58,15 @@
                 </ul>
             </section>
         {% endfor %}
-
     </section>
 
-    <section class="catalog" style="display: none;">
-        <h2 class="category_title">{{ category.name }}</h2>
-        <ul class="category_list">
-            {% for space in category.spaces %}
-                <li class="category_item">
-                    <a class="space_container" href="{{ url_for('space', id=space.id) }}">
-                        <button class="fav_button">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/>
-                            </svg>
-                        </button>
-                        <img class="space_image" src="{{ url_for('static', filename=space.image_src) }}" alt="{{ space.image_alt }}">
-                        <div class="space_text_container">
-                            <h3 class="space_name">{{ space.name }}</h3>
-                            <ul class="space_characteristics">
-                                <li class="space_characteristics_item">Корпус {{ space.building}}</li>
-                                <li class="space_characteristics_item">Уровень {{ space.level }}</li>
-                                <li class="space_characteristics_item">{{ space.location }}</li>
-                            </ul>
-                            <p class="space_description">{{ space.description }}</p>
-                        </div>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+    <div class="display_none filter_popup" id="activity_popup">
 
-    </section>
-
-
-    <div class="display_none filter_popup" id="point_popup">
         <ul>
             <li class="filter_popup_item">
                 <input type="radio" id="dancing" name="activity" value="dancing" />
                 <label for="dancing">Танцы</label>
             </li>
-
-            <li class="filter_popup_item">
-                <input type="radio" id="studying" name="activity" value="studying" />
-                <label for="studying">Учеба</label>
-            </li>
-
             <li class="filter_popup_item">
                 <input type="radio" id="event" name="activity" value="event" />
                 <label for="event">Мероприятие</label>
@@ -111,16 +77,15 @@
     <div class="display_none filter_popup" id="building_popup">
         <ul>
             <li class="filter_popup_item">
-                <input type="radio" id="A" name="building" value="A" />
+                <input type="checkbox" id="A" name="building" value="A" />
                 <label for="A">Корпус A</label>
             </li>
             <li class="filter_popup_item">
-                <input type="radio" id="B" name="building" value="B" />
+                <input type="checkbox" id="B" name="building" value="B" />
                 <label for="B">Корпус B</label>
             </li>
-
             <li class="filter_popup_item">
-                <input type="radio" id="C" name="building" value="C" />
+                <input type="checkbox" id="C" name="building" value="C" />
                 <label for="C">Корпус C</label>
             </li>
         </ul>
@@ -129,19 +94,25 @@
     <div class="display_none filter_popup" id="feature_popup">
         <ul>
             <li class="filter_popup_item">
-                <input type="checkbox" id="projector" name="projector" value="projector"/>
-                <label for="projector">projector</label>
+                <input type="checkbox" id="projector" name="feature" value="projector"/>
+                <label for="projector">Проектор</label>
             </li>
             <li class="filter_popup_item">
-                <input type="checkbox" id="chalkboard" name="chalkboard" value="chalkboard" />
-                <label for="chalkboard">chalkboard</label>
+                <input type="checkbox" id="chalkboard" name="feature" value="chalkboard" />
+                <label for="chalkboard">Доска</label>
+
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="sound_system" name="feature" value="sound_system" />
+                <label for="sound_system">Аудиосистема</label>
+
             </li>
 
             <li class="filter_popup_item">
-                <input type="checkbox" id="huita" name="huita" value="huita" />
-                <label for="huita">huita</label>
+                <input type="checkbox" id="tv" name="feauture" value="tv" />
+                <label for="huita">Телевизор/экран</label>
             </li>
+
         </ul>
     </div>
-
 {% endblock %}

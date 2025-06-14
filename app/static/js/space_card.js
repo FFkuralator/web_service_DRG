@@ -5,8 +5,6 @@ function toggleNoScroll() {
 document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.slide');
     let currentIndex = 0;
-
-
     const prevBtn = document.getElementById('prev_btn');
     const nextBtn = document.getElementById('next_btn');
 
@@ -35,186 +33,213 @@ document.addEventListener('DOMContentLoaded', function () {
         showSlide(currentIndex);
     });
 
-    showSlide(currentIndex);
-});
+  showSlide(currentIndex);
 
-document.addEventListener('DOMContentLoaded', function () {
-    function getIndex(slot) {
-        return Array.from(slot.parentNode.children).indexOf(slot);
-    }
+    const bookingForm = document.getElementById('bookingForm');
+    const availabilityStatus = document.getElementById('availabilityStatus');
+    let selectedDate = null;
+    let slots = [];
+    let startSlot = null;
+    let endSlot = null;
 
     function formatDate(date) {
         return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
     }
+
     function formatDay(date) {
         return date.toLocaleDateString('ru-RU', { weekday: 'short' }).toUpperCase();
     }
-    
+
     function generateDateList(count = 18) {
-        const dates = [];
-        const today = new Date();
-        for (let i = 0; i < count; i++) {
-            const nextDay = new Date();
-            nextDay.setDate(today.getDate() + i);
-            dates.push(nextDay);
-        }
-        return dates;
-    }
-
-    const allDates = generateDateList();
-
-    let chosenDay = 0;
-    let currentDaysSlide = 0
-    let currentDayIndex = 0;
-    let daySlots = document.querySelectorAll('.booking_day')
-
-    function updateDays() {
-        const container = document.getElementById('booking_days_container')
-        container.innerHTML = ''
-        for (let i = 0; i < 6; i++) {
-            const index = currentDayIndex + i
-            const date = allDates[index];
-            const daySlot = document.createElement('div');
-            daySlot.className = 'booking_day';
-            daySlot.textContent = `${formatDate(date)}, ${formatDay(date)}`;
-            if (index == chosenDay) {
-                daySlot.classList.add('active')
-            } else if (index >= 14) {
-                daySlot.classList.add('inactive')
-            }
-            container.appendChild(daySlot);
-        }
-        daySlots = document.querySelectorAll('.booking_day')
-        
-        daySlots.forEach(slot => {
-            slot.addEventListener('click', () => {
-                daySlots.forEach(slot => {
-                    slot.classList.remove('active')
-                })
-                chosenDay = getIndex(slot) + currentDaysSlide * 6
-                slot.classList.add('active')
-                generateTimeSlots([])
-            })
+        return Array.from({ length: count }, (_, i) => {
+            const date = new Date();
+            date.setDate(date.getDate() + i);
+            return date;
         });
-
     }
 
-    updateDays();
-
-    function scrollDates(direction) {
-        let newIndex = currentDayIndex + direction;
-        currentDaysSlide += Number(direction / 6);
-        if (newIndex > allDates.length - 6) {
-            newIndex = allDates.length - 6;
-            currentDaysSlide = 2;
-        } else if (newIndex < 0) {
-            newIndex = 0;
-            currentDaysSlide = 0;
-        }
-        currentDayIndex = newIndex;
-        updateDays();
-    }
-
-    document.getElementById("prev_day").addEventListener("click", function() {
-        scrollDates(-6)
-    });
-    document.getElementById("next_day").addEventListener("click", function() {
-        scrollDates(6)
-    });
-    
     function parseTime(timeStr) {
         const [h, m] = timeStr.split(":").map(Number);
         return h * 60 + m;
     }
 
-    function generateTimeSlots(booked, start = "08:00", end="22:45", step=15) {
-        const container = document.getElementById('booking_slots');
-        container.innerHTML = ''
-        let [hours, minutes] = start.split(":").map(Number);
+    function add15Minutes(time) {
+        const [h, m] = time.split(":").map(Number);
+        let newM = m + 15;
+        let newH = h;
+        if (newM >= 60) {
+            newM -= 60;
+            newH += 1;
+        }
+        return `${String(newH).padStart(2, '0')}:${String(newM).padStart(2, '0')}`;
+    }
 
-        while (hours * 60 + minutes <= parseTime(end)) {
-            const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-            const timeSlot = document.createElement("div");
-            timeSlot.className = "booking_slot";
-            if (booked.includes(hours * 60 + minutes)) {
-                timeSlot.classList.add("booked");
-            }
-            timeSlot.textContent = timeStr;
-            container.appendChild(timeSlot);
+    function updateDays() {
+        const container = document.getElementById('booking_days_container');
+            container.innerHTML = '';
 
-            minutes += step;
+            allDates.slice(currentDayIndex, currentDayIndex + 6).forEach((date, i) => {
+                const daySlot = document.createElement('div');
+                daySlot.className = `booking_day ${i + currentDayIndex >= 14 ? 'inactive' : ''}`;
+                daySlot.textContent = `${formatDate(date)}, ${formatDay(date)}`;
+                daySlot.dataset.date = date.toISOString().split('T')[0];
 
-            if (minutes >= 60) {
-                hours += 1;
-                minutes -= 60;
+                if (i === 0) {
+                    daySlot.classList.add('active');
+                    selectedDate = daySlot.dataset.date;
+                }
+
+                daySlot.addEventListener('click', () => {
+                    document.querySelector('.booking_day.active')?.classList.remove('active');
+                    daySlot.classList.add('active');
+                    selectedDate = daySlot.dataset.date;
+                    checkAvailability(selectedDate);
+                });
+
+                container.appendChild(daySlot);
+            });
+        }
+
+
+    function scrollDates(direction) {
+        const newIndex = currentDayIndex + direction;
+        if (newIndex >= 0 && newIndex <= allDates.length - 6) {
+            currentDayIndex = newIndex;
+            updateDays();
+            const firstDay = document.querySelector('.booking_day');
+            if (firstDay) {
+                document.querySelector('.booking_day.active')?.classList.remove('active');
+                firstDay.classList.add('active');
+                selectedDate = firstDay.dataset.date;
+                checkAvailability(selectedDate);
             }
         }
-        slots = document.querySelectorAll('.booking_slot')
-        addTimeSlotListeners()
     }
-    
 
-    let slots;
+    function generateTimeSlots(bookedTimes = []) {
+        const container = document.getElementById('booking_slots');
+        container.innerHTML = '';
 
-    let startSlot = null;
-    let endSlot = null;
+        for (let h = 8; h <= 22; h++) {
+            for (let m = 0; m < 60; m += 15) {
+                const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+                const timeSlot = document.createElement("div");
+                timeSlot.className = "booking_slot";
+                timeSlot.textContent = timeStr;
 
-    generateTimeSlots([8*60, 8*60+15, 8*60+30]);
+                if (bookedTimes.includes(h * 60 + m)) {
+                    timeSlot.classList.add("booked");
+                }
+                container.appendChild(timeSlot);
+            }
+        }
 
-    function isWithinTwoHours(slot1, slot2) {
-        let index1 = getIndex(slot1);
-        let index2 = getIndex(slot2);
-        const diff = Math.abs(index1 - index2);
-        return diff < 8;
+        slots = document.querySelectorAll('.booking_slot');
+        addTimeSlotListeners();
+    }
+
+    function addTimeSlotListeners() {
+        slots.forEach(slot => {
+            slot.addEventListener('click', handleSlotClick);
+            slot.addEventListener('mouseenter', handleSlotHover);
+            slot.addEventListener('mouseleave', handleSlotHover);
+        });
+    }
+
+    function handleSlotClick() {
+        if (this.classList.contains('booked')) return;
+
+        if (!startSlot) {
+            startSlot = this;
+            this.classList.add('end');
+            updateSubmitButton();
+        } else if (startSlot && !endSlot && this !== startSlot) {
+            if (isWithinTwoHours(startSlot, this)) {
+                endSlot = this;
+                this.classList.add('end');
+                updateSubmitButton();
+            } else {
+                alert("Максимальное время бронирования - 2 часа");
+            }
+        } else {
+            clearSelection();
+            if (this !== startSlot && this !== endSlot) {
+                startSlot = this;
+                this.classList.add('end');
+            }
+            updateSubmitButton();
+        }
+    }
+
+    function handleSlotHover() {
+        if (!startSlot || endSlot) return;
+        updateMidSlots(this);
+    }
+
+    function updateMidSlots(hoveredSlot) {
+        if (!startSlot) return;
+
+        slots.forEach(slot => {
+            slot.classList.remove('mid', 'end');
+            if (slot === startSlot) slot.classList.add('end');
+        });
+
+        if (hoveredSlot !== startSlot && isWithinTwoHours(startSlot, hoveredSlot)) {
+            const startIdx = getIndex(startSlot);
+            const hoverIdx = getIndex(hoveredSlot);
+            const [minIdx, maxIdx] = [Math.min(startIdx, hoverIdx), Math.max(startIdx, hoverIdx)];
+
+            for (let i = minIdx + 1; i < maxIdx; i++) {
+                slots[i].classList.add('mid');
+            }
+            hoveredSlot.classList.add('end');
+        }
+    }
+
+    function updateSubmitButton() {
+        const btn = document.getElementById('booking_submit_btn');
+        if (startSlot && endSlot) {
+            const startTime = startSlot.textContent;
+            const endTime = add15Minutes(endSlot.textContent);
+            btn.textContent = `Забронировать ${startTime}-${endTime}`;
+            btn.disabled = false;
+        } else {
+            btn.textContent = 'Забронировать';
+            btn.disabled = !startSlot;
+        }
     }
 
     function clearSelection() {
-        slots.forEach(slot => {
-            slot.classList.remove('mid', 'end');
-        });
+        slots.forEach(slot => slot.classList.remove('mid', 'end'));
         startSlot = null;
         endSlot = null;
     }
 
-    function updateMidSlots(activeSlot) {
-        const startIndex = getIndex(startSlot);
-        const activeIndex = getIndex(activeSlot);
-        if (!isWithinTwoHours(startSlot, activeSlot)) {
-            if (startIndex > activeIndex) {
-                slots.forEach((slot, i) => {
-                    if (i > startIndex - 7 && i < startIndex) {
-                        slot.classList.add('mid')
-                    } else if (i == startIndex - 7) {
-                        slot.classList.add('end')
-                    } else {
-                        slot.classList.remove('mid')
-                    }
-                });
-            } else {
-                slots.forEach((slot, i) => {
-                    if (i > startIndex && i < startIndex + 7) {
-                        slot.classList.add('mid')
-                    } else if (i == startIndex + 7) {
-                        slot.classList.add('end')
-                    } else {
-                        slot.classList.remove('mid')
-                    }
-                });
-            }
-        } else {
-            slots.forEach((slot, i) => {
-                if (i > Math.min(startIndex, activeIndex) && i < Math.max(startIndex, activeIndex)) {
-                    slot.classList.add('mid')
-                } else if (i == activeIndex) {
-                    slot.classList.add('end')
-                    slot.classList.remove('mid')
-                } else {
-                    slot.classList.remove('mid')
-                }
-                if (i != activeIndex && i != startIndex) {
-                    slot.classList.remove('end')
-                }
+    function isWithinTwoHours(slot1, slot2) {
+        return Math.abs(getIndex(slot1) - getIndex(slot2)) < 8;
+    }
+
+    function getIndex(slot) {
+        return Array.from(slot.parentNode.children).indexOf(slot);
+    }
+
+    async function checkAvailability(date) {
+        const spaceId = document.getElementById('space_id').value;
+        try {
+            const response = await fetch(`/api/availability/${spaceId}?date=${date}`);
+            const data = await response.json();
+
+            const bookedSlots = data.booked_slots || [];
+            const bookedTimes = bookedSlots.flatMap(slot => {
+                const start = parseTime(slot.start);
+                const end = parseTime(slot.end);
+                return Array.from({ length: end - start }, (_, i) => start + i);
             });
+
+            generateTimeSlots(bookedTimes);
+            updateStatusMessage(bookedSlots);
+        } catch (error) {
+            console.error('Ошибка при проверке доступности:', error);
         }
     }
 
@@ -322,6 +347,105 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function updateStatusMessage(bookedSlots) {
+        if (bookedSlots.length === 0) {
+            availabilityStatus.textContent = 'На эту дату нет бронирований';
+            availabilityStatus.style.backgroundColor = 'rgb(184, 241, 170)';
+        } else {
+            availabilityStatus.textContent = `Занятые слоты: ${bookedSlots.map(s => `${s.start}-${s.end}`).join(', ')}`;
+            availabilityStatus.style.backgroundColor = 'rgb(255, 200, 200)';
+        }
+        availabilityStatus.style.color = 'black';
+    }
+
+    const allDates = generateDateList();
+    let chosenDay = 0;
+    let currentDayIndex = 0;
+    let daySlots = [];
+
+    updateDays();
+    generateTimeSlots();
+    checkAvailability(selectedDate);
+
+    document.getElementById("prev_day").addEventListener("click", () => scrollDates(-6));
+    document.getElementById("next_day").addEventListener("click", () => scrollDates(6));
+
+    bookingForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const isLoggedIn = document.body.dataset.loggedIn === 'true';
+        if (!isLoggedIn) {
+            alert('Для бронирования необходимо войти в систему');
+            window.location.href = '/auth/login';
+            return;
+        }
+
+        if (!selectedDate) {
+            alert('Пожалуйста, выберите дату бронирования');
+            return;
+        }
+        if (!startSlot) {
+            alert('Пожалуйста, выберите время начала');
+            return;
+        }
+        if (!endSlot) {
+            alert('Пожалуйста, выберите время окончания');
+            return;
+        }
+
+        const formData = {
+            space_id: parseInt(document.getElementById('space_id').value),
+            booking_date: selectedDate,
+            start_time: startSlot?.textContent || '',
+            end_time: endSlot ? add15Minutes(endSlot.textContent) : '',
+            comment: document.getElementById('comment').value || null
+        };
+
+        if (!formData.start_time || !formData.end_time) {
+            alert('Пожалуйста, выберите временной интервал');
+            return;
+        }
+
+        try {
+            const response = await fetch('/book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Ошибка сервера');
+
+            alert('Бронирование успешно создано!');
+            clearSelection();
+            checkAvailability(selectedDate);
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert(`Ошибка бронирования: ${error.message}`);
+        }
+    });
+
+
+    document.querySelector('.fav-button').addEventListener('click', async function() {
+        const spaceId = this.dataset.spaceId;
+        try {
+            const response = await fetch('/api/favorites', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ space_id: spaceId })
+            });
+
+            const data = await response.json();
+            if (data.error) throw new Error(data.error);
+
+            this.classList.toggle('active');
+            const svgPath = this.querySelector('path');
+            svgPath.setAttribute('fill', this.classList.contains('active') ? 'red' : 'currentColor');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Ошибка при обновлении избранного: ' + error.message);
+        }
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function() {

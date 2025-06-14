@@ -116,3 +116,43 @@
         padding: 18px 24px;
     }
 }
+
+.no-bookings {
+    text-align: center;
+    color: #666;
+    margin: 20px 0;
+}
+
+.booking-info {
+    flex-grow: 1;
+}
+
+.booking-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action_button.small {
+    padding: 4px 8px;
+    font-size: 14px;
+}
+
+.history_point {
+    margin: 4px 0;
+}
+
+.history_point.comment {
+    font-style: italic;
+    color: #555;
+}
+
+@media screen and (max-width: 768px) {
+    .booking-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .history_item {
+        grid-template-columns: 1fr;
+    }
+}

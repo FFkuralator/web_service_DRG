@@ -116,8 +116,13 @@
 }
 
 .footer_link {
-    color: blue;
     margin: 4px 0;
+    color: rgb(72, 72, 72);
+    height: fit-content;
+}
+.footer_link:hover {
+    color: black;
+    text-decoration: underline;
 }
 
 .legal_copyright {
