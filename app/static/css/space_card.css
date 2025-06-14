@@ -325,14 +325,8 @@
     }
 }
 
-@media screen and (max-width: 440px) {
-    .card_header {
-        flex-direction: column;
-        justify-content: start;
-        align-items: start;
-    }
-    .c_header_buttons {
-        justify-content: start;
-        margin: 12px 0 0 -6px;
-    }
+#availabilityStatus {
+    font-size: 14px;
+    text-align: center;
+    opacity: 0.9;
 }

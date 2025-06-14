@@ -90,3 +90,4 @@ class User:
             fetch_one=True
         )
         return result is not None
+
