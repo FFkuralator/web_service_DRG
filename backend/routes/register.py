@@ -5,6 +5,20 @@ from flask import Blueprint, request, redirect, session, url_for, flash, render_
 
 from backend.database.models.user import *
 
+def validate_registration(email, password, password_check, full_name, number_phone):
+    if not all([email, password, full_name, number_phone]):
+        return 'Все поля обязательны для заполнения'
+
+    if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
+        return 'Некорректный email'
+
+    if len(password) < 8:
+        return 'Пароль должен содержать минимум 8 символов'
+
+    if password != password_check:
+        return 'Пароли не совпадают'
+
+    return None
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -17,37 +31,14 @@ def register():
         full_name = request.form.get('full_name', '').strip()
         number_phone = request.form.get('number_phone', '').strip()
 
-        if not all([email, password, full_name, number_phone]):
-            flash('Все поля обязательны для заполнения', 'danger')
-            return render_template('auth/auth.html',
-                                   email = email,
-                                   full_name = full_name,
-                                   number_phone = number_phone)
-
-        if not number_phone:
-            flash('Номер телефона обязателен', 'danger')
-            return render_template('auth/auth.html',
-                                   email=email,
-                                   number_phone=number_phone,
-                                   full_name=full_name)
-
-        if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
-            flash('Некорректный email', 'danger')
-            return render_template('auth/auth.html',
-                                   email = email, full_name = full_name)
-
-        if len(password) < 8:
-            flash('Пароль должен содержать минимум 8 символов', 'danger')
-            return render_template('auth/auth.html',
-                                   email = email, full_name = full_name)
-
-        if password != password_check:
-            flash('Пароли не совпадают', 'danger')
+        error = validate_registration(email, password, password_check, full_name, number_phone)
+        if error:
+            flash(error, 'danger')
             return render_template('auth/auth.html',
                                 email=email,
                                 full_name=full_name,
                                 number_phone=number_phone,
-                                password_check=password_check)
+                                password=password)
 
         user = User()
         if user.email_exists(email):
