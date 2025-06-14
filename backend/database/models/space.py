@@ -6,118 +6,25 @@ class Space:
     def __init__(self, db_path=None):
         self.db = Database(db_path or current_app.config['DATABASE'])
 
-    def get_all_spaces(self):
-        spaces = self.db.execute("""
-            SELECT s.id, s.name, s.building, s.level, s.location, 
-                   s.description, s.image1, s.image2, s.image3,
-                   s.location_description, s.likes, s.map_url,
-                   c.name AS category_name
-            FROM spaces s
-            JOIN categories c ON s.category_id = c.id
-        """)
 
-        result = []
-        for space in spaces:
-            result.append({
-                'id': space[0],
-                'name': space[1],
-                'building': space[2],
-                'level': space[3],
-                'location': space[4],
-                'description': space[5],
-                'image1': space[6],
-                'image2': space[7],
-                'image3': space[8],
-                'location_description': space[9],
-                'likes': space[10],
-                'map_url': space[11],
-                'category_name': space[12],
-                'features': self.get_space_features(space[0])
-            })
-        return result
+    def get_all_spaces(self):
+        spaces = self.db.execute(self._spaces_query())
+
+        return [self._map_space(space) for space in spaces]
 
     def get_by_category(self, category_id):
-        spaces = self.db.execute("""
-            SELECT s.id, s.name, s.building, s.level, s.location, 
-                   s.description, s.image1, s.image2, s.image3,
-                   s.location_description, s.likes, s.map_url,
-                   c.name AS category_name
-            FROM spaces s
-            JOIN categories c ON s.category_id = c.id
-            WHERE s.category_id = ?
-        """, (category_id,))
+        spaces = self.db.execute(self._spaces_query('WHERE s.category_id = ?'), (category_id,))
 
-        result = []
-        for space in spaces:
-            result.append({
-                'id': space[0],
-                'name': space[1],
-                'building': space[2],
-                'level': space[3],
-                'location': space[4],
-                'description': space[5],
-                'image1': space[6],
-                'image2': space[7],
-                'image3': space[8],
-                'location_description': space[9],
-                'likes': space[10],
-                'map_url': space[11],
-                'category_name': space[12],
-                'features': self.get_space_features(space[0])
-            })
-
-        return result
-
-    def get_space_features(self, space_id):
-        features = self.db.execute(
-            "SELECT feature FROM space_features WHERE space_id = ?",
-            (space_id,)
-        )
-        return [f[0] for f in features]
+        return [self._map_space(space) for space in spaces]
 
     def get_favorites(self, user_id):
-        spaces = self.db.execute("""
-            SELECT s.id, s.name, s.building, s.level, s.location, 
-                   s.description, s.image1, s.image2, s.image3,
-                   s.location_description, s.likes, s.map_url,
-                   c.name AS category_name
-            FROM spaces s
-            JOIN user_favorites uf ON s.id = uf.space_id
-            JOIN categories c ON s.category_id = c.id
-            WHERE uf.user_id = ?
-        """, (user_id,))
+        spaces = self.db.execute(self._spaces_query('JOIN user_favorites uf ON s.id = uf.space_id WHERE uf.user_id = ?'), (user_id,))
 
-        result = []
-        for space in spaces:
-            result.append({
-                'id': space[0],
-                'name': space[1],
-                'building': space[2],
-                'level': space[3],
-                'location': space[4],
-                'description': space[5],
-                'image1': space[6],
-                'image2': space[7],
-                'image3': space[8],
-                'location_description': space[9],
-                'likes': space[10],
-                'map_url': space[11],
-                'category_name': space[12],
-                'features': self.get_space_features(space[0])
-            })
-
-        return result
+        return [self._map_space(space) for space in spaces]
 
     def get_filtered_spaces(self, category_id=None, building=None, features=None):
-        query = """
-            SELECT s.id, s.name, s.building, s.level, s.location, 
-                   s.description, s.image1, s.image2, s.image3,
-                   s.location_description, s.likes, s.map_url,
-                   c.name AS category_name
-            FROM spaces s
-            JOIN categories c ON s.category_id = c.id
-            WHERE 1=1
-        """
+        query = self._spaces_query('WHERE 1=1')
+
         params = []
 
         if category_id:
@@ -139,26 +46,7 @@ class Space:
 
         spaces = self.db.execute(query, tuple(params))
 
-        result = []
-        for space in spaces:
-            result.append({
-                'id': space[0],
-                'name': space[1],
-                'building': space[2],
-                'level': space[3],
-                'location': space[4],
-                'description': space[5],
-                'image1': space[6],
-                'image2': space[7],
-                'image3': space[8],
-                'location_description': space[9],
-                'likes': space[10],
-                'map_url': space[11],
-                'category_name': space[12],
-                'features': self.get_space_features(space[0])
-            })
-
-        return result
+        return [self._map_space(space) for space in spaces]
 
     def add_to_favorites(self, user_id, space_id):
         print(f"Attempting to add to favorites: user={user_id}, space={space_id}")
@@ -188,3 +76,37 @@ class Space:
         )
         return bool(result)
     
+    def get_space_features(self, space_id):
+        features = self.db.execute(
+            "SELECT feature FROM space_features WHERE space_id = ?",
+            (space_id,)
+        )
+        return [f[0] for f in features]
+
+    def _map_space(self, space):
+        return {
+            'id': space[0],
+            'name': space[1],
+            'building': space[2],
+            'level': space[3],
+            'location': space[4],
+            'description': space[5],
+            'image1': space[6],
+            'image2': space[7],
+            'image3': space[8],
+            'location_description': space[9],
+            'likes': space[10],
+            'map_url': space[11],
+            'category_name': space[12],
+            'features': self.get_space_features(space[0])
+        }
+
+    def _spaces_query(self, addition):
+        return """
+            SELECT s.id, s.name, s.building, s.level, s.location, 
+                   s.description, s.image1, s.image2, s.image3,
+                   s.location_description, s.likes, s.map_url,
+                   c.name AS category_name
+            FROM spaces s
+            JOIN categories c ON s.category_id = c.id
+        """ + addition
