@@ -42,7 +42,6 @@
     padding: 36px 72px;
     border-radius: 12px;
     margin: 48px auto;
-    z-index: 1;
 }
 
 .category_title {
@@ -57,6 +56,7 @@
     grid-template-columns: repeat(3, 1fr);
     column-gap: 48px;
     row-gap: 48px;
+    z-index: 1;
 }
 
 .category_item {
