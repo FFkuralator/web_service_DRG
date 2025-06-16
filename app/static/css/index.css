@@ -1,10 +1,33 @@
 .section {
     width: 100%;
     padding: 64px 18vw;
-    border-bottom: .1px solid;
+}
+
+#first_section {
+    background: linear-gradient(360deg, #0D009E 2.02%, #1C10A4 11.47%, #2B20AA 24.32%, #6860C3 62.89%, #A49FDB 85.92%, #C3BFE7 99.15%, #FFFFFF 111.63%);
+    color: white;
+    position: relative;
+}
+#second_section {
+    background: linear-gradient(180deg, #0D009E 17.31%, #3B30B2 100%);
+    color: white;
+}
+#third_section {
+    background: linear-gradient(180deg, #3B30B2 0%, #6860C4 100%);
+    color: white;
+}
+#fourth_section {
+    background: linear-gradient(180deg, #6860C4 0%, #A49FDC 100%);
+    color: white;
+}
+#fifth_section {
+    background: linear-gradient(180deg, #A49FDB 0%, #F3F2FC 100%);
+    color: #0D009E;
 }
 #sixth_section {
+    background: linear-gradient(180deg, #F3F2FC 14.2%, #FFFFFF 95.3%);
     border-bottom: none;
+    color: #0D009E;
 }
 .width_36_auto {
     width: 36%;
@@ -22,6 +45,7 @@
     text-align: center;
     width: 90%;
     margin: auto;
+    font-weight: 300;
 }
 
 .screaming_left {
@@ -30,19 +54,38 @@
 }
 
 .screaming_h1 {
-    font-size: 6rem;
+    font-size: 4rem;
+    font-weight: 300;
 }
 
 .screaming_h2 {
-    font-size: 3.6rem;
+    font-size: 3.2rem;
+    font-weight: 300;
 }
 
 .screaming_h3 {
     font-size: 3rem;
+    font-weight: 300;
 }
 
 .screaming_h4 {
     font-size: 1.6rem;
+    font-weight: 300;
+}
+
+.screaming_fefu_logo {
+    height: 70%;
+    width: auto;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+    opacity: .3;
+}
+
+.big_margin_tb {
+    margin: 164px auto;
 }
 
 .container_item {
@@ -51,6 +94,13 @@
 
 .bordered_container.feature_container {
     align-items: baseline;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.feature_title {
+    text-align: center;
+    color: #0D009E;
+    font-weight: 500;
 }
 
 .feature_paragraph {
@@ -68,18 +118,22 @@
 
 .try_button {
     border-radius: 18px;
-    border: .5px solid;
+    border: .5px #0D009E solid;
     padding: 8px 22px;
     font-size: 16px;
     font-weight: 500;
     background-color: white;
-    color: black;
 }
 
 .try_button:hover {
-    background-color: black;
+    background-color: #0D009E;
     color: white;
-    border-color: white;
+}
+
+.try_h {
+    text-align: center;
+    margin-bottom: 18px;
+    font-weight: 400;
 }
 
 .faq_container {

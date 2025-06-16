@@ -11,21 +11,17 @@
 {% block content %}
     <section class="section" id="first_section">
         <div class="remark">BOFUK by LOSHKI</div>
-        <h1 class="screaming_text screaming_h1 font_400">
-            СЕРВИС БРОНИРОВАНИЯ
-            ПРОСТРАНСТВ
+        <h1 class="screaming_text screaming_h1 big_margin_tb">
+            САМЫЙ УДОБНЫЙ<br>
+            СЕРВИС БРОНИРОВАНИЯ<br>
+            ПРОСТРАНСТВ<br>
             ДВФУ
         </h1>
-
-        <div class="bordered_container margin_top">
-            <h2 class="container_item">ПРОДАЮЩИЙ ТЕКСТ</h2>
-            <img class="small_image" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="">
-            <p class="container_item">Пространства под танцы, музыку, спорт и другие активности — теперь проще, чем когда-либо. Сервис позволяет студентам быстро находить и бронировать свободные помещения в кампусе. </p>
-        </div>
+        <img class="screaming_fefu_logo" src="{{ url_for('static', filename='assets/fefu_logo.png') }}" alt="">
     </section>
 
     <section class="section" id="second_section">
-        <h2 class="screaming_text screaming_h2 font_400">
+        <h2 class="screaming_text screaming_h2">
             БРОНИРУЙ ЛЮБЫЕ ПЛОЩАДКИ,<br>
             КОГДА ХОЧЕШЬ И С КЕМ ХОЧЕШЬ.<br>
         </h2>
@@ -34,24 +30,24 @@
     </section>
 
     <section class="section" id="third_section">
-        <h3 class="screaming_left screaming_h3 font_400">
+        <h3 class="screaming_left screaming_h3">
             ВСЁ РАБОТАЕТ ТАК, КАК ТЕБЕ ХОЧЕТСЯ:<br>
             БЫСТРО, УДОБНО И БЕЗ ПРОБЛЕМ.<br>
         </h3>
         <div class="bordered_container margin_top feature_container">
             <div class="feature">
                 <img class="mid_image" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="">
-                <h4 class="screaming_h4">Выбор по категориям</h4>
+                <h4 class="screaming_h4 feature_title">Выбор по категориям</h4>
             </div>
 
             <div class="feature">
                 <img class="mid_image" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="">
-                <h4 class="screaming_h4">Реальное фото-описание</h4>
+                <h4 class="screaming_h4 feature_title">Реальное фото-описание</h4>
             </div>
 
             <div class="feature">
                 <img class="mid_image" src="{{ url_for('static', filename='assets/portrait.jpg') }}" alt="">
-                <h4 class="screaming_h4">Подтверждение за пару кликов</h4>
+                <h4 class="screaming_h4 feature_title">Подтверждение за пару кликов</h4>
             </div>
 
         </div>
@@ -60,11 +56,10 @@
 
     <section class="section" id="fourth_section">
         <div class="right_container">
-            <h4 class="font_16px">Беспроблемное бронирование</h4>
-            <h3 class="screaming_h3 font_400">
-                НИКТО НЕ ЗНАЕТ ТВОЙ ГРАФИК ЛУЧШЕ, ЧЕМ ТЫ
+            <h3 class="screaming_h3">
+                НИКТО НЕ ЗНАЕТ ТВОЙ ГРАФИК ЛУЧШЕ, ЧЕМ ТЫ          
             </h3>
-            <p class="font_16px"><b>А мы знаем графики пространств.</b><br> Больше никаких “ой, а можно тут сегодня?”. Ты сам видишь, когда площадка свободна и решаешь, когда тебе удобнее всего заняться чем-то важным. BOFUK — твой плеймейкер на кампусе.</p>
+            <p class="font_16px">Больше никаких “ой, а можно тут сегодня?”. Ты сам видишь, когда площадка свободна и решаешь, когда тебе удобнее всего заняться чем-то важным. BOFUK — твой плеймейкер на кампусе.</p>
 
         </div>
         <img class="big_image margin_top" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="">
@@ -112,8 +107,8 @@
     </section>
 
     <section class="section" id="sixth_section">
+        <h3 class="screaming_h3 try_h">Просто попробуй</h3>
         <div class="bordered_container">
-            <h3 class="screaming_h4">Просто попробуй</h3>
             <p class="width_36_auto font_16px">Начни использовать возможности университета более эффективно уже сегодня.</p>
             <a href="/catalog" class="try_button">Перейти к каталогу помещений</a>
         </div>
