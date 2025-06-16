@@ -85,8 +85,6 @@
 
             <button class="submit_button" type="submit" id="booking_submit_btn">Забронировать</button>
         </form>
-
-        <div id="availabilityStatus" style="margin-top: 15px; padding: 10px; border-radius: 8px;"></div>
     </section>
 
     <section class="card_section">
@@ -114,5 +112,19 @@
         <a class="fefumap_link" href="{{ space.map_url }}">Пространство на карте</a>
 
 
+    </section>
+
+        <section class="popup" id="result_popup">
+        <div class="popup_container">
+            <h1 class="popup_text" id="result_text"></h1>
+            <button class="popup_button" id="result_popup_btn"></button>
+        </div>
+    </section>
+
+    <section class="popup" id="error_popup">
+        <div class="popup_container">
+            <h1 class="popup_text" id="error_text">Во время бронирования произошла ошибка, попробуйте еще раз</h1>
+            <button class="popup_button" id="error_popup_btn"></button>
+        </div>
     </section>
 {% endblock %}
