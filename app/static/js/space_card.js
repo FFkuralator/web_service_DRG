@@ -1,3 +1,7 @@
+function toggleNoScroll() {
+    document.body.classList.toggle('no-scroll');
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.slide');
     let currentIndex = 0;
@@ -5,21 +9,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const nextBtn = document.getElementById('next_btn');
 
     function showSlide(index) {
-        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+        });
+        slides[index].classList.add('active');
     }
 
-    function showFullscreen() {
+    function toggleFullscreen() {
         this.classList.toggle('fulscreen');
-        document.body.classList.toggle('no-scroll');
+        toggleNoScroll()
     }
 
-    slides.forEach(slide => slide.addEventListener('click', showFullscreen));
-    prevBtn.addEventListener('click', () => showSlide((currentIndex - 1 + slides.length) % slides.length));
-    nextBtn.addEventListener('click', () => showSlide((currentIndex + 1) % slides.length));
+    slides.forEach((slide, i) => {
+        slide.addEventListener('click', toggleFullscreen);
+    });
+
+    prevBtn.addEventListener('click', function () {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', function () {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+    });
+
     showSlide(currentIndex);
 
     const bookingForm = document.getElementById('bookingForm');
-    const availabilityStatus = document.getElementById('availabilityStatus');
     let selectedDate = null;
     let slots = [];
     let startSlot = null;
@@ -220,21 +237,77 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             generateTimeSlots(bookedTimes);
-            updateStatusMessage(bookedSlots);
         } catch (error) {
             console.error('Ошибка при проверке доступности:', error);
         }
     }
 
-    function updateStatusMessage(bookedSlots) {
-        if (bookedSlots.length === 0) {
-            availabilityStatus.textContent = 'На эту дату нет бронирований';
-            availabilityStatus.style.backgroundColor = 'rgb(184, 241, 170)';
+    function mouseMidSlotsUpdater() {
+        if (!startSlot || (startSlot && endSlot)) return
+        updateMidSlots(this)
+    }
+
+    function add15Minutes(time) {
+        const [hours, minutes] = time.split(":").map(Number);
+        let newTime;
+        if (minutes == '45') {
+            newTime = `${hours + 1}:00`
         } else {
-            availabilityStatus.textContent = `Занятые слоты: ${bookedSlots.map(s => `${s.start}-${s.end}`).join(', ')}`;
-            availabilityStatus.style.backgroundColor = 'rgb(255, 200, 200)';
+            newTime = `${hours}:${minutes + 15}`
         }
-        availabilityStatus.style.color = 'black';
+        return newTime
+    }
+    function textToTime(text) {
+        let [hours, minutes] = text.split(":").map(Number);
+        return hours * 60 + minutes;
+    }
+
+    const submitBtn = document.getElementById('booking_submit_btn')
+
+    function addTimeSlotListeners() {        
+        slots.forEach(slot => {
+            slot.addEventListener('click', () => {
+                if (slot.classList.contains('booked')) return
+                if (!startSlot) {
+                    startSlot = slot
+                    slot.classList.add('end')
+                    submitBtn.textContent = 'Забронировать';
+                } else if (startSlot && endSlot && slot != startSlot && slot != endSlot) {
+                    clearSelection()
+                    startSlot = slot
+                    slot.classList.add('end')
+                    submitBtn.textContent = 'Забронировать';
+                } else if (slot == startSlot) {
+                    clearSelection();
+                    submitBtn.textContent = 'Забронировать';
+                } else if (slot == endSlot) {
+                    endSlot = null
+                    slot.classList.remove('end')
+                    slots.forEach((slot, i) => {
+                        slot.classList.remove('mid')
+                    });
+                    submitBtn.textContent = 'Забронировать';
+                } else {
+                    if (isWithinTwoHours(startSlot, slot)) {
+                        endSlot = slot
+                        slot.classList.add('end')
+                        let booking_text;
+                        if (getIndex(startSlot) > getIndex(endSlot)) {
+                            booking_text = `Забронировать на ${endSlot.textContent}-${add15Minutes(startSlot.textContent)}, ${selectedDate}`
+                        } else {
+                            booking_text = `Забронировать на ${startSlot.textContent}-${add15Minutes(endSlot.textContent)}, ${selectedDate}`
+                        }
+                        submitBtn.textContent = booking_text;
+                    } else {
+                        alert("Пространство можно забронировать не более чем на 2 часа")
+                    }
+                }
+            });
+
+            slot.addEventListener('mouseenter', mouseMidSlotsUpdater);
+
+            slot.addEventListener('mouseleave', mouseMidSlotsUpdater);
+        });
     }
 
     const allDates = generateDateList();
@@ -259,24 +332,16 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (!selectedDate) {
-            alert('Пожалуйста, выберите дату бронирования');
-            return;
-        }
-        if (!startSlot) {
-            alert('Пожалуйста, выберите время начала');
-            return;
-        }
-        if (!endSlot) {
-            alert('Пожалуйста, выберите время окончания');
+        if (!selectedDate || !startSlot || !endSlot) {
+            alert('Бронирование невозможно, заполнены не все данные');
             return;
         }
 
         const formData = {
             space_id: parseInt(document.getElementById('space_id').value),
             booking_date: selectedDate,
-            start_time: startSlot?.textContent || '',
-            end_time: endSlot ? add15Minutes(endSlot.textContent) : '',
+            start_time: startSlot.textContent < endSlot.textContent ? startSlot.textContent : endSlot.textContent,
+            end_time: add15Minutes(endSlot.textContent > startSlot.textContent ? endSlot.textContent : startSlot.textContent),
             comment: document.getElementById('comment').value || null
         };
 
@@ -295,12 +360,26 @@ document.addEventListener('DOMContentLoaded', function () {
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Ошибка сервера');
 
-            alert('Бронирование успешно создано!');
+            document.getElementById('result_popup').classList.add('active')
+            if (getIndex(startSlot) > getIndex(endSlot)) {
+                booking_text = `${endSlot.textContent}-${add15Minutes(startSlot.textContent)}, ${selectedDate}`
+            } else {
+                booking_text = `${startSlot.textContent}-${add15Minutes(endSlot.textContent)}, ${selectedDate}`
+            }
+
+            document.getElementById('result_text').textContent = `Вы забронировали ${document.querySelector('.space_name').textContent} на ${booking_text}`
+            toggleNoScroll()
+
             clearSelection();
             checkAvailability(selectedDate);
         } catch (error) {
             console.error('Ошибка:', error);
-            alert(`Ошибка бронирования: ${error.message}`);
+            document.getElementById('error_popup').classList.add('active')
+            if (error.message == 'Too much bookings') {
+                document.getElementById('error_text').textContent = 'Забронировать пространство не удалось, у вас уже достигнуто максимальное количество записей на человека'
+            }
+            toggleNoScroll()
+
         }
     });
 
@@ -326,3 +405,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.popup').forEach((popup) => {
+        popup.addEventListener('click', () => {
+            popup.classList.remove('active');
+            toggleNoScroll();
+        })
+    });
+})
