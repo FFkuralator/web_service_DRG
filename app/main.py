@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask, render_template, g, session, jsonify, request, current_app
 from werkzeug.utils import secure_filename
 
@@ -15,7 +17,11 @@ app.secret_key = os.getenv('SECRET_KEY', 'dev_fallback_key')
 app.config['DATABASE'] = os.path.join('instance', 'app.db')
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = 'static/assets'
-
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[logging.StreamHandler()]
+)
 os.makedirs('instance', exist_ok=True)
 app.register_blueprint(auth_bp, url_prefix='/auth')
 
@@ -66,10 +72,10 @@ def space(id):
     else:
         space_dict['is_favorite'] = False
 
-    print("Images data:", space_dict['images'])
+    logging.info(f"Images data: {space_dict['images']}")
     for img in space_dict['images']:
         full_path = os.path.join(current_app.root_path, 'static', 'assets', img['url'].replace('assets/', ''))
-        print(f"Checking: {full_path} =>", os.path.exists(full_path))
+        logging.info(f"Checking: {full_path} => {os.path.exists(full_path)}")
 
     return render_template('spaces/space_card.html', space=space_dict)
 
@@ -193,7 +199,7 @@ def favorites():
 def toggle_favorite():
     try:
         data = request.get_json()
-        print(f"Received data: {data}")
+        logging.info(f"Received data: {data}")
 
         space_id = data.get('space_id')
         user_id = session.get('user_id')
@@ -211,7 +217,7 @@ def toggle_favorite():
             return jsonify({'status': 'added'})
 
     except Exception as e:
-        print(f"Error in toggle_favorite: {e}")
+        logging.info(f"Error in toggle_favorite: {e}")
         return jsonify({'error': str(e)}), 500
 
 
