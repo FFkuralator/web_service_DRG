@@ -2,17 +2,21 @@
     width: 56%;
     padding: 24px 96px;
 }
+.card_section.gallery {
+    width: 68%;
+}
 
 .card_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    text-align: center;
 }
 
 .space_name {
     font-size: 24px;
     width: fit-content;
+    color: #2B20AA;
 }
 
 .gallery_container {
@@ -24,7 +28,13 @@
     grid-template-columns: repeat(3, 1fr);
     row-gap: 2px;
     column-gap: 2px;
+    max-height: 480px;
 }
+
+.slide {
+    overflow: hidden;
+}
+
 .slide.fulscreen {
     width: 100vw;
     height: 100vh;
@@ -41,17 +51,21 @@
 }
 
 .space_photo {
-    width: 100%;
+    width: auto;
     height: 100%;
-    object-fit: contain;
+    transform: translateX(-50%);
+    left: 50%;
+    position: relative;
 }
 
 .space_descr_container {
-    padding: 24px;
+    padding: 12px;
+    color: #3B30B2;
 }
 
 .h2 {
     font-size: 22px;
+    text-align: center;
 }
 
 .space_descr_list {
@@ -86,13 +100,25 @@
 #booking_days {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 6px;
 }
+
 .booking_day_button {
+    width: fit-content;
+    height: fit-content;
     border: none;
-    background-color: beige;
-    padding: 8px 12px;
-    border-radius: 6px;
-    margin: auto 12px;
+    cursor: pointer;
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    background: none;
+    font-size: 36px;
+}
+#next_day {
+    margin-left: 5px;
+}
+.booking_day_button:hover {
+    color: rgb(255, 255, 255);
 }
 
 .booking_days_container {
@@ -103,71 +129,76 @@
 }
 
 .booking_day {
-    background-color: lightblue;
+    background-color: #4A40B8;
     border-radius: 8px;
-    opacity: .7;
+    opacity: .9;
     padding: 9px 12px;
     text-align: center;
     cursor: pointer;
+    color: white;
 }
 .booking_day:hover {
     opacity: 1;
 }
 .booking_day.active {
-    background-color: blue;
+    background-color: #3B30B2;
 }
 .booking_day.inactive {
     cursor: not-allowed;
-    background-color: grey;
+    background-color: #E10531;
     pointer-events: none
 }
 .booking_slots {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    column-gap: 1px;
-    row-gap: 1px;
     border-radius: 12px;
     overflow: hidden;
+    border: 1px #4A40B8 solid;
 }
 .booking_slot {
-    background-color: rgb(184, 241, 170);
-    opacity: .7;
+    background-color: #8c84e2;
     width: 64px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    font-weight: 300;
-    color: rgb(106, 106, 106);
+    font-weight: 400;
+    color: white;
     cursor: pointer;
 }
 .booking_slot:hover {
-    opacity: 1;
+    background-color: #4a40b8c6;
 }
 .booking_slot.end {
-    background-color: green;
-    opacity: 1;
-    color: black;
+    background-color: #4A40B8;
 }
 .booking_slot.mid {
-    background-color: lightgreen;
-    opacity: 1;
-    color: black;
+    background-color: #4A40B8;
+    opacity: .7;
 }
 .booking_slot.booked, .booking_slot.booked.mid, .booking_slot.booked.end {
-    opacity: .7;
-    background-color: red;
-    color: black;
+    background-color: #E10531;
+    color: rgba(255, 255, 255, 0.761);
     cursor: not-allowed;
     pointer-events: none;
 }
 
+.form_part.comment {
+    width: 50%;
+    margin: 12px auto;
+}
+
 .info_description {
     width: 100%;
-    margin: 12px 0;
+    margin: 12px 0 36px;
     padding: 0 0 32px;
+    background-color: white;
+    border-radius: 18px;
+    padding: 20px 28px;
+    color: #4A40B8;
+    font-size: 16px;
 }
 
 .info_description_p {
@@ -188,17 +219,18 @@
 .fefumap_link {
     font-size: 18px;
     margin: 12px auto;
-    border: .1px solid;
+    border: none;
     border-radius: 12px;
     padding: 12px 24px;
     display: block;
     width: fit-content;
-    color: #3B30B2;
-
+    background-color: #3B30B2;
+    color: white;
 }
 
 .fefumap_link:hover {
-    background-color: rgb(250, 250, 250);
+    color: #3B30B2;
+    background-color: white;
 }
 
 .popup {

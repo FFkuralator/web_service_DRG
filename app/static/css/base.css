@@ -9,6 +9,8 @@
     transition: .2s ease;
     color: inherit;
     z-index: inherit;
+    font-size: inherit;
+    text-align: inherit;
 }
 
 body {
@@ -40,12 +42,12 @@ body {
 }
 
 .logo {
+    color: #0D00A0D9;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 144px;
     z-index: 1000;
-    color: inherit;
 }
 
 .logo_by {
@@ -182,10 +184,15 @@ body {
 
 .submit_button {
     border-radius: 6px;
-    border: .1px solid;
+    border: none;
     padding: 6px 12px;
-    background-color: aquamarine;
+    background-color: #4A40B8;
+    color: #fff;
     margin: 12px auto;
+    cursor: pointer;
+}
+.submit_button:hover {
+    background-color: #493cdb;
 }
 
 .display_none {
