@@ -33,6 +33,17 @@ class Database:
             """)
 
             conn.execute("""
+                CREATE TABLE IF NOT EXISTS space_images (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    space_id INTEGER NOT NULL,
+                    image_url TEXT NOT NULL,
+                    alt_text TEXT,
+                    is_primary BOOLEAN DEFAULT FALSE,
+                    FOREIGN KEY (space_id) REFERENCES spaces(id)  
+                )
+            """)
+
+            conn.execute("""
                 CREATE TABLE IF NOT EXISTS spaces (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
@@ -40,9 +51,6 @@ class Database:
                     level TEXT NOT NULL,
                     location TEXT NOT NULL,
                     description TEXT,
-                    image1 TEXT,
-                    image2 TEXT,
-                    image3 TEXT,
                     location_description TEXT,
                     likes INTEGER,
                     map_url TEXT,
@@ -101,4 +109,3 @@ class Database:
             if fetch_one:
                 return cursor.fetchone()
             return cursor.fetchall()
-        

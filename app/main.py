@@ -1,4 +1,5 @@
-from flask import Flask, render_template, g, session, jsonify, request
+from flask import Flask, render_template, g, session, jsonify, request, current_app
+from werkzeug.utils import secure_filename
 
 from backend.database.db import Database
 import os
@@ -12,6 +13,8 @@ from backend.routes.register import auth_bp, login_required
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'dev_fallback_key')
 app.config['DATABASE'] = os.path.join('instance', 'app.db')
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = 'static/assets'
 
 os.makedirs('instance', exist_ok=True)
 app.register_blueprint(auth_bp, url_prefix='/auth')
@@ -19,6 +22,10 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 with app.app_context():
     db = Database(app.config['DATABASE'])
     db._init_db()
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 @app.route('/')
 def index():
@@ -39,17 +46,81 @@ def space(id):
     if not space_data:
         return "Space not found", 404
 
-    columns = ['id', 'name', 'building', 'level', 'location', 'description',
-               'image1', 'image2', 'image3', 'location_description', 'likes', 'map_url', 'category_name']
-    space_dict = dict(zip(columns, space_data))
-    space_dict['features'] = space_model.get_space_features(id)
+    space_dict = {
+        'id': space_data[0],
+        'name': space_data[1],
+        'building': space_data[2],
+        'level': space_data[3],
+        'location': space_data[4],
+        'description': space_data[5],
+        'location_description': space_data[6],
+        'likes': space_data[7],
+        'map_url': space_data[8],
+        'category_name': space_data[9],
+        'images': space_model.get_space_images(id),
+        'features': space_model.get_space_features(id)
+    }
 
     if 'user_id' in session:
         space_dict['is_favorite'] = space_model.is_favorite(session['user_id'], id)
     else:
         space_dict['is_favorite'] = False
 
+    print("Images data:", space_dict['images'])
+    for img in space_dict['images']:
+        full_path = os.path.join(current_app.root_path, 'static', 'assets', img['url'].replace('assets/', ''))
+        print(f"Checking: {full_path} =>", os.path.exists(full_path))
+
     return render_template('spaces/space_card.html', space=space_dict)
+
+
+@app.route('/api/space/<int:space_id>/images', methods=['POST'])
+@login_required
+def add_space_image(space_id):
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+
+        db.execute(
+            "INSERT INTO space_images (space_id, image_url, alt_text) VALUES (?, ?, ?)",
+            (space_id, filename, request.form.get('alt_text', '')))
+
+        return jsonify({'message': 'Image uploaded successfully'}), 200
+
+    return jsonify({'error': 'Invalid file type'}), 400
+
+
+@app.route('/api/image/<int:image_id>', methods=['DELETE'])
+@login_required
+def delete_space_image(image_id):
+    image = db.execute(
+        "SELECT image_url FROM space_images WHERE id = ?",
+        (image_id,),
+        fetch_one=True
+    )
+
+    if not image:
+        return jsonify({'error': 'Image not found'}), 404
+
+    try:
+        os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], image[0]))
+    except OSError:
+        pass
+
+    db.execute(
+        "DELETE FROM space_images WHERE id = ?",
+        (image_id,)
+    )
+
+    return jsonify({'message': 'Image deleted successfully'}), 200
 
 
 @app.route('/catalog')
@@ -65,7 +136,11 @@ def catalog():
             is_fav = False
             if 'user_id' in session:
                 is_fav = space_model.is_favorite(session['user_id'], space['id'])
-            enriched_spaces.append({**space, 'is_favorite': is_fav})
+            enriched_spaces.append({
+                **space,
+                'is_favorite': is_fav,
+                'images': space['images'],
+            })
 
         space_categories.append({
             "id": cat[0],

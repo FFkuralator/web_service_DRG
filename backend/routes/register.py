@@ -1,4 +1,3 @@
-import re
 from functools import wraps
 
 from flask import Blueprint, request, redirect, session, url_for, flash, render_template
