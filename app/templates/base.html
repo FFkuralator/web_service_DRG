@@ -31,7 +31,7 @@
                 {% if g.user %}
                     <a href="/profile" class="header_nav_item header_profile">Профиль</a>
                 {% else %}
-                    <a href="/auth" class="header_nav_item header_profile">Войти</a>
+                    <a href="{{ url_for('auth_bp.auth') }}" class="header_nav_item header_profile">Войти</a>
                 {% endif %}
             </nav>
 

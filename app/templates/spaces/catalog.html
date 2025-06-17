@@ -33,7 +33,7 @@
                 <ul class="category_list">
                     {% for space in category.spaces %}
                         <li class="category_item">
-                            <a class="space_container" href="{{ url_for('space', id=space.id) }}">
+                            <a class="space_container" href="{{ url_for('spaces_bp.space', id=space.id) }}">
                                 <button class="fav_button_box" data-space-id="{{ space.id }}">
                                     <div class="fav_button {% if space.is_favorite %}active{% endif %}">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="{% if space.is_favorite %}red{% else %}currentColor{% endif %}" xmlns="http://www.w3.org/2000/svg">
