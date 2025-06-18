@@ -47,10 +47,6 @@
     font-weight: 500;
 }
 
-.header_nav {
-    
-}
-
 .burger_button {
     display: none;
     cursor: pointer;
@@ -116,8 +112,13 @@
 }
 
 .footer_link {
-    color: blue;
     margin: 4px 0;
+    color: rgb(72, 72, 72);
+    height: fit-content;
+}
+.footer_link:hover {
+    color: black;
+    text-decoration: underline;
 }
 
 .legal_copyright {
