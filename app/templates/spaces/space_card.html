@@ -11,56 +11,45 @@
 
 {% block content %}
 <body data-logged-in="{{ 'true' if g.user else 'false' }}">
-    <section class="card_section">
+    <section class="card_section gallery">
         <div class="card_header">
-            <h1 class="space_name">Пространство шарите?</h1>
+            <div></div>
+            <h1 class="space_name">{{ space.name }}</h1>
             <div class="c_header_buttons">
-                <button class="c_header_button">Поделиться</button>
-                <button class="c_header_button">Лайкнуть</button>
-                <button class="c_header_button">Шейр ит</button>
-                <button class="fav-button {% if space.is_favorite %}active{% endif %}"
-                        data-space-id="{{ space.id }}">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="{% if space.is_favorite %}red{% else %}currentColor{% endif %}" xmlns="http://www.w3.org/2000/svg">
+
+                <button class="fav-button {% if space.is_favorite %}active{% endif %}" data-space-id="{{ space.id }}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="{% if space.is_favorite %}red{% else %}currentColor{% endif %}" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/>
                     </svg>
                 </button>
             </div>
         </div>
 
+        <div class="space_descr_container">
+            <ul class="space_descr_list">
+                <li class="space_descr_item">Корпус {{ space.building}}</li>
+                <li class="space_descr_item">Уровень {{ space.level }}</li>
+                <li class="space_descr_item">Находится в {{ space.location }}</li>
+            </ul>
+            
+        </div>
+
         <div class="space_gallery">
             <div class="gallery_container">
                 {% for image in space.images %}
-                <div class="slide {% if loop.first %}active{% endif %}">
-                    <img class="space_photo" src="{{ url_for('static', filename='assets/' + image.url) }}" alt="{{ image.alt }}">
-                </div>
+                    <div class="slide {% if loop.first %}active{% endif %}">
+                        <img class="space_photo" src="{{ url_for('static', filename='assets/' + image.url) }}" alt="{{ image.alt }}">
+                    </div>
                 {% else %}
-                <div class="slide active">
-                    <img class="space_photo"
-                        src="{{ url_for('static', filename='assets/default_placeholder.png') }}" alt="No images available">
-                </div>
+                    <div class="slide active">
+                        <img class="space_photo"
+                            src="{{ url_for('static', filename='assets/default_placeholder.png') }}" alt="No images available">
+                    </div>
                 {% endfor %}
             </div>
             <div class="button_container">
                 <button id="prev_btn" class="gallery_button">prev</button>
                 <button id="next_btn" class="gallery_button">next</button>
-            </div>
-        </div>
-
-        <div class="space_descr_container">
-            <h2 class="h2">Типа точное название</h2>
-
-            <ul class="space_descr_list">
-                <li class="space_descr_item">пунктик</li>
-                <li class="space_descr_item">пунктик</li>
-                <li class="space_descr_item">пунктик</li>
-                <li class="space_descr_item">пунктик</li>
-                <li class="space_descr_item">пунктик</li>
-            </ul>
-
-            <div class="space_likes">
-                <button class="like_button down_button">-</button>
-                <span class="likes_number">1000</span>
-                <button class="like_button up_button">+</button>
             </div>
         </div>
     </section>
@@ -73,9 +62,9 @@
 
             <div class="form_part" id="booking_days">
 
-                <button type="button" class="booking_day_button" id="prev_day">Prev</button>
+                <button type="button" class="booking_day_button" id="prev_day">&#9664</button>
                 <div class="booking_days_container" id="booking_days_container"></div>
-                <button type="button" class="booking_day_button" id="next_day">Next</button>
+                <button type="button" class="booking_day_button" id="next_day">&#9658</button>
 
             </div>
 
@@ -83,9 +72,9 @@
                 <div class="booking_slots" id="booking_slots"></div>
             </div>
 
-            <div class="form_part">
+            <div class="form_part comment">
                 <label class="form_label" for="comment">Комментарий</label>
-                <input class="text_input" type="text" id="comment" name="comment" placeholder="Необязательно">
+                <input class="text_input" type="text" id="comment" name="comment" placeholder="Необязательный">
             </div>
 
             <button class="submit_button" type="submit" id="booking_submit_btn">Забронировать</button>
@@ -100,11 +89,13 @@
 
         {% if space.features %}
             <h2 class="h2">Оборудование в пространстве</h2>
-            <ul class="features_grid">
-                {% for feature in space.features %}
-                    <li class="feature">{{ feature }}</li>
-                {% endfor %}
-            </ul>
+            <div class="info_description">
+                <ul class="features_grid">
+                    {% for feature in space.features %}
+                        <li class="feature">{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
 
         {% if space.location_description %}

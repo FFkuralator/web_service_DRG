@@ -1,3 +1,7 @@
+body {
+    background: linear-gradient(360deg, #0D009E 2.02%, #1C10A4 11.47%, #2B20AA 24.32%, #6860C3 62.89%, #A49FDB 85.92%, #C3BFE7 99.15%, #FFFFFF 111.63%);
+}
+
 .fullscreen_container {
     display: flex;
     justify-content: center;
@@ -5,9 +9,6 @@
     width: 100%;
     min-height: 100vh;
     padding: 42px 0;
-    background-image: url("/static/assets/landscape.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .auth_header {
