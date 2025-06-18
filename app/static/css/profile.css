@@ -14,12 +14,12 @@
     width: fit-content;
     margin: auto;
     text-align: center;
+    border: .1px #4A40B8 solid;
 }
 
 .action_button:hover {
     background-color: white;
     color: #4A40B8;
-    border: .1px #4A40B8 solid;
 }
 .profile_section {
     display: flex;
