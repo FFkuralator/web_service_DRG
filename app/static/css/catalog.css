@@ -15,6 +15,14 @@
     background-color: rgb(245, 245, 245);
 }
 
+#filter_reset {
+    background-color: red;
+    opacity: .7;
+}
+#filter_reset:hover {
+    opacity: 1;
+}
+
 .catalog {
     width: 72%;
 }
@@ -61,8 +69,9 @@
 }
 
 .space_image {
+    overflow: hidden;
     width: 100%;
-    height: 100%;
+    height: auto;
     position: absolute;
     z-index: -100;
 }
