@@ -8,15 +8,18 @@
     padding: 6px 12px;
     border-radius: 8px;
     border: none;
-    background-color: beige;
+    background-color: #4A40B8;
     cursor: pointer;
+    color: white;
     width: fit-content;
     margin: auto;
     text-align: center;
+    border: .1px #4A40B8 solid;
 }
 
 .action_button:hover {
-    background-color: aliceblue;
+    background-color: white;
+    color: #4A40B8;
 }
 .profile_section {
     display: flex;
@@ -35,6 +38,8 @@
     width: 30%;
     padding: 32px;
     margin: 0 auto;
+    background-color: white;
+    border-radius: 32px;
 }
 
 .avatar {
@@ -48,6 +53,7 @@
     font-size: 22px;
     margin: 12px auto;
     text-align: center;
+    font-size: 24px;
 }
 
 .contacts {
@@ -56,6 +62,7 @@
     flex-direction: row;
     min-width: 60%;
     margin-bottom: 28px;
+    color: #4A40B8;
 }
 
 .contact {
@@ -80,9 +87,9 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    border: .1px solid;
     border-radius: 12px;
     padding: 12px 32px;
+    background-color: white;
 }
 
 .history_point {

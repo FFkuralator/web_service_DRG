@@ -7,10 +7,22 @@
     margin: 0;
     padding: 0;
     transition: .2s ease;
+    color: inherit;
+    z-index: inherit;
+    font-size: inherit;
+    text-align: inherit;
+}
+
+body {
+    background: linear-gradient(107.56deg, #FFFFFF 0%, #4A40B8 100%);
 }
 
 .no-scroll {
     overflow: hidden;
+}
+
+.none {
+    display: none;
 }
 
 .header {
@@ -26,9 +38,11 @@
     background-color: rgb(255, 255, 255);
     border-bottom: .1px rgb(220, 220, 220) solid;
     z-index: 1000;
+    color: #0D00A0D9;
 }
 
 .logo {
+    color: #0D00A0D9;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,16 +53,17 @@
 .logo_by {
     margin: 0 6px;
     font-size: 14px;
-    color: rgb(50, 50, 50);
+    color: inherit;
 }
 
 .logo_text {
     font-size: 18px;
     font-weight: 500;
+    color: inherit;
 }
 
 .header_nav {
-    
+    color: inherit;
 }
 
 .burger_button {
@@ -60,22 +75,23 @@
 .header_nav_item {
     margin: 0 12px;
     font-weight: 500;
-    color: rgb(0, 0, 0, .6);
     cursor: pointer;
-}
-
-.header_nav_item:hover {
-    color: rgb(0, 0, 0);
+    color: inherit;
 }
 
 .header_profile {
+    margin: 0 12px;
+    font-weight: 500;
     border-radius: 14px;
     padding: 6px 12px;
-    background-color: rgb(255, 191, 191);
+    color: #FFF;
+    cursor: pointer;
+    background: linear-gradient(90deg, rgba(13, 0, 160, 0.85) 0%, rgba(255, 255, 255) 140%);
+    opacity: .9;
 }
 
 .header_profile:hover {
-    background-color: rgb(255, 145, 145);
+    opacity: 1;
 }
 
 .main {
@@ -91,7 +107,9 @@
 .footer {
     width: 100%;
     padding: 16px 64px;
-    border-top: .1px rgb(220, 220, 220) solid;
+    border-top: .1px rgba(0, 0, 0, 0.1) solid;
+    color: #0D00A0D9;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .footer_grid {
@@ -117,22 +135,20 @@
 
 .footer_link {
     margin: 4px 0;
-    color: rgb(72, 72, 72);
     height: fit-content;
 }
 .footer_link:hover {
-    color: black;
     text-decoration: underline;
 }
 
 .legal_copyright {
     font-size: 11px;
-    color: rgb(0, 0, 0, .4)
+    opacity: .4;
 }
 
 .bordered_container {
     border-radius: 8px;
-    border: .5px solid;
+    border: .5px #3B30B2 solid;
     padding: 24px 48px;
     display: flex;
     align-items: center;
@@ -168,10 +184,15 @@
 
 .submit_button {
     border-radius: 6px;
-    border: .1px solid;
+    border: none;
     padding: 6px 12px;
-    background-color: aquamarine;
+    background-color: #4A40B8;
+    color: #fff;
     margin: 12px auto;
+    cursor: pointer;
+}
+.submit_button:hover {
+    background-color: #493cdb;
 }
 
 .display_none {

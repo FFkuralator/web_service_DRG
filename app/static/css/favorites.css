@@ -30,7 +30,7 @@
 }
 
 .catalog {
-    width: 80%;
+    width: 72%;
 }
 
 .fav_margin {
@@ -38,18 +38,10 @@
 }
 .category_catalog {
     width: 100%;
+    border: .5px #3B30B2 solid;
     padding: 36px 72px;
     border-radius: 12px;
     margin: 48px auto;
-}
-
-.category_row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    width: 100%;
 }
 
 .category_title {
@@ -61,9 +53,9 @@
 
 .category_list {
     display: grid;
-    grid-template: "left mid right";
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
+    column-gap: 48px;
+    row-gap: 48px;
     z-index: 1;
 }
 
@@ -77,26 +69,10 @@
     color: #3B30B2;
     overflow: hidden;
     background-color: white;
-    opacity: .7;
-    z-index: 0;
-    transform: scale(.8);
-    grid-area: mid;
-    transition: .3s ease transform;
-}
-
-.category_item.right {
-    z-index: 1;
-    transform: translateX(100%) scale(.8);
-
-}
-.category_item.left {
-    z-index: 1;
-    transform: translateX(-100%) scale(.8);
-}
-.category_item.mid {
-    z-index: 2;
-    opacity: 1;
-    transform: scale(1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
 }
 
 .space_container {
@@ -108,6 +84,7 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
+    margin: auto;
 }
 
 .space_image {
@@ -148,22 +125,6 @@
     font-weight: 300;
 }
 
-.gallery_button {
-    font-size: 24px;
-    width: fit-content;
-    height: fit-content;
-    border: none;
-    cursor: pointer;
-    display: block;
-    color: rgba(255, 255, 255, 0.8);
-    background: none;
-    font-size: 36px;
-}
-
-.gallery_button:hover {
-    color: rgb(255, 255, 255);
-}
-
 .filter_popup {
     position: absolute;
     padding: 12px 24px;
@@ -182,8 +143,8 @@
 .fav_button_box {
     border: 1px solid;
     background-color: white;
-    top: 12px;
-    right: 12px;
+    top: 6px;
+    right: 6px;
     width: fit-content;
     position: absolute;
     display: flex;
@@ -194,7 +155,7 @@
     border: none;
     border-radius: 28px;
     cursor: pointer;
-    z-index: 3;
+    z-index: 2;
 }
 
 .fav_button_box:hover {

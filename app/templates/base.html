@@ -29,9 +29,11 @@
                 <a href="/catalog" class="header_nav_item">Пространства</a>
                 <a href="/favorites" class="header_nav_item">Избранное</a>
                 {% if g.user %}
-                    <a href="/profile" class="header_nav_item header_profile">Профиль</a>
+                    <a href="/profile" class="header_profile">
+                        Профиль
+                    </a>
                 {% else %}
-                    <a href="/auth" class="header_nav_item header_profile">Войти</a>
+                    <a href="/auth" class="header_profile">Войти</a>
                 {% endif %}
             </nav>
 
