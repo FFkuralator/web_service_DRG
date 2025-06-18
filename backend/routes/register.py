@@ -1,8 +1,8 @@
-import re
 from functools import wraps
 
 from flask import Blueprint, request, redirect, session, url_for, flash, render_template
 
+from backend.utils import login_required
 from backend.database.models.user import *
 
 
@@ -104,7 +104,7 @@ def login():
                 flash('Вход выполнен успешно!', 'success')
 
                 next_page = request.args.get('next')
-                return redirect(next_page or url_for('profile'))
+                return redirect(next_page or url_for('profile_bp.profile'))
             else:
                 flash('Неверный email или пароль', 'danger')
         except Exception as e:
@@ -119,3 +119,6 @@ def logout():
     flash('Вы успешно вышли из системы', 'success')
     return redirect(url_for('auth_bp.login'))
 
+@auth_bp.route('/auth')
+def auth():
+    return render_template('auth/auth.html')

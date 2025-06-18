@@ -15,7 +15,7 @@
             {% for space in favorites.spaces %}
                 <li class="category_item">
                     <a class="space_container" href="{{ url_for('space', id=space.id) }}">
-                        <img class="space_image" src="{{ url_for('static', filename=space.image1) }}" alt="{{ space.image_alt }}">
+                        <img class="space_image" src="{{ url_for('static', filename=space.image_src) }}" alt="{{ space.image_alt }}">
                         
                         <div class="space_text_container">
                             <h3 class="space_name">{{ space.name }}</h3>
