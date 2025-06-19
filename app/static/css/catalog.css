@@ -66,6 +66,10 @@
     grid-template-rows: 1fr;
     z-index: 1;
 }
+.category_list.admin {
+    grid-template-rows: auto;
+    grid-template: auto;
+}
 
 .category_item {
     position: relative;
@@ -83,7 +87,6 @@
     grid-area: mid;
     transition: .3s ease transform;
 }
-
 .category_item.right {
     z-index: 1;
     transform: translateX(100%) scale(.8);
@@ -97,6 +100,11 @@
     z-index: 2;
     opacity: 1;
     transform: scale(1);
+}
+.category_item.admin {
+    transform: scale(1);
+    opacity: 1;
+    grid-area: auto;
 }
 
 .space_container {
