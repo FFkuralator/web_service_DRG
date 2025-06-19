@@ -1,7 +1,7 @@
 {% extends "master/base.html" %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/users.css') }}">
     <script src="{{ url_for('static', filename='js/master.js') }}"></script>
 {% endblock %}
 
@@ -10,5 +10,85 @@
 {% endblock %}
 
 {% block content %}
-    <div>hui</div>
+    <header class="bordered_container filter_header">
+        <div class="filter_title" id="activity_filter">
+            Активность
+        </div>
+
+        <div class="filter_title" id="building_filter">
+            Статус
+        </div>
+
+        <button class="filter_title" id="filter_reset">Сбросить фильтры</button>
+    </header>
+
+    <ul class="users">
+        <li class="user">
+            <h3>qwerty</h3>
+            <div>Есть 1 текущее бронирование</div>
+            <div>Пользователь</div>
+            <button>История</button>
+            <button>Забанить</button>
+            <ol>
+                <li>
+                    <h4>hui</h4>
+                    <div>11-12 12.12.12</div>
+                    <div>Успешное бронирование</div>
+                    <div>Комментарий</div>
+                    <button>Отменить</button>
+                </li>
+            </ol>
+        </li>
+    </ul>
+
+    <div class="display_none filter_popup" id="active_popup">
+        <ul>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="admin" name="active" value="admin" />
+                <label for="admin">Есть 1 текущее бронирование</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="admin" name="active" value="admin" />
+                <label for="admin">Есть 2+ текущих бронирования</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="admin" name="active" value="admin" />
+                <label for="admin">Активен в течение недели</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="admin" name="active" value="admin" />
+                <label for="admin">Активен в течение месяце</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="admin" name="active" value="admin" />
+                <label for="admin">Активен в течение полугода</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="admin" name="active" value="admin" />
+                <label for="admin">Активен в течение года</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="admin" name="active" value="admin" />
+                <label for="admin">Не активен более года</label>
+            </li>
+        </ul>
+    </div>
+
+    <div class="display_none filter_popup" id="status_popup">
+        <ul>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="admin" name="status" value="admin" />
+                <label for="admin">Админ</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="user" name="status" value="user" />
+                <label for="user">Пользователь</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="banned" name="status" value="banned" />
+                <label for="banned">Забанен</label>
+            </li>
+
+        </ul>
+    </div>
 {% endblock %}
