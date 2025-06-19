@@ -77,6 +77,10 @@ body {
     font-weight: 500;
     cursor: pointer;
     color: inherit;
+    opacity: .8;
+}
+.header_nav_item:hover {
+    opacity: 1;
 }
 
 .header_profile {
