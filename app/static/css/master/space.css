@@ -1,0 +1,32 @@
+.edit_button {
+    z-index: 3;
+    background-color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 4px 8px;
+    opacity: .8;
+    border: .1px solid;
+    margin: 12px auto;
+}
+.edit_button:hover {
+    opacity: 1;
+}
+.slide .edit_button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+.edit_button.tm {
+    margin: 12px auto 0;
+}
+.slide {
+    position: relative;
+}
+
+.forever_switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+}
