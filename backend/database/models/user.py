@@ -75,6 +75,22 @@ class User:
             fetch_one=True
         )
 
+    def get_all_users(self):
+        return self.db.execute(
+            "SELECT id, email, full_name, number_phone, is_admin FROM users"
+        )
+
+    def delete_user(self, user_id):
+        self.db.execute("DELETE FROM users WHERE id = ?", (user_id,))
+        return True
+
+    def make_admin(self, user_id: int):
+        self.db.execute(
+            "UPDATE users SET is_admin = TRUE WHERE id = ?",
+            (user_id,)
+        )
+        return True
+
     def email_exists(self, email: str):
         result = self.db.execute(
             "SELECT 1 FROM users WHERE email = ? LIMIT 1",

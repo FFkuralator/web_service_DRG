@@ -20,7 +20,8 @@ class Database:
                     full_name TEXT,
                     number_phone TEXT UNIQUE NOT NULL,
                     image_src TEXT,
-                    image_alt,
+                    image_alt TEXT,
+                    is_admin BOOLEAN DEFAULT FALSE,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
