@@ -1,0 +1,90 @@
+.bordered_container.filter_header {
+    width: 52%;
+    border-radius: 24px;
+    margin: 32px auto 32px;
+    background-color: white;
+    padding: 16px 36px;
+    justify-content: space-between;
+}
+
+.filter_title {
+    border-radius: 16px;
+    padding: 4px 16px;
+    border: .5px #3B30B2 solid;
+    color: #3B30B2;
+    cursor: pointer;
+}
+
+.filter_title:hover {
+    background-color: #3B30B2;
+    color: white;
+
+}
+
+#filter_reset {
+    background-color: #E10531;
+    border: none;
+    color: white;
+    opacity: .8;
+}
+#filter_reset:hover {
+    opacity: 1;
+}
+
+.users {
+    width: 80%;
+}
+
+.user {
+    width: 100%;
+    padding: 24px 32px;
+    border-radius: 12px;
+    background-color: white;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.user_row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 24px;
+}
+
+.history {
+    border-top: 1px solid;
+    padding: 36px;
+}
+.history_item {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    border: .1px solid;
+    padding: 12px 24px;
+    border-radius: 8px;
+}
+
+.grid_span_2 {
+    grid-column: span 2;
+}
+
+.filter_popup {
+    position: absolute;
+    padding: 12px 24px;
+    background-color: white;
+    z-index: 10;
+    border: .1px solid;
+    border-radius: 12px;
+    border: .5px #3B30B2 solid;
+    color: #3B30B2;
+}
+
+.filter_popup_item {
+    list-style: none;
+}

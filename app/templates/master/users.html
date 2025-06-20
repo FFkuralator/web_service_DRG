@@ -1,8 +1,8 @@
 {% extends "master/base.html" %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/users.css') }}">
-    <script src="{{ url_for('static', filename='js/master.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/master/users.css') }}">
+    <script src="{{ url_for('static', filename='js/users.js') }}"></script>
 {% endblock %}
 
 {% block title %}
@@ -11,11 +11,11 @@
 
 {% block content %}
     <header class="bordered_container filter_header">
-        <div class="filter_title" id="activity_filter">
+        <div class="filter_title" id="active_filter">
             Активность
         </div>
 
-        <div class="filter_title" id="building_filter">
+        <div class="filter_title" id="status_filter">
             Статус
         </div>
 
@@ -24,18 +24,20 @@
 
     <ul class="users">
         <li class="user">
-            <h3>qwerty</h3>
-            <div>Есть 1 текущее бронирование</div>
-            <div>Пользователь</div>
-            <button>История</button>
-            <button>Забанить</button>
-            <ol>
-                <li>
+            <div class="user_row">
+                <h3>qwerty</h3>
+                <div>Есть 1 текущее бронирование</div>
+                <div>Пользователь</div>
+                <button class="history_btn filter_title">История</button>
+                <button class="filter_title">Забанить</button>
+            </div>
+            <ol class="history display_none">
+                <li class="history_item">
                     <h4>hui</h4>
                     <div>11-12 12.12.12</div>
                     <div>Успешное бронирование</div>
-                    <div>Комментарий</div>
-                    <button>Отменить</button>
+                    <div class="grid_span_2">ебать какой длинный коммент это просто пизда aaaaaaadhfksjdhfk skefhskdjfskdfj hsdkjf hsdkjf hskdjfh ksjdhfj нахуй я ебал</div>
+                    <button class="submit_button">Отменить</button>
                 </li>
             </ol>
         </li>
