@@ -75,6 +75,31 @@ class User:
             fetch_one=True
         )
 
+    def get_user_with_bookings(self, user_id):
+        return self.db.execute(
+            """SELECT b.id, s.name, 
+               strftime('%d.%m.%Y', b.booking_date) as date,
+               strftime('%H:%M', b.start_time) || '-' || strftime('%H:%M', b.end_time) as time,
+               b.comment
+               FROM bookings b
+               JOIN spaces s ON b.space_id = s.id
+               WHERE b.user_id = ?
+               ORDER BY b.booking_date DESC""",
+            (user_id,)
+        )
+
+    def get_space_details(self, space_id):
+        return self.db.execute(
+            """SELECT s.*, c.name as category_name,
+               GROUP_CONCAT(sf.feature) as features
+               FROM spaces s
+               JOIN categories c ON s.category_id = c.id
+               LEFT JOIN space_features sf ON s.id = sf.space_id
+               WHERE s.id = ?""",
+            (space_id,),
+            fetch_one=True
+        )
+
     def get_all_users(self):
         return self.db.execute(
             "SELECT id, email, full_name, number_phone, is_admin FROM users"

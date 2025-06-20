@@ -93,3 +93,32 @@ def delete_booking(booking_id):
     db.execute("DELETE FROM bookings WHERE id = ?", (booking_id,))
     flash('Бронирование успешно удалено', 'success')
     return redirect(url_for('admin.manage_bookings'))
+
+@admin_bp.route('/users/<int:user_id>/ban', methods=['POST'])
+def ban_user(user_id):
+    db = Database()
+    db.execute("UPDATE users SET is_banned = TRUE WHERE id = ?", (user_id,))
+    flash('Пользователь заблокирован', 'success')
+    return redirect(url_for('admin.manage_users'))
+
+@admin_bp.route('/users/<int:user_id>/unban', methods=['POST'])
+def unban_user(user_id):
+    db = Database()
+    db.execute("UPDATE users SET is_banned = FALSE WHERE id = ?", (user_id,))
+    flash('Пользователь разблокирован', 'success')
+    return redirect(url_for('admin.manage_users'))
+
+@admin_bp.route('/space/<int:space_id>/update', methods=['POST'])
+def update_space(space_id):
+    data = request.form
+    db = Database()
+    db.execute(
+        """UPDATE spaces SET 
+           name = ?, building = ?, level = ?, location = ?,
+           description = ?, location_description = ?, map_url = ?
+           WHERE id = ?""",
+        (data['name'], data['building'], data['level'], data['location'],
+         data['description'], data['location_description'], data['map_url'], space_id)
+    )
+    flash('Пространство обновлено', 'success')
+    return redirect(url_for('admin.manage_spaces'))
