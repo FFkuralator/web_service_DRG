@@ -1,0 +1,85 @@
+{% extends "master/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <script src="{{ url_for('static', filename='js/master.js') }}"></script>
+{% endblock %}
+
+{% block title %}
+    МАСТЕРКА
+{% endblock %}
+
+{% block content %}
+    <section class="dashboard">
+        <div class="dashboard_card first">
+            <div>
+                <div class="dash_number">228</div>
+                <h3>Активных пользователей в Апреле</h3>
+            </div>
+            <p class="kpi_string">На 69% больше, чем в Марте</p>
+        </div>
+
+        <div class="dashboard_card">
+            <div>
+                <div class="dash_number">1488</div>
+                <h3>Пространств забронировано в Апреле</h3>
+            </div>
+
+            <ul>
+                <li class="kpi_string">
+                    <strong>322</strong> в категории Танцы
+                </li>
+                <li class="kpi_string">
+                    <strong>282</strong> в категории Мероприятия
+                </li>
+                <li class="kpi_string">
+                    <strong>7</strong> в категории Учеба
+                </li>
+            </ul>
+        </div>
+
+        <div class="dashboard_card big">
+            <h3>Наиболее популярные пространства</h3>
+            <ol>
+                <li class="dash_bar">
+                    <h4>Гастробар</h4>
+                    <p class="kpi_string">228 бронирований за месяц</p>
+                    <a href="/" class="dash_a">Перейти</a>
+                </li>
+                <li class="dash_bar">
+                    <h4>Гастробар</h4>
+                    <p class="kpi_string">228 бронирований за месяц</p>
+                    <a href="/" class="dash_a">Перейти</a>
+                </li>
+                <li class="dash_bar">
+                    <h4>Гастробар</h4>
+                    <p class="kpi_string">228 бронирований за месяц</p>
+                    <a href="/" class="dash_a">Перейти</a>
+                </li>
+                <li class="dash_bar">
+                    <h4>Гастробар</h4>
+                    <p class="kpi_string">228 бронирований за месяц</p>
+                    <a href="/" class="dash_a">Перейти</a>
+                </li>
+                <li class="dash_bar">
+                    <h4>Гастробар</h4>
+                    <p class="kpi_string">228 бронирований за месяц</p>
+                    <a href="/" class="dash_a">Перейти</a>
+                </li>
+            </ol>
+        </div>
+
+        <div class="dashboard_card">
+            <div>
+                <h3>Активных пространств в Апреле</h3>
+                <div class="dash_number">228</div>
+            </div>
+            <p class="kpi_string"><strong>32</strong> неактивных более месяца</p>
+        </div>
+
+        <div class="dashboard_card">
+            <h3>Процент отказов от бронирования</h3>
+            <div class="dash_number">11%</div>
+        </div>
+    </section>
+{% endblock %}

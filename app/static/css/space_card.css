@@ -1,6 +1,9 @@
 .card_section {
     width: 56%;
     padding: 24px 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .card_section.gallery {
     width: 68%;

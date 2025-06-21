@@ -1,0 +1,152 @@
+{% extends "master/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/space_card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/master/space.css') }}">
+    <script src="{{ url_for('static', filename='js/space_card.js')}}"></script>
+{% endblock %}
+
+{% block title %}
+    МАСТЕРКА
+{% endblock %}
+
+{% block content %}
+<body data-logged-in="{{ 'true' if g.user else 'false' }}">
+    <section class="card_section gallery">
+        <div class="card_header">
+            <div></div>
+            <h1 class="space_name">hui <button class="edit_button">Изменить</button></h1>
+            <div class="c_header_buttons">
+            </div>
+        </div>
+
+        <div class="space_descr_container">
+            <ul class="space_descr_list">
+                <li class="space_descr_item">Корпус 1 <button class="edit_button">Изменить</button></li>
+                <li class="space_descr_item">Уровень 1 <button class="edit_button">Изменить</button></li>
+            </ul>
+        </div>
+
+        <div class="space_gallery">
+            <div class="gallery_container">
+                    <div class="slide">
+                        <button class="edit_button">Удалить</button>
+                        <img class="space_photo" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="/">
+                    </div>
+                    <div class="slide">
+                        <button class="edit_button">Удалить</button>
+                        <img class="space_photo" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="/">
+                    </div>
+                    <div class="slide">
+                        <button class="edit_button">Удалить</button>
+                        <img class="space_photo" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="/">
+                    </div>
+                    <div class="slide">
+                        <button class="edit_button">Удалить</button>
+                        <img class="space_photo" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="/">
+                    </div>
+            </div>
+
+            <input type="file" name="photo" id="photo">
+            <button class="edit_button">Добавить фото</button>
+
+            <div class="button_container">
+                <button id="prev_btn" class="gallery_button">prev</button>
+                <button id="next_btn" class="gallery_button">next</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="card_section" id="booking_section">
+        <h2 class="h2">Забронировать</h2>
+        <button class="edit_button">Отключить бронирование</button>
+
+        <form id="bookingForm" class="booking_form">
+            <input type="hidden" id="space_id" value="1">
+
+            <div class="form_part" id="booking_days">
+
+                <button type="button" class="booking_day_button" id="prev_day">&#9664</button>
+                <div class="booking_days_container" id="booking_days_container"></div>
+                <button type="button" class="booking_day_button" id="next_day">&#9658</button>
+
+            </div>
+
+            <div class="forever_switch">
+                <input type="checkbox" name="forever_booking_switch" id="forever" value="forever">
+                <label for="forever">Бронировать на все дни</label>
+            </div>
+
+            <div class="form_part">
+                <div class="booking_slots" id="booking_slots"></div>
+            </div>
+
+            <div class="form_part comment">
+                <label class="form_label" for="comment">Комментарий</label>
+                <input class="text_input" type="text" id="comment" name="comment" placeholder="Необязательный">
+            </div>
+
+            <button class="submit_button" type="submit" id="booking_submit_btn">Забронировать</button>
+        </form>
+    </section>
+
+    <section class="card_section" id="bookings_section">
+        <h2 class="h2">Текущие бронирования</h2>
+            <ol class="history">
+                <li class="history_item">
+                    <a href="/">user qwerty</a>
+                    <div>+712345678</div>
+                    <div>11-12 12.12.12</div>
+                    <div class="grid_span_2">ебать какой длинный коммент это просто пизда aaaaaaadhfksjdhfk skefhskdjfskdfj hsdkjf hsdkjf hskdjfh ksjdhfj нахуй я ебал</div>
+                    <button class="submit_button">Отменить</button>
+                </li>
+            </ol>
+    </section>
+
+    <section class="card_section">
+        <div class="info_description">
+            <p class="info_description_p">hui hui hui hui hui hui</p>
+            <button class="edit_button tm">Изменить</button>
+        </div>
+
+        <h2 class="h2">Оборудование в пространстве</h2>
+        <div class="info_description">
+            <ul class="features_grid">
+                <li class="feature">feautre</li>
+            </ul>
+            <button class="edit_button tm">Изменить</button>
+        </div>
+
+        <h2 class="h2">Где это находится</h2>
+        <div class="info_description">
+            <p class="info_description_p">tam tam tam</p>
+            <button class="edit_button tm">Изменить</button>
+        </div>
+
+        <a class="fefumap_link" href="/">Пространство на карте</a>
+        <button class="edit_button">Изменить ссылку на карте</button>
+
+
+    </section>
+
+    <section class="popup" id="result_popup">
+        <div class="popup_container">
+            <h1 class="popup_text" id="result_text"></h1>
+            <button class="popup_button" id="result_popup_btn"></button>
+        </div>
+    </section>
+
+    <section class="popup" id="error_popup">
+        <div class="popup_container">
+            <h1 class="popup_text" id="error_text">Во время бронирования произошла ошибка, попробуйте еще раз</h1>
+            <button class="popup_button" id="error_popup_btn"></button>
+        </div>
+    </section>
+
+    <section class="popup" id="edit_popup">
+        <div class="popup_container">
+            <input type="text" name="edited_text" id="edited_text" placeholder="hui hui hi hui hui hui hui hiu">
+            <button class="edit_button">Изменить</button>
+        </div>
+    </section>
+{% endblock %}
