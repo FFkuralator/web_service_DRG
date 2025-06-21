@@ -102,8 +102,31 @@ class User:
 
     def get_all_users(self):
         return self.db.execute(
-            "SELECT id, email, full_name, number_phone, is_admin FROM users"
+            "SELECT id, email, full_name, number_phone, is_admin, is_banned FROM users"
         )
+
+    def revoke_admin(self, user_id: int):
+        self.db.execute(
+            "UPDATE users SET is_admin = FALSE WHERE id = ?",
+            (user_id,)
+        )
+        return True
+
+    def is_admin(self, user_id: int):
+        result = self.db.execute(
+            "SELECT is_admin FROM users WHERE id = ?",
+            (user_id,),
+            fetch_one=True
+        )
+        return result[0] if result else False
+
+    def get_banned_status(self, user_id: int):
+        result = self.db.execute(
+            "SELECT is_banned FROM users WHERE id = ?",
+            (user_id,),
+            fetch_one=True
+        )
+        return result[0] if result else False
 
     def delete_user(self, user_id):
         self.db.execute("DELETE FROM users WHERE id = ?", (user_id,))
