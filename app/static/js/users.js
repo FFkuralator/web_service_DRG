@@ -33,6 +33,29 @@ function popup_function(popup_name) {
         setTimeout(() => {
             document.addEventListener('click', quit_handler);
         }, 1)
+        if (popup_name === "status_popup") {
+                document.querySelectorAll("#status_popup input[type=checkbox]").forEach(checkbox => {
+                    checkbox.addEventListener("change", () => {
+                        const statuses = Array.from(document.querySelectorAll("#status_popup input:checked")).map(el => el.value);
+                        fetch(`/master/users?status=${statuses.join(",")}`)
+                            .then(response => response.json())
+                            .then(users => updateUserList(users));
+                });
+            });
+        }
+
+        function updateUserList(users) {
+            const container = document.querySelector(".users");
+            container.innerHTML = users.map(user => `
+                <li class="user">
+                    <h3>${user.full_name}</h3>
+                    <div>${user.is_admin ? "Админ" : "Пользователь"}</div>
+                    <button class="ban-btn" data-user-id="${user.id}">
+                        ${user.is_banned ? "Разбанить" : "Забанить"}
+                    </button>
+                </li>
+            `).join("");
+        }
     });
 }
 
