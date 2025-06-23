@@ -64,7 +64,7 @@ def dashboard():
         'spaces': {
             'total': db.execute("SELECT COUNT(*) FROM spaces", fetch_one=True)[0],
             'popular': db.execute("""
-                SELECT s.name, COUNT(b.id) as bookings 
+                SELECT s.name, COUNT(b.id) as bookings, s.id
                 FROM spaces s
                 LEFT JOIN bookings b ON s.id = b.space_id 
                 WHERE b.booking_date >= date('now', '-30 day')
