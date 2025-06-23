@@ -239,6 +239,9 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .filter_header {
+        width: 72%;
+    }
     .category_list {
         grid-template-columns: 1fr;
         grid-template-rows: .4fr 1fr .4fr;
@@ -271,7 +274,7 @@
 
 @media screen and (max-width: 600px) {
     .filter_header {
-        width: 72%;
+        justify-content: center;
     }
     .category_catalog {
         padding: 5vw;
