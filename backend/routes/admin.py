@@ -296,7 +296,7 @@ def space_detail(space_id):
     )
 
     bookings = db.execute(
-        """SELECT b.id, u.email, u.full_name, 
+        """SELECT b.id, u.email, u.full_name, b.comment,
            strftime('%d.%m.%Y', b.booking_date) as date,
            strftime('%H:%M', b.start_time) || '-' || strftime('%H:%M', b.end_time) as time
            FROM bookings b
@@ -361,3 +361,4 @@ def create_category():
         return jsonify({'success': False, 'error': 'Категория с таким названием уже существует'}), 400
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
+    

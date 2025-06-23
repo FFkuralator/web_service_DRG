@@ -25,6 +25,13 @@ body {
     display: none;
 }
 
+.text_blue {
+    color: #0D00A0D9;
+}
+.text_center {
+    text-align: center;
+}
+
 .header {
     position: fixed;
     width: 100%;

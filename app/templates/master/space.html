@@ -15,36 +15,33 @@
     <section class="card_section gallery">
         <div class="card_header">
             <div></div>
-            <h1 class="space_name">hui <button class="edit_button">Изменить</button></h1>
+            <h1 class="space_name">{{ space[1] }} <button class="edit_button">Изменить</button></h1>
             <div class="c_header_buttons">
             </div>
         </div>
 
         <div class="space_descr_container">
             <ul class="space_descr_list">
-                <li class="space_descr_item">Корпус 1 <button class="edit_button">Изменить</button></li>
-                <li class="space_descr_item">Уровень 1 <button class="edit_button">Изменить</button></li>
+                <li class="space_descr_item">Корпус {{ space[2] }} <button class="edit_button">Изменить</button></li>
+                <li class="space_descr_item">Уровень {{ space[3] }} <button class="edit_button">Изменить</button></li>
             </ul>
         </div>
 
         <div class="space_gallery">
             <div class="gallery_container">
-                    <div class="slide">
+                {% if space.images %}
+                {% for image in space.images %}
+                    <div class="slide {% if loop.first %}active{% endif %}">
                         <button class="edit_button">Удалить</button>
-                        <img class="space_photo" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="/">
+                        <img class="space_photo" src="{{ url_for('static', filename='assets/' + image.url) }}" alt="{{ image.alt }}">
                     </div>
-                    <div class="slide">
-                        <button class="edit_button">Удалить</button>
-                        <img class="space_photo" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="/">
+                {% endfor %}
+                {% else %}
+                    <div class="slide active">
+                        <img class="space_photo"
+                            src="{{ url_for('static', filename='assets/default_placeholder.jpeg') }}" alt="No images available">
                     </div>
-                    <div class="slide">
-                        <button class="edit_button">Удалить</button>
-                        <img class="space_photo" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="/">
-                    </div>
-                    <div class="slide">
-                        <button class="edit_button">Удалить</button>
-                        <img class="space_photo" src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="/">
-                    </div>
+                {% endif %}
             </div>
 
             <input type="file" name="photo" id="photo">
@@ -92,20 +89,26 @@
 
     <section class="card_section" id="bookings_section">
         <h2 class="h2">Текущие бронирования</h2>
+            {% if bookings[0]%}
             <ol class="history">
-                <li class="history_item">
-                    <a href="/">user qwerty</a>
-                    <div>+712345678</div>
-                    <div>11-12 12.12.12</div>
-                    <div class="grid_span_2">ебать какой длинный коммент это просто пизда aaaaaaadhfksjdhfk skefhskdjfskdfj hsdkjf hsdkjf hskdjfh ksjdhfj нахуй я ебал</div>
-                    <button class="submit_button">Отменить</button>
-                </li>
+                {% for booking in bookings %}
+                    <li class="history_item">
+                        <a href="/">{{ booking[2] }}</a>
+                        <div>{{ booking[1] }}</div>
+                        <div>{{ booking[5] }} {{ booking[4] }}</div>
+                        <div class="grid_span_2">{{ booking[3] }}</div>
+                        <button class="submit_button">Отменить</button>
+                    </li>
+                {% endfor %}
             </ol>
+            {% else %}
+            <h3 class="text_blue text_center">Бронирований нет</h3>
+            {% endif %}
     </section>
 
     <section class="card_section">
         <div class="info_description">
-            <p class="info_description_p">hui hui hui hui hui hui</p>
+            <p class="info_description_p">{{ space[5] | safe }}</p>
             <button class="edit_button tm">Изменить</button>
         </div>
 
@@ -114,12 +117,6 @@
             <ul class="features_grid">
                 <li class="feature">feautre</li>
             </ul>
-            <button class="edit_button tm">Изменить</button>
-        </div>
-
-        <h2 class="h2">Где это находится</h2>
-        <div class="info_description">
-            <p class="info_description_p">tam tam tam</p>
             <button class="edit_button tm">Изменить</button>
         </div>
 

@@ -28,20 +28,26 @@
 
     <section class="catalog">
         <section class="category_catalog">
-            <h2 class="category_title">ashdjaksd</h2>
+            <h2 class="category_title">{{ category }}</h2>
             <ul class="category_list admin">
+                {% for space in spaces %}
                 <li class="category_item admin">
-                    <a href="/master/space" class="space_container">
-                        <img src="{{ url_for('static', filename='assets/landscape.jpg') }}" alt="" class="space_image">
+                    <a href="/master/space/{{space[0]}}" class="space_container">
+                        {% if space[1][0] %}
+                            <img src="{{ url_for('static', filename='assets/{{ space[1][0]}}') }}" alt="Space image" class="space_image">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='assets/default_placeholder.jpeg') }}" alt="Space image" class="space_image">
+                        {% endif %}
                         <div class="space_text_container">
-                            <h3 class="space_name">hui</h3>
+                            <h3 class="space_name">{{ space[1]}}</h3>
                             <ul class="space_characteristics">
-                                <li class="space_characteristics_item">123 бронирования за месяц</li>
-                                <li class="space_characteristics_item">Админ - хуесос</li>
+                                <li class="space_characteristics_item">{{ space[5] }} бронирования за месяц</li>
+                                <li class="space_characteristics_item">{{space[6] }}</li>
                             </ul>
                         </div>
                     </a>
                 </li>
+                {% endfor %}
             </ul>
         </section>
     </section>
