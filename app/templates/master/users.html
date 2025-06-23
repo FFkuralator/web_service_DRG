@@ -2,7 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/master/users.css') }}">
-    <script src="{{ url_for('static', filename='js/users.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/master/users.js') }}"></script>
 {% endblock %}
 
 {% block title %}
@@ -23,24 +23,21 @@
     </header>
 
     <ul class="users">
+        {% for user in users %}
         <li class="user">
             <div class="user_row">
-                <h3>qwerty</h3>
-                <div>Есть 1 текущее бронирование</div>
-                <div>Пользователь</div>
-                <button class="history_btn filter_title">История</button>
-                <button class="filter_title">Забанить</button>
+                <h3>{{ user[2] }}</h3>
+                <div>Есть {{ user[7] }} текущее бронирование</div>
+                <div>Админ - {{ user[4] }}</div>
+                <div>Забанен - {{ user[5] }}</div>
+                <button data-user-id="{{user[0]}}" class="history_btn filter_title">История</button>
+                <button data-user-id="{{user[0]}}" class="filter_title admin_btn">Заадминить/разадминить</button>
+                <button data-user-id="{{user[0]}}" class="filter_title ban_btn">Забанить/разбанить</button>
             </div>
             <ol class="history display_none">
-                <li class="history_item">
-                    <h4>hui</h4>
-                    <div>11-12 12.12.12</div>
-                    <div>Успешное бронирование</div>
-                    <div class="grid_span_2">ебать какой длинный коммент это просто пизда aaaaaaadhfksjdhfk skefhskdjfskdfj hsdkjf hsdkjf hskdjfh ksjdhfj нахуй я ебал</div>
-                    <button class="submit_button">Отменить</button>
-                </li>
             </ol>
         </li>
+        {% endfor %}
     </ul>
 
     <div class="display_none filter_popup" id="active_popup">

@@ -184,7 +184,7 @@ def toggle_ban(user_id):
         return jsonify({'success': False, 'error': str(e)}), 400
 
 
-@admin_bp.route('/users/<int:user_id>/bookings')
+@admin_bp.route('/users/<int:user_id>/bookings', methods=['POST'])
 def get_user_bookings(user_id):
     user_model = User()
     bookings = user_model.db.execute(
