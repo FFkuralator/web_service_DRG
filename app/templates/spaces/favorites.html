@@ -10,7 +10,11 @@
 
 {% block content %}
     <section class="catalog fav_margin">
-        <h1 class="category_title">Избранное</h1>
+        {% if favorites.spaces %}
+            <h1 class="category_title">Избранное</h1>
+        {% else %}
+            <h1 class="category_title">В избранном ничего нет</h1>
+        {% endif %}
         <ul class="category_list">
             {% for space in favorites.spaces %}
                 <li class="category_item">
