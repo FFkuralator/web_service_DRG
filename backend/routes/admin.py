@@ -88,7 +88,7 @@ def dashboard():
         }
     }
 
-    return render_template('master.html', stats=stats)
+    return render_template('master/master.html', stats=stats)
 
 
 @admin_bp.route('/users')
@@ -147,7 +147,7 @@ def manage_users():
     total_users = \
     user_model.db.execute(f"SELECT COUNT(*) FROM users {where_clause}", tuple(params[:-2]), fetch_one=True)[0]
 
-    return render_template('users.html',
+    return render_template('master/users.html',
                            users=users,
                            page=page,
                            per_page=per_page,
@@ -254,7 +254,7 @@ def manage_spaces():
     spaces = db.execute(query, tuple(params))
     categories = db.execute("SELECT name FROM categories")
 
-    return render_template('spaces.html',
+    return render_template('master/spaces.html',
                            spaces=spaces,
                            categories=categories,
                            current_filters={
@@ -299,7 +299,7 @@ def space_detail(space_id):
         (space_id,)
     )
 
-    return render_template('space.html',
+    return render_template('master/space.html',
                            space=space,
                            images=images,
                            bookings=bookings)
