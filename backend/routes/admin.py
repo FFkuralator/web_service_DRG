@@ -1,6 +1,8 @@
 import sqlite3
 from datetime import datetime, timedelta
 from flask import Blueprint, render_template, request, redirect, url_for, flash, g, jsonify
+
+from backend.database.models.space import Space
 from backend.database.models.user import User
 from backend.database.db import Database
 from functools import wraps
@@ -222,11 +224,9 @@ def manage_spaces():
     query = """
         SELECT s.id, s.name, c.name as category, s.building, s.level,
                (SELECT COUNT(*) FROM bookings WHERE space_id = s.id AND booking_date >= date('now', '-30 day')) as recent_bookings,
-               (SELECT COUNT(*) FROM user_favorites WHERE space_id = s.id) as favorites,
-               GROUP_CONCAT(sf.feature) as features
-        FROM spaces s
-        JOIN categories c ON s.category_id = c.id
-        LEFT JOIN space_features sf ON s.id = sf.space_id
+               (SELECT COUNT(*) FROM user_favorites WHERE space_id = s.id) as favorites, GROUP_CONCAT(sf.feature) as features,
+               (SELECT image_url FROM space_images WHERE space_id = s.id ORDER BY id ASC LIMIT 1) as first_image FROM spaces s 
+               JOIN categories c ON s.category_id = c.id LEFT JOIN space_features sf ON s.id = sf.space_id
     """
 
     conditions = []
@@ -257,8 +257,17 @@ def manage_spaces():
 
     processed_spaces = []
     for space in spaces:
-        space_dict = list(space)
-        space_dict.append(f"/master/space/{space[0]}")
+        space_dict = {
+            'id': space[0],
+            'name': space[1],
+            'category': space[2],
+            'building': space[3],
+            'level': space[4],
+            'recent_bookings': space[5],
+            'favorites': space[6],
+            'features': space[7].split(',') if space[7] else [],
+            'first_image': space[8]
+        }
         processed_spaces.append(space_dict)
 
     return render_template('master/spaces.html',
@@ -361,3 +370,30 @@ def create_category():
         return jsonify({'success': False, 'error': 'Категория с таким названием уже существует'}), 400
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
+
+@admin_bp.route('/catalog')
+def admin_catalog():
+    db = Database()
+    space_model = Space()
+    categories = db.execute("SELECT * FROM categories")
+
+    space_categories = []
+    for cat in categories:
+        spaces = space_model.get_by_category(cat[0])
+        enriched_spaces = []
+        for space in spaces:
+            enriched_spaces.append({
+                **space,
+                'images': space['images'],
+                'features': space['features']
+            })
+
+        space_categories.append({
+            "id": cat[0],
+            "name": cat[1],
+            "spaces": enriched_spaces
+        })
+
+    return render_template('master/catalog.html',
+                         space_categories=space_categories,
+                         is_admin=True)
