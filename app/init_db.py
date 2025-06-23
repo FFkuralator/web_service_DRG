@@ -47,7 +47,8 @@ def init_sample_data():
         (2, "portrait.jpg", "Логотип Sticker", True),
         (2, "logo.jpg", "Внутренний вид", False),
         (3, "portrait.jpg", "Логотип Euphoria", True),
-        (4, "logo.jpg", "Логотип ASAP", True),
+        (4, "portrait.jpg", "Логотип Euphoria", True),
+        (5, "logo.jpg", "Логотип ASAP", True),
     ]
 
     features = [
