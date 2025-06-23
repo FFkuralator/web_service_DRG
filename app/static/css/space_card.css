@@ -328,6 +328,7 @@
     .gallery_container {
         display: block;
         height: 560px;
+        max-height: none;
     }
     .slide {
         overflow: hidden;
@@ -346,6 +347,8 @@
     .space_photo {
         height: 560px;
         margin: auto;
+        left: 0;
+        transform: none;
     }
     .button_container {
         display: flex;
