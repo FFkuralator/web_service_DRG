@@ -361,12 +361,12 @@
         padding: 6px 12px;
         border: none;
         border-radius: 12px;
-        background-color: antiquewhite;
+        background-color: #4a40b8b3;
         cursor: pointer;
         display: block;
     }
     .gallery_button:hover {
-        background-color: rgb(195, 161, 116);
+        background-color: #4A40B8;
     }
     .booking_form {
         width: auto;
