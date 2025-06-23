@@ -28,9 +28,9 @@
 .gallery_container {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     row-gap: 2px;
     column-gap: 2px;
+    max-height: 360px;
 }
 
 .slide {

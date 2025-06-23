@@ -33,16 +33,18 @@
 
         <div class="space_gallery">
             <div class="gallery_container">
+                {% if space.images %}
                 {% for image in space.images %}
                     <div class="slide {% if loop.first %}active{% endif %}">
                         <img class="space_photo" src="{{ url_for('static', filename='assets/' + image.url) }}" alt="{{ image.alt }}">
                     </div>
+                {% endfor %}
                 {% else %}
                     <div class="slide active">
                         <img class="space_photo"
-                            src="{{ url_for('static', filename='assets/default_placeholder.png') }}" alt="No images available">
+                            src="{{ url_for('static', filename='assets/default_placeholder.jpeg') }}" alt="No images available">
                     </div>
-                {% endfor %}
+                {% endif %}
             </div>
             <div class="button_container">
                 <button id="prev_btn" class="gallery_button">prev</button>

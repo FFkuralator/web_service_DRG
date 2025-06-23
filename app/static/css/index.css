@@ -175,8 +175,7 @@
     max-height: 420px;
     border-radius: 24px;
     display: block;
-    margin-top: 18px;
-    margin-bottom: 18px;
+    margin: 18px auto;
 }
 
 .mid_image {
