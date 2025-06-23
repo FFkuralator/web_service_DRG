@@ -182,6 +182,5 @@ document.addEventListener('DOMContentLoaded', function() {
     const carouselIndices = new Map();
 
     applyFilters()
-
 });
 
