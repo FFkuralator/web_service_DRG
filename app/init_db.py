@@ -44,12 +44,12 @@ def init_sample_data():
     ]
 
     features = [
-        (1, "projector"),
-        (1, "mirror_wall"),
-        (1, "sound_system"),
-        (2, "mirror_wall"),
-        (3, "projector"),
-        (3, "whiteboard")
+        (1, "Проектор"),
+        (1, "Зеркальная стена"),
+        (1, "Звуковая система"),
+        (2, "Зеркальная стена"),
+        (3, "Проектор"),
+        (3, "Белая доска")
     ]
 
     with closing(db._get_connection()) as conn:
