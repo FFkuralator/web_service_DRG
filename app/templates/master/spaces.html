@@ -33,8 +33,8 @@
                 {% for space in spaces %}
                 <li class="category_item admin">
                     <a href="/master/space/{{space[0]}}" class="space_container">
-                        {% if space[1][0] %}
-                            <img src="{{ url_for('static', filename='assets/{{ space[1][0]}}') }}" alt="Space image" class="space_image">
+                        {% if space[8] %}
+                            <img src="{{ url_for('static', filename='assets/{{ space[8]}}') }}" alt="Space image" class="space_image">
                         {% else %}
                             <img src="{{ url_for('static', filename='assets/default_placeholder.jpeg') }}" alt="Space image" class="space_image">
                         {% endif %}
