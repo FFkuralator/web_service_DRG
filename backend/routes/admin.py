@@ -15,8 +15,8 @@ def admin_required(f):
         if not g.user or not user_model.is_admin(g.user['id']):
             flash('Доступ запрещен: требуются права администратора', 'error')
             return redirect(url_for('index'))
+        user_model.update_activity(g.user['id'])
         return f(*args, **kwargs)
-
     return decorated_function
 
 

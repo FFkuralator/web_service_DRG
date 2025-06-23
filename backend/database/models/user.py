@@ -155,3 +155,9 @@ class User:
         )
         return result is not None
 
+    def update_activity(self, user_id: int):
+        self.db.execute(
+            "UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE id = ?",
+            (user_id,)
+        )
+        return True

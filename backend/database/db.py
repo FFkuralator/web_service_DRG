@@ -23,7 +23,8 @@ class Database:
                     image_alt TEXT,
                     is_admin BOOLEAN DEFAULT FALSE,
                     is_banned BOOLEAN DEFAULT FALSE,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    last_activity TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
 
