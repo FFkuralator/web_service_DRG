@@ -158,7 +158,9 @@
         flex-direction: column;
         gap: 5px;
     }
-
+    .profile_section {
+        width: 92%;
+    }
     .history_item {
         grid-template-columns: 1fr;
     }
