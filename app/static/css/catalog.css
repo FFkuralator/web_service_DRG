@@ -265,6 +265,10 @@
 }
 
 @media screen and (max-width: 768px) {
+    .bordered_container.filter_header {
+        justify-content: center;
+    }
+
     .space_text_container {
         padding: 18px;
     }
@@ -275,9 +279,6 @@
 }
 
 @media screen and (max-width: 600px) {
-    .filter_header {
-        justify-content: center;
-    }
     .category_catalog {
         padding: 5vw;
     }

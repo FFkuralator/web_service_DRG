@@ -10,28 +10,33 @@
 
 {% block content %}
     <section class="catalog fav_margin">
-        {% if favorites[0] %}
+        {% if favorites.spaces[0] %}
             <h1 class="category_title">Избранное</h1>
-            <ul class="category_list">
-                {% for space in favorites.spaces %}
-                    <li class="category_item">
-                        <a class="space_container" href="{{ url_for('favorites_bp.favorites', id=space.id) }}">
-                            <img class="space_image" src="{{ url_for('static', filename='assets/' + space.images[0].url) }}" alt="{{ space.image_alt }}">
-                            
-                            <div class="space_text_container">
-                                <h3 class="space_name">{{ space.name }}</h3>
-                                <ul class="space_characteristics">
-                                    <li class="space_characteristics_item">Корпус {{ space.building }}</li>
-                                    <li class="space_characteristics_item">Уровень {{ space.level }}</li>
-                                </ul>
-                            </div>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-
         {% else %}
             <h1 class="category_title">В избранном ничего нет</h1>
         {% endif %}
+
+        <ul class="category_list">
+            {% for space in favorites.spaces %}
+                <li class="category_item">
+                    <a class="space_container" href="{{ url_for('spaces_bp.space', id=space.id) }}">
+                        {% if space.images[0] %}
+                            <img src="{{ url_for('static', filename='assets/{{ space.images[0] }}') }}" alt="Space image" class="space_image">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='assets/default_placeholder.jpeg') }}" alt="Space image" class="space_image">
+                        {% endif %}
+                        
+                        <div class="space_text_container">
+                            <h3 class="space_name">{{ space.name }}</h3>
+                            <ul class="space_characteristics">
+                                <li class="space_characteristics_item">Корпус {{ space.building }}</li>
+                                <li class="space_characteristics_item">Уровень {{ space.level }}</li>
+                            </ul>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
     </section>
 {% endblock %}
