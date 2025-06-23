@@ -3,7 +3,7 @@ from flask import Flask, render_template, g, session
 import os
 from backend.database.db import Database
 from backend.database.models.user import User
-from backend.routes import spaces_bp, bookings_bp, favorites_bp, images_bp, profile_bp
+from backend.routes import spaces_bp, bookings_bp, favorites_bp, images_bp, profile_bp, admin_bp
 from backend.routes.register import auth_bp
 
 app = Flask(__name__)
@@ -20,6 +20,7 @@ app.register_blueprint(favorites_bp)
 app.register_blueprint(images_bp)
 app.register_blueprint(profile_bp)
 app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(admin_bp)
 
 with app.app_context():
     db = Database(app.config['DATABASE'])

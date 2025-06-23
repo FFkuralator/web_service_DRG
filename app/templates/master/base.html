@@ -26,15 +26,9 @@
             </a> 
 
             <nav class="header_nav">
-                <a href="/catalog" class="header_nav_item">Пространства</a>
-                <a href="/favorites" class="header_nav_item">Избранное</a>
-                {% if g.user %}
-                    <a href="/profile" class="header_profile">
-                        Профиль
-                    </a>
-                {% else %}
-                    <a href="{{ url_for('auth_bp.auth') }}" class="header_nav_item header_profile">Войти</a>
-                {% endif %}
+                <a href="/master" class="header_nav_item">Дэшборд</a>
+                <a href="/master/spaces" class="header_nav_item">Пространства</a>
+                <a href="/master/users" class="header_nav_item">Пользователи</a>
             </nav>
 
             <div class="burger_button" id="burger_button">
@@ -58,27 +52,6 @@
         </main>
 
         <footer class="footer">
-            <div class="footer_grid">
-                <section class="footer_logo">
-                    <a href="#" class="logo">
-                        <div class="logo_text">BOFUK</div>
-                        <div class="logo_by">by</div>
-                        <div class="logo_text">Loshki</div>
-                    </a> 
-
-                    <div class="footer_info_text">Действительно крайнж</div>
-                </section>
-
-                <section class="footer_info">
-                    <a href="https://www.dvfu.ru" class="footer_link">Официальный сайт ДВФУ</a>
-                    
-                    <div class="footer_contacts">
-                        <h2>Контакты</h2>
-                        <a href="mailto:pochta@dvfu.ru" class="footer_link">pochta@dvfu.ru</a>
-                        <a href="https://t.me/telega" class="footer_link">Телеграм</a>
-                    </div>
-                </section>
-            </div>
             
             <div class="legal_copyright">© 2025 All Rights Reserved</div>
 

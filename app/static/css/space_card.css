@@ -1,6 +1,9 @@
 .card_section {
     width: 56%;
     padding: 24px 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .card_section.gallery {
     width: 68%;
@@ -12,7 +15,6 @@
     align-items: center;
     text-align: center;
 }
-
 .space_name {
     font-size: 24px;
     width: fit-content;
@@ -25,10 +27,9 @@
 .gallery_container {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     row-gap: 2px;
     column-gap: 2px;
-    max-height: 480px;
+    max-height: 360px;
 }
 
 .slide {
@@ -281,6 +282,9 @@
         width: 72%;
         padding: 24px 48px;
     }
+    .card_section.gallery {
+        width: 80%;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -306,6 +310,9 @@
 }
 
 @media screen and (max-width: 768px) {
+    .card_section.gallery {
+        width: 92%;
+    }
     .space_descr_list {
         display: grid;
         grid-template-columns: repeat(2, 1fr);

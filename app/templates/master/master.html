@@ -1,0 +1,87 @@
+{% extends "master/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <script src="{{ url_for('static', filename='js/master.js') }}"></script>
+{% endblock %}
+
+{% block title %}
+    МАСТЕРКА
+{% endblock %}
+
+{% block content %}
+    <section class="dashboard">
+        <div class="dashboard_card first">
+            <div class="dash_number">{{ stats.users.active }}</div>
+            <h3>Активных пользователей в этом месяце</h3>
+        </div>
+
+        <div class="dashboard_card">
+            <div class="dash_number">{{ stats.bookings.total}}</div>
+            <h3>Бронирований пространств всего</h3>
+        </div>
+
+        <div class="dashboard_card big">
+            <h3>Наиболее популярные пространства</h3>
+            <ol>
+                {% if stats.spaces.popular[0] %}
+                <li class="dash_bar">
+                    <h4>{{ stats.spaces.popular[0][0] }}</h4>
+                    <p class="kpi_string">{{ stats.spaces.popular[0][1] }} бронирований за месяц</p>
+                    <a href="/master/space/{{ stats.spaces.popular[0][2] }}" class="dash_a">Перейти</a>
+                </li>
+
+                {% if stats.spaces.popular[1] %}
+                <li class="dash_bar">
+                    <h4>{{ stats.spaces.popular[1][0] }}</h4>
+                    <p class="kpi_string">{{ stats.spaces.popular[1][1] }} бронирований за месяц</p>
+                    <a href="/master/space/{{ stats.spaces.popular[1][2] }}" class="dash_a">Перейти</a>
+                </li>
+                {% if stats.spaces.popular[2] %}
+                <li class="dash_bar">
+                    <h4>{{ stats.spaces.popular[2][0] }}</h4>
+                    <p class="kpi_string">{{ stats.spaces.popular[2][1] }} бронирований за месяц</p>
+                    <a href="/master/space/{{ stats.spaces.popular[2][2] }}" class="dash_a">Перейти</a>
+                </li>
+                {% if stats.spaces.popular[3] %}
+                <li class="dash_bar">
+                    <h4>{{ stats.spaces.popular[3][0] }}</h4>
+                    <p class="kpi_string">{{ stats.spaces.popular[3][1] }} бронирований за месяц</p>
+                    <a href="/master/space/{{ stats.spaces.popular[3][2] }}" class="dash_a">Перейти</a>
+                </li>
+                {% if stats.spaces.popular[4] %}
+                <li class="dash_bar">
+                    <h4>{{ stats.spaces.popular[4][0] }}</h4>
+                    <p class="kpi_string">{{ stats.spaces.popular[4][1] }} бронирований за месяц</p>
+                    <a href="/master/space/{{ stats.spaces.popular[4][2] }}" class="dash_a">Перейти</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endif %}
+            </ol>
+        </div>
+
+        <div class="dashboard_card">
+            <h3>Всего пространств</h3>
+            <div class="dash_number">{{ stats.spaces.total }}</div>
+        </div>
+
+        <div class="dashboard_card">
+            <h3>Текущих бронирований</h3>
+            <div class="dash_number">{{ stats.bookings.upcoming }}</div>
+        </div>
+
+        <div class="dashboard_card">
+            <div class="dash_number">{{ stats.users.total }}</div>
+            <h3>Всего пользователей</h3>
+        </div>
+
+        <div class="dashboard_card first">
+            <div class="dash_number">{{ stats.users.new }}</div>
+            <h3>Новых пользователей за неделю</h3>
+        </div>
+
+    </section>
+{% endblock %}

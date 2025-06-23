@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
         radio.addEventListener('change', applyFilters);
     });
 
-    // document.querySelectorAll('input[name="building"]').forEach(checkbox => {
-    //     checkbox.addEventListener('change', applyFilters);
-    // });
+    document.querySelectorAll('input[name="building"]').forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilters);
+    });
 
     document.querySelectorAll('input[name="feature"]').forEach(checkbox => {
         checkbox.addEventListener('change', applyFilters);
@@ -57,18 +57,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const resetBtn = document.getElementById('filter_reset')
     resetBtn.addEventListener('click', () => {
-        document.querySelectorAll('input[type="radio').forEach(radio => radio.checked = false)
-        applyFilters()
-    })
 
+    document.querySelectorAll('input[name="activity"][type="radio"]').forEach(radio => {
+        radio.checked = false;
+    });
+
+    document.querySelectorAll('input[name="building"][type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    document.querySelectorAll('input[name="feature"][type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    applyFilters();
+})
     function applyFilters() {
         const activity = document.querySelector('input[name="activity"]:checked')?.value;
-        const buildings = Array.from(document.querySelectorAll('input[name^="building"]:checked')).map(el => el.value);
-        const features = Array.from(document.querySelectorAll('input[name^="feature"]:checked')).map(el => el.value);
+        const buildings = Array.from(document.querySelectorAll('input[name="building"]:checked')).map(el => el.value);
+        const features = Array.from(document.querySelectorAll('input[name="feature"]:checked')).map(el => el.value);
 
-        fetch(`/catalog/filter?activity=${activity || ''}&buildings=${buildings.join(',') || ''}&features=${features.join(',') || ''}`)
+        const params = new URLSearchParams();
+        if (activity) params.append('activity', activity);
+        if (buildings.length) params.append('building', buildings.join(','));
+        if (features.length) params.append('features', features.join(','));
+
+        fetch(`/catalog/filter?${params.toString()}`)
             .then(response => response.json())
-            .then(data => updateCatalog(data));
+            .then(data => updateCatalog(data))
+            .catch(error => console.error('Error:', error));
     }
 
     function updateCatalog(data) {
@@ -94,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
             spaces.forEach(space => {
                 const space_item = createElement('li', 'category_item', {},
                     createElement('a', 'space_container', {href: `/space/${space.id}`},
-                        space.images[0] ? createElement('img', 'space_image', {src: `/static/assets/${space.images[0].url}`, alt: space.images[0].alt}) : createElement('img', 'space_image', {src: '/static/assets/default_placeholder.png', alt:'No image available'}),
+                        space.images[0] ? createElement('img', 'space_image', {src: `/static/assets/${space.images[0].url}`, alt: space.images[0].alt}) : createElement('img', 'space_image', {src: '/static/assets/default_placeholder.jpeg', alt:'No image available'}),
                         createElement('div', 'space_text_container', {},
                             createElement('h3', 'space_name', {textContent: space.name}),
                                 createElement('ul', 'space_characteristics', {},

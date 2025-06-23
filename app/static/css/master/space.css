@@ -1,0 +1,56 @@
+.edit_button {
+    z-index: 3;
+    background-color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 4px 8px;
+    opacity: .8;
+    border: .1px solid;
+    margin: 12px auto;
+}
+.edit_button:hover {
+    opacity: 1;
+}
+.slide .edit_button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+.edit_button.tm {
+    margin: 12px auto 0;
+}
+.slide {
+    position: relative;
+}
+
+.forever_switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+}
+
+#bookings_section {
+    width: 82%;
+}
+
+.history {
+    margin-top: 24px;
+    padding: 36px;
+    background-color: white;
+    border-radius: 12px;
+}
+.history_item {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    border: .1px solid;
+    padding: 12px 24px;
+    border-radius: 8px;
+}
+.grid_span_2 {
+    grid-column: span 2;
+}

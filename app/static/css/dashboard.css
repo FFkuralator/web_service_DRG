@@ -1,0 +1,57 @@
+li {
+    list-style: none;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px;
+    width: 90%;
+}
+
+.dashboard_card {
+    border-radius: 20px;
+    padding: 24px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 24px;
+}
+.dashboard_card.first {
+    background-color: #3E97FF;
+    color: white;
+}
+.dashboard_card.big {
+    grid-row: span 2;
+    grid-column: span 2;
+    justify-content: space-around;
+    padding: 36px;
+}
+
+.dash_number {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.dash_bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+}
+.dash_bar .kpi_string {
+    opacity: .8;
+    font-size: .85rem;
+}
+
+.dash_a {
+    background-color: rgba(0, 0, 0, 0.06);
+    padding: 6px 12px;
+    border-radius: 6px;
+    opacity: .7;
+}
+.dash_a:hover {
+    opacity: 1;
+}

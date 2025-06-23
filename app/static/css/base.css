@@ -25,6 +25,13 @@ body {
     display: none;
 }
 
+.text_blue {
+    color: #0D00A0D9;
+}
+.text_center {
+    text-align: center;
+}
+
 .header {
     position: fixed;
     width: 100%;
@@ -77,6 +84,10 @@ body {
     font-weight: 500;
     cursor: pointer;
     color: inherit;
+    opacity: .8;
+}
+.header_nav_item:hover {
+    opacity: 1;
 }
 
 .header_profile {

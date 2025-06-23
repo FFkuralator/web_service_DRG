@@ -1,0 +1,105 @@
+{% extends "master/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/catalog.css') }}">
+    <script src="{{ url_for('static', filename='js/master.js') }}"></script>
+{% endblock %}
+
+{% block title %}
+    МАСТЕРКА
+{% endblock %}
+
+{% block content %}
+    <header class="bordered_container filter_header">
+        <div class="filter_title" id="activity_filter">
+            Цель
+        </div>
+
+        <div class="filter_title" id="building_filter">
+            Корпус
+        </div>
+
+        <div class="filter_title" id="feature_filter">
+            Оборудование
+        </div>
+
+        <button class="filter_title" id="filter_reset">Сбросить фильтры</button>
+    </header>
+
+    <section class="catalog">
+        <section class="category_catalog">
+            <h2 class="category_title">{{ category }}</h2>
+            <ul class="category_list admin">
+                {% for space in spaces %}
+                <li class="category_item admin">
+                    <a href="/master/space/{{space[0]}}" class="space_container">
+                        {% if space[8] %}
+                            <img src="{{ url_for('static', filename='assets/{{ space[8]}}') }}" alt="Space image" class="space_image">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='assets/default_placeholder.jpeg') }}" alt="Space image" class="space_image">
+                        {% endif %}
+                        <div class="space_text_container">
+                            <h3 class="space_name">{{ space[1]}}</h3>
+                            <ul class="space_characteristics">
+                                <li class="space_characteristics_item">{{ space[5] }} бронирования за месяц</li>
+                                <li class="space_characteristics_item">{{space[6] }}</li>
+                            </ul>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </section>
+
+    <div class="display_none filter_popup" id="activity_popup">
+        <ul>
+            <li class="filter_popup_item">
+                <input type="radio" id="dancing" name="activity" value="dancing" />
+                <label for="dancing">Танцы</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="radio" id="event" name="activity" value="event" />
+                <label for="event">Мероприятие</label>
+            </li>
+        </ul>
+    </div>
+
+    <div class="display_none filter_popup" id="building_popup">
+        <ul>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="A" name="building" value="A" />
+                <label for="A">Корпус A</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="B" name="building" value="B" />
+                <label for="B">Корпус B</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="C" name="building" value="C" />
+                <label for="C">Корпус C</label>
+            </li>
+        </ul>
+    </div>
+
+    <div class="display_none filter_popup" id="feature_popup">
+        <ul>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="projector" name="feature" value="projector"/>
+                <label for="projector">Проектор</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="chalkboard" name="feature" value="chalkboard" />
+                <label for="chalkboard">Доска</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="sound_system" name="feature" value="sound_system" />
+                <label for="sound_system">Аудиосистема</label>
+            </li>
+            <li class="filter_popup_item">
+                <input type="checkbox" id="tv" name="feauture" value="tv" />
+                <label for="huita">Телевизор/экран</label>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

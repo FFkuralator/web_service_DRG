@@ -75,6 +75,70 @@ class User:
             fetch_one=True
         )
 
+    def get_user_with_bookings(self, user_id):
+        return self.db.execute(
+            """SELECT b.id, s.name, 
+               strftime('%d.%m.%Y', b.booking_date) as date,
+               strftime('%H:%M', b.start_time) || '-' || strftime('%H:%M', b.end_time) as time,
+               b.comment
+               FROM bookings b
+               JOIN spaces s ON b.space_id = s.id
+               WHERE b.user_id = ?
+               ORDER BY b.booking_date DESC""",
+            (user_id,)
+        )
+
+    def get_space_details(self, space_id):
+        return self.db.execute(
+            """SELECT s.*, c.name as category_name,
+               GROUP_CONCAT(sf.feature) as features
+               FROM spaces s
+               JOIN categories c ON s.category_id = c.id
+               LEFT JOIN space_features sf ON s.id = sf.space_id
+               WHERE s.id = ?""",
+            (space_id,),
+            fetch_one=True
+        )
+
+    def get_all_users(self):
+        return self.db.execute(
+            "SELECT id, email, full_name, number_phone, is_admin, is_banned FROM users"
+        )
+
+    def revoke_admin(self, user_id: int):
+        self.db.execute(
+            "UPDATE users SET is_admin = FALSE WHERE id = ?",
+            (user_id,)
+        )
+        return True
+
+    def is_admin(self, user_id: int):
+        result = self.db.execute(
+            "SELECT is_admin FROM users WHERE id = ?",
+            (user_id,),
+            fetch_one=True
+        )
+        return result[0] if result else False
+
+    def get_banned_status(self, user_id: int):
+        result = self.db.execute(
+            "SELECT is_banned FROM users WHERE id = ?",
+            (user_id,),
+            fetch_one=True
+        )
+        return result[0] if result else False
+
+    def delete_user(self, user_id):
+        self.db.execute("DELETE FROM users WHERE id = ?", (user_id,))
+        return True
+
+    def make_admin(self, user_id: int):
+        self.db.execute(
+            "UPDATE users SET is_admin = TRUE WHERE id = ?",
+            (user_id,)
+        )
+        return True
+
     def email_exists(self, email: str):
         result = self.db.execute(
             "SELECT 1 FROM users WHERE email = ? LIMIT 1",
@@ -91,3 +155,9 @@ class User:
         )
         return result is not None
 
+    def update_activity(self, user_id: int):
+        self.db.execute(
+            "UPDATE users SET last_activity = CURRENT_TIMESTAMP WHERE id = ?",
+            (user_id,)
+        )
+        return True

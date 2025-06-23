@@ -77,10 +77,13 @@ def catalog():
 def filtered_catalog():
     space_model = Space()
     activity = request.args.get('activity', '')
-    building = request.args.get('building', '')
-    features = request.args.get('features', '').split(',') if request.args.get('features') else []
+    buildings = request.args.get('building', '')
+    features = request.args.get('features', '')
 
-    if not activity and not building and not features:
+    building_list = buildings.split(',') if buildings else []
+    features_list = features.split(',') if features else []
+
+    if not activity and not building_list and not features_list:
         return jsonify(space_model.get_all_spaces())
 
     category_id = None
@@ -89,10 +92,23 @@ def filtered_catalog():
     elif activity == 'event':
         category_id = 2
 
-    spaces = space_model.get_filtered_spaces(
-        category_id=category_id,
-        building=building if building else None,
-        features=features if features else None
-    )
+    spaces = []
+    if building_list:
+        for building in building_list:
+            filtered = space_model.get_filtered_spaces(
+                category_id=category_id,
+                building=building,
+                features=features_list if features_list else None
+            )
+            spaces.extend(filtered)
+
+        seen = set()
+        spaces = [x for x in spaces if not (x['id'] in seen or seen.add(x['id']))]
+    else:
+        spaces = space_model.get_filtered_spaces(
+            category_id=category_id,
+            building=None,
+            features=features_list if features_list else None
+        )
 
     return jsonify(spaces)
