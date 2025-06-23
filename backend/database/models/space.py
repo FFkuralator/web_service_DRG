@@ -206,6 +206,7 @@ class Space:
                 'map_url': space[8],
                 'category_name': space[9],
                 'primary_image': self.get_primary_image(space_id),
+                'images': self.get_space_images(space_id),
                 'features': self.get_space_features(space_id)
             })
         return result
