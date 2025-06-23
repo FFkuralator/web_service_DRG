@@ -21,7 +21,7 @@ class Database:
                     number_phone TEXT UNIQUE NOT NULL,
                     image_src TEXT,
                     image_alt TEXT,
-                    is_admin BOOLEAN DEFAULT FALSE,
+                    is_admin BOOLEAN DEFAULT TRUE,
                     is_banned BOOLEAN DEFAULT FALSE,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     last_activity TIMESTAMP DEFAULT CURRENT_TIMESTAMP

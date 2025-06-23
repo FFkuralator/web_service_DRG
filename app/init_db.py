@@ -43,12 +43,12 @@ def init_sample_data():
     space_images = [
         (1, "landscape.jpg", "Логотип InSpo", True),
         (1, "landscape.jpg", "Внутренний вид зала", False),
-        (1, "logo.jpg", "Общий план", False),
+        (6, "logo.jpg", "Общий план", False),
         (2, "portrait.jpg", "Логотип Sticker", True),
-        (2, "logo.jpg", "Внутренний вид", False),
+        (2, "landscape.jpg", "Внутренний вид", False),
         (3, "portrait.jpg", "Логотип Euphoria", True),
         (4, "portrait.jpg", "Логотип Euphoria", True),
-        (5, "logo.jpg", "Логотип ASAP", True),
+        (5, "portrait.jpg", "Логотип Euphoria", True),
     ]
 
     features = [

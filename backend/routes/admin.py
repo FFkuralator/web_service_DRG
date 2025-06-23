@@ -206,7 +206,8 @@ def get_user_bookings(user_id):
         'time': b[4],
         'comment': b[5],
         'is_upcoming': bool(b[6]),
-        'can_cancel': b[6]
+        'can_cancel': b[6],
+        'space_url': f"/master/space/{b[2]}"
     } for b in bookings])
 
 
@@ -253,6 +254,12 @@ def manage_spaces():
 
     spaces = db.execute(query, tuple(params))
     categories = db.execute("SELECT name FROM categories")
+
+    processed_spaces = []
+    for space in spaces:
+        space_dict = list(space)
+        space_dict.append(f"/master/space/{space[0]}")
+        processed_spaces.append(space_dict)
 
     return render_template('master/spaces.html',
                            spaces=spaces,
