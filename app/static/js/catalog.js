@@ -107,8 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
             )
             const categoryFlex = createElement('div', 'category_row');
             const spaceList = createElement('ul', 'category_list');
-
+            spaceList.appendChild(createElement('button', 'gallery_button prev'))
             spaces.forEach(space => {
+                console.log(space.images)
                 const space_item = createElement('li', 'category_item', {},
                     createElement('a', 'space_container', {href: `/space/${space.id}`},
                         space.images[0] ? createElement('img', 'space_image', {src: `/static/assets/${space.images[0].url}`, alt: space.images[0].alt}) : createElement('img', 'space_image', {src: '/static/assets/default_placeholder.jpeg', alt:'No image available'}),
@@ -125,10 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 spaceList.appendChild(space_item)
             });
-
-            categoryFlex.appendChild(createElement('button', 'gallery_button prev', {innerHTML: "&#9664"}));
+            spaceList.appendChild(createElement('button', 'gallery_button next'))
             categoryFlex.appendChild(spaceList);
-            categoryFlex.appendChild(createElement('button', 'gallery_button next', {innerHTML: "&#9658"}));
             categorySection.appendChild(categoryFlex)
             catalogSection.appendChild(categorySection);
 
