@@ -21,7 +21,7 @@
                 <li class="category_item">
                     <a class="space_container" href="{{ url_for('spaces_bp.space', id=space.id) }}">
                         {% if space.images[0] %}
-                            <img src="{{ url_for('static', filename='assets/{{ space.images[0] }}') }}" alt="Space image" class="space_image">
+                            <img src="{{ url_for('static', filename='assets/' + space.images[0].url) }}" alt="Space image" class="space_image">
                         {% else %}
                             <img src="{{ url_for('static', filename='assets/default_placeholder.jpeg') }}" alt="Space image" class="space_image">
                         {% endif %}
