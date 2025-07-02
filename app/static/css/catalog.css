@@ -67,6 +67,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
     z-index: 1;
+    width: 100%;
 }
 .category_list.admin {
     grid-template-rows: auto;
